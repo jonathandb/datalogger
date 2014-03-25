@@ -1,6 +1,5 @@
 from apscheduler.scheduler import Scheduler
 import configuration
-from configuration_manager import ConfigurationManager
 import time
 import requests
 import logging
@@ -11,6 +10,10 @@ class ConnectionManager:
         self.scheduler = scheduler
         self.json_header = {'content-type': 'application/json'}
         self.logger = logging.getLogger(__name__)
+
+        connection_filter = ConnectionFilter()
+        logging.getLogger('requests.packages.urllib3.connectionpool').addFilter(connection_filter)
+        
         self.connected = False
         self.update_configuration()
 
@@ -99,3 +102,7 @@ class ConnectionManager:
 
     def set_led_call(self, led_call):
         self.led_call = led_call
+
+class ConnectionFilter(logging.Filter):
+    def filter(self, record):
+        return False 

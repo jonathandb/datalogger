@@ -52,7 +52,7 @@ class DataLogger:
 
             #initiate network connection
             self.connection = ConnectionManager(self.scheduler)
-           
+            
             #set up logging
             if configuration.is_send_logs_to_server():
                 self.log_send_store_handler.initiate_send_logs(self.connection, self.scheduler)
