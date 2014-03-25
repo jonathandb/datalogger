@@ -1,4 +1,3 @@
-from apscheduler.scheduler import Scheduler
 import configuration
 import time
 import requests
@@ -6,8 +5,7 @@ import logging
 import json
 
 class ConnectionManager:
-    def __init__(self, scheduler):
-        self.scheduler = scheduler
+    def __init__(self):
         self.json_header = {'content-type': 'application/json'}
         self.logger = logging.getLogger(__name__)
 
@@ -50,22 +48,26 @@ class ConnectionManager:
             return False
         self.logger.info("Connected to the server.")
         self.update_led()
-        return False
+        return True 
 
     def get_checksum(self):
         try:
-            checksum = requests.get(self.server_url+"request/config/checksum").text
-            return checksum
+            checksum_req = requests.get(self.server_url+"request/config/checksum").text
+            if checksum_req.status_code != 200:
+                raise
+            return checksum.text
         except Exception as e:
-            self.logger.warning("Failed to get configuration checksum from server")
+            self.logger.warning("Failed to get configuration checksum from server, is server application running?")
         return 0
 
     def get_configuration(self):
         try:
-            return requests.get(self.server_url+"request/config").json()
+            config_req = requests.get(self.server_url+"request/config")
+            if config_req.status_code != 200:
+                return config_req.json()
         except Exception as e:
             self.logger.warning("Failed to load configuration from server")
-            raise e
+    
     def send_packets(self, packets):
         try:
             r = requests.post(self.server_url+"request/packets",data=json.dumps(packets), headers=self.json_header)

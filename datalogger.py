@@ -51,7 +51,7 @@ class DataLogger:
                                                                 LOG_LOCATION)
 
             #initiate network connection
-            self.connection = ConnectionManager(self.scheduler)
+            self.connection = ConnectionManager()
             
             #set up logging
             if configuration.is_send_logs_to_server():

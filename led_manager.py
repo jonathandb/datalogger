@@ -77,7 +77,7 @@ class LedManager():
             if 'Device or resource busy' in e:
                 self.logger.info('GPIO pin %s already activated' % pin_nr)
             else:
-                self.logger.warning('Failed to activate GPIO pin %s' % pin_nr)
+                self.logger.info('Failed to activate GPIO pin %s' % pin_nr)
        
         for dirpath, dirnames, filename in os.walk('/sys/class/gpio/'):
             for d in dirnames:
@@ -91,7 +91,7 @@ class LedManager():
             f.write('out') 
             f.close()
         except:
-            self.logger.warning('Failed to change value GPIO pin %s' % pin_nr)
+            self.logger.info('Failed to change value GPIO pin %s' % pin_nr)
 
     def turn_on(self, pin_nr):
         try:
@@ -100,7 +100,7 @@ class LedManager():
             f.write('1') 
             f.close()
         except:
-            self.logger.warning('Failed to change value GPIO pin %s' % pin_nr)
+            self.logger.info('Failed to change value GPIO pin %s' % pin_nr)
 
     def turn_off(self, pin_nr):
         try:
@@ -109,7 +109,7 @@ class LedManager():
             f.write('0') 
             f.close()
         except:
-            self.logger.warning('Failed to change value GPIO pin %s' % pin_nr)
+            self.logger.info('Failed to change value GPIO pin %s' % pin_nr)
 
     def flash(self, pin_nr, msecs):
         self.turn_on(pin_nr)
