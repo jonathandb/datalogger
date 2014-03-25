@@ -30,20 +30,23 @@ class ConnectionManager:
         except Exception as e:
             self.logger.warning("No connection to the internet")
             self.connected = False
+            self.update_led()
             return False
         self.logger.info("Connected to the internet.")
+        self.connected = True
+        self.update_led()
         return True
 
     def check_server_connection(self):
         try:
             if requests.get(self.server_url+"request/config/checksum").status_code == 200:
                 self.connected = True
-                return True
         except Exception as e:
             self.logger.warning("No connection to the server")
             self.connected = False
             return False
         self.logger.info("Connected to the server.")
+        self.update_led()
         return False
 
     def get_checksum(self):
@@ -66,8 +69,10 @@ class ConnectionManager:
         except Exception as e:
             self.logger.warning("Failed to send packets to server")
             self.connected = False
+            self.update_led()
             return False
         self.connected = True
+        self.update_led()
         return True
 
     def send_logs(self, logs):
@@ -76,7 +81,21 @@ class ConnectionManager:
         except Exception as e:
             self.logger.warning("Failed to send logs to server")
             self.connected = False
+            self.update_led()
             raise e
             return False
         self.connected = True
+        self.update_led()
         return True
+
+    def update_led(self):
+        try:
+            if self.connected:
+                self.led_call.on()
+            else:
+                self.led_call.off()
+        except:
+            pass
+
+    def set_led_call(self, led_call):
+        self.led_call = led_call

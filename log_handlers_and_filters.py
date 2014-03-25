@@ -35,6 +35,12 @@ class LogSendStoreHandler(logging.Handler):
     def emit(self, record):
         try:
             print(self.format(record))
+            
+            try:
+                self.led_call.flash()
+            except:
+                pass
+
             if self.configured:
                 if record.levelno >= self.send_log_level:
                     log = {'msg': record.msg,
@@ -177,6 +183,8 @@ class LogSendStoreHandler(logging.Handler):
                         pass
         return (total_size, highest_log_nr)
 
+    def set_led_call(self, led_call):
+        self.led_call = led_call
 
 class StructuredMessage(object):
     def __init__(self, message, **kwargs):

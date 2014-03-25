@@ -10,7 +10,7 @@ from apscheduler.scheduler import Scheduler
 from connection_manager import ConnectionManager
 from packet_manager import PacketManager
 import pdb
-from led_manager import LedManager, Led, LedState, PinName
+from led_manager import LedManager, Led, LedState, PinName, LedCall
 
 LOG_LOCATION = '/var/log/datalogger/'
 CONFIG_LOCATION = '/home/jon/.config/datalogger.ini'
@@ -82,7 +82,8 @@ class DataLogger:
                                                              self.packet_manager)
             self.led_manager = LedManager(self.scheduler)
             self.led_manager.update_led(PinName.powered, LedState.on)
-
+            self.set_up_led_manager_calls()
+            
             self.logger.info('Initialisation complete')
 
             while True:
@@ -93,6 +94,14 @@ class DataLogger:
             self.log_send_store_handler.send_logs_job()
             raise
 
+    def set_up_led_manager_calls(self):
+        sensor_led_call = LedCall(self.led_manager, PinName.readingsensor)
+        connected_led_call = LedCall(self.led_manager, PinName.connected)
+        logging_led_call = LedCall(self.led_manager, PinName.logging)
+
+        self.read_sensor_scheduler.set_led_call(sensor_led_call)
+        self.connection.set_led_call(connected_led_call)
+        self.log_send_store_handler.set_led_call(logging_led_call)
 
     def load_online_configuration_and_initiate_sending_data(self):
         #check online configuration

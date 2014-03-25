@@ -80,4 +80,11 @@ class ReadSensorScheduler:
             value = self.modbus_slave_reader.read_register_value(slave.address, slave.register)
             values.append(value)
 
-        self.packet_manager.store_packet(timer.type, values) 
+        self.packet_manager.store_packet(timer.type, values)
+        try:
+            self.led_call.flash()
+        except:
+            pass
+
+    def set_led_call(self, led_call):
+        self.led_call = led_call

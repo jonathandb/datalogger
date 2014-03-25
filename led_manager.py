@@ -5,6 +5,7 @@ from time import sleep
 import os
 from enum import IntEnum, Enum
 
+FLASH_TIME = 100
 
 class PinName(IntEnum):
     powered = 1
@@ -59,10 +60,9 @@ class LedManager():
                     elif led.state == LedState.off:
                         self.turn_off(led.get_pin())
                     elif led.state == LedState.flash:
-                        self.flash(led.get_pin())
+                        self.flash(led.get_pin(), FLASH_TIME)
                 return 
-            else:
-                raise Exception("Led doesn't exist")
+        raise Exception("Led doesn't exist")
 
     def enable_output(self, pin_nr):
         self.activate(pin_nr)
@@ -120,4 +120,16 @@ class LedManager():
         except:
             self.turn_off(msecs)
 
+class LedCall:
+    def __init__(self, led_manager, led_pin):
+        self.led_manager = led_manager
+        self.led_pin = led_pin
 
+    def on(self):
+        self.led_manager.update_led(self.led_pin, LedState.on)
+
+    def off(self):
+        self.led_manager.update_led(self.led_pin, LedState.off)
+
+    def flash(self):
+        self.led_manager.update_led(self.led_pin, LedState.flash)
