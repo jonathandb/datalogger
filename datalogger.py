@@ -82,8 +82,9 @@ class DataLogger:
             self.logger.info('Initialisation complete')
 
             while True:
-                sleep(3600)
+                sleep(10)
                 self.logger.info('Alive and kicking')
+                self.scheduler.print_jobs()
                 
         except Exception as e:
             self.logger.error(e)
@@ -126,19 +127,19 @@ class DataLogger:
                     self.scheduler.unschedule_func(self.load_online_configuration_and_initiate_sending_data)
                 except:
                     pass
-                
-                #periodically check changes in configuration
-                self.scheduler.add_interval_job(self.load_online_configuration_and_initiate_sending_data,
-                                                seconds=configuration.get_time_interval_to_check_online_config())
-            
-                self.packet_manager.initiate_send_packets(self.connection)
 
                 if configuration.is_send_logs_to_server():
                     self.log_send_store_handler.initiate_send_logs(self.connection,
                                                    self.scheduler)
         except:
             self.logger.warning('Error updating configuration, problem with connection to server')
-
+        
+        #periodically check changes in configuration
+        self.scheduler.add_interval_job(self.load_online_configuration_and_initiate_sending_data,
+                                        seconds=configuration.get_time_interval_to_check_online_config())
+    
+        self.packet_manager.initiate_send_packets(self.connection)
+    
     def wait_for_connection_to_load_configuration(self):
         if not self.connection.is_connected():
             #no internet connection, start job to check connection

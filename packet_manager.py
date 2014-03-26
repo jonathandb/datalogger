@@ -43,10 +43,10 @@ class PacketManager():
     def send_packets_job(self):
         if self.minimum_packets_to_send < len(self.packets):
             #try to send packets
-            nr_of_packets = len(self.packets)
-            if self.connection.send_packets(self.packets):
+            nr_of_sent_packets = self.connection.send_packets(self.packets)
+            if nr_of_sent_packets > 0: 
                 #success, clear sent packets
-                self.packets = []
+                del self.packets[0:nr_of_sent_packets]
         else:
             #not enough packets to send, initiate job with small interval to keep checking
             #number of packets

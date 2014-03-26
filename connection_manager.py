@@ -3,6 +3,7 @@ import time
 import requests
 import logging
 import json
+from jsonschema import validate
 
 class ConnectionManager:
     def __init__(self):
@@ -70,29 +71,44 @@ class ConnectionManager:
                 raise requests.ConnectionError()
 
         except Exception as e:
-            self.logger.warning("Failed to load configuration from server")
+            self.logger.warning("Failed to load configuration from server: %s" % e)
             raise
 
     def send_packets(self, packets):
+        nr_of_sent_packages = 0
         try:
             print(json.dumps(packets))
+
+            nr_of_sent_packages = len(packets)
             post = requests.post(self.server_url+"request/packets",data=json.dumps(packets), headers=self.json_header)
-            print('status code: ' + str(post.status_code))
-            print(post.text)
             if post.status_code == 200:
-                self.logger.info('%s packets sent' % len(packets))
+                self.logger.info('Server message: %s' % post.json()['success_message'])
             elif post.status_code == 422:
+                nr_of_sent_packages = 0
                 self.logger.warning('Sent packets were not correct')
             else:
                 raise requests.ConnectionError()
         except Exception as e:
-            self.logger.warning("Failed to send packets to server")
+            self.logger.warning('Failed to send packets to server: %s' % e)
             self.connected = False
             self.update_led()
-            raise
-            return False
         self.connected = True
         self.update_led()
+        return nr_of_sent_packages
+
+    def validate_send_packets_response(json):
+        json_schema = {
+            "type" : "object",
+            "properties" : {
+                "action_state" : {"type" : "string"},
+                "success_message" : {"type" : "string"},
+            },
+        }
+
+        try:
+            validate(json_schema, json)
+        except:
+            return False
         return True
 
     def send_logs(self, logs):
@@ -102,11 +118,12 @@ class ConnectionManager:
                 self.logger.info('%s logs sent' % len(logs))
             elif post.status_code == 422:
                 self.logger.warning('Sent logs were not valid')
+            else:
+                raise requests.ConnectionError()
         except Exception as e:
-            self.logger.warning('Failed to send logs to server')
+            self.logger.warning('Failed to send logs to server:' % e)
             self.connected = False
             self.update_led()
-            raise
             return False
         self.connected = True
         self.update_led()
