@@ -52,22 +52,27 @@ class ConnectionManager:
 
     def get_checksum(self):
         try:
-            checksum_req = requests.get(self.server_url+"request/config/checksum").text
+            checksum_req = requests.get(self.server_url+"request/config/checksum")
             if checksum_req.status_code != 200:
-                raise
+                raise requests.ConnectionError()
             return checksum.text
         except Exception as e:
             self.logger.warning("Failed to get configuration checksum from server, is server application running?")
+            raise
         return 0
 
     def get_configuration(self):
         try:
             config_req = requests.get(self.server_url+"request/config")
-            if config_req.status_code != 200:
+            if config_req.status_code == 200:
                 return config_req.json()
+            else:
+                raise requests.ConnectionError()
+
         except Exception as e:
             self.logger.warning("Failed to load configuration from server")
-    
+            raise
+
     def send_packets(self, packets):
         try:
             r = requests.post(self.server_url+"request/packets",data=json.dumps(packets), headers=self.json_header)

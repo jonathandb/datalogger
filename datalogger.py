@@ -89,10 +89,13 @@ class DataLogger:
             while True:
                 sleep(3600)
                 self.logger.info('Alive and kicking')
+                
+                if not self.connection.connected:
+                    self.wait_for_connection_to_load_configuration()
         except Exception as e:
             self.logger.error(e)
             self.log_send_store_handler.send_logs_job()
-            raise
+            #raise
 
     def set_up_led_manager_calls(self):
         sensor_led_call = LedCall(self.led_manager, PinName.readingsensor)
@@ -105,38 +108,41 @@ class DataLogger:
 
     def load_online_configuration_and_initiate_sending_data(self):
         #check online configuration
-        online_checksum = self.connection.get_checksum()
-        self.logger.info("Checking online configuration..") 
-        if self.conf_man.is_configuration_online_different(online_checksum):
-            self.logger.info("Online configuration is new, updating configuration..") 
-            #online configuration is different
-            online_configuration = self.connection.get_configuration()
-            self.conf_man.validate_json_configuration(online_configuration)
-            self.conf_man.save_online_configuration_local(online_checksum,
-                                                         online_configuration)
-            self.packet_manager.remove_all_packets_from_memory()
+        try:
+            online_checksum = self.connection.get_checksum()
+            self.logger.info("Checking online configuration..") 
+            if self.conf_man.is_configuration_online_different(online_checksum):
+                self.logger.info("Online configuration is new, updating configuration..") 
+                #online configuration is different
+                online_configuration = self.connection.get_configuration()
+                self.conf_man.validate_json_configuration(online_configuration)
+                self.conf_man.save_online_configuration_local(online_checksum,
+                                                             online_configuration)
+                self.packet_manager.remove_all_packets_from_memory()
 
-            #update systems that make use of the configuration
-            self.log_send_store_handler.update_configuration()
-            self.connection.update_configuration()
-            try:
-                self.read_sensor_scheduler.update_configuration()
-            except:
-                pass
-            self.packet_manager.update_configuration()
-     
-            try:
-                self.scheduler.unschedule_func(self.load_online_configuration_and_initiate_sending_data)
-            except:
-                pass
-            self.scheduler.add_interval_job(self.load_online_configuration_and_initiate_sending_data,
-                                            seconds=configuration.get_time_interval_to_check_online_config())
-        
-            self.packet_manager.initiate_send_packets(self.connection)
+                #update systems that make use of the configuration
+                self.log_send_store_handler.update_configuration()
+                self.connection.update_configuration()
+                try:
+                    self.read_sensor_scheduler.update_configuration()
+                except:
+                    pass
+                self.packet_manager.update_configuration()
+         
+                try:
+                    self.scheduler.unschedule_func(self.load_online_configuration_and_initiate_sending_data)
+                except:
+                    pass
+                self.scheduler.add_interval_job(self.load_online_configuration_and_initiate_sending_data,
+                                                seconds=configuration.get_time_interval_to_check_online_config())
+            
+                self.packet_manager.initiate_send_packets(self.connection)
 
-        if configuration.is_send_logs_to_server():
-            self.log_send_store_handler.initiate_send_logs(self.connection,
+                if configuration.is_send_logs_to_server():
+                    self.log_send_store_handler.initiate_send_logs(self.connection,
                                                    self.scheduler)
+        except:
+            self.logger.warning('Error updating configuration, problem with connection to server')
 
     def wait_for_connection_to_load_configuration(self):
         if not self.connection.is_connected():
