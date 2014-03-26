@@ -45,7 +45,6 @@ class PacketManager():
             nr_of_packets = len(self.packets)
             if self.connection.send_packets(self.packets):
                 #success, clear sent packets
-                self.logger.info("%s packets sent", nr_of_packets)
                 self.packets = []
         else:
             #not enough packets to send, initiate job with small interval to keep checking
@@ -56,19 +55,17 @@ class PacketManager():
                 pass
 
             self.scheduler.add_interval_job(self.check_packets_to_send,
-                                            seconds=1)
+                                            seconds=10)
 
     def check_packets_to_send(self):
          if self.minimum_packets_to_send < len(self.packets):
+            #stop this timer
+            try:
+                self.scheduler.unschedule_func(self.check_packets_to_send)
+            except:
+                pass
             #try to send packets
-            if self.connection.send_packets(self.packets):
-                #success, clear sent packets
-                self.packets = []
-                #stop this timer
-                try:
-                    self.scheduler.unschedule_func(self.check_packets_to_send)
-                except:
-                    pass
+            self.send_packets_job()
 
     def store_packet_in_memory(self, type, values):
         #type, timestamp, values

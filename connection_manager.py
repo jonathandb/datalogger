@@ -57,7 +57,7 @@ class ConnectionManager:
                 raise requests.ConnectionError()
             return checksum.text
         except Exception as e:
-            self.logger.warning("Failed to get configuration checksum from server, is server application running?")
+            self.logger.warning('Failed to get configuration checksum from server, is server application running?')
             raise
         return 0
 
@@ -75,11 +75,21 @@ class ConnectionManager:
 
     def send_packets(self, packets):
         try:
-            r = requests.post(self.server_url+"request/packets",data=json.dumps(packets), headers=self.json_header)
+            print(json.dumps(packets))
+            post = requests.post(self.server_url+"request/packets",data=json.dumps(packets), headers=self.json_header)
+            print('status code: ' + str(post.status_code))
+            print(post.text)
+            if post.status_code == 200:
+                self.logger.info('%s packets sent' % len(packets))
+            elif post.status_code == 422:
+                self.logger.warning('Sent packets were not correct')
+            else:
+                raise requests.ConnectionError()
         except Exception as e:
             self.logger.warning("Failed to send packets to server")
             self.connected = False
             self.update_led()
+            raise
             return False
         self.connected = True
         self.update_led()
@@ -87,12 +97,16 @@ class ConnectionManager:
 
     def send_logs(self, logs):
         try:
-            r = requests.post(self.server_url,data=json.dumps(logs), headers=self.json_header)
+            post = requests.post(self.server_url,data=json.dumps(logs), headers=self.json_header)
+            if post.status_code == 200:
+                self.logger.info('%s logs sent' % len(logs))
+            elif post.status_code == 422:
+                self.logger.warning('Sent logs were not valid')
         except Exception as e:
-            self.logger.warning("Failed to send logs to server")
+            self.logger.warning('Failed to send logs to server')
             self.connected = False
             self.update_led()
-            raise e
+            raise
             return False
         self.connected = True
         self.update_led()
