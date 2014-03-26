@@ -7,6 +7,7 @@ import time
 import logging
 import json
 
+RETRY_SEND_PACKETS_INTERVAL = 20
 
 class PacketManager():
     def __init__(self, scheduler):
@@ -55,7 +56,7 @@ class PacketManager():
                 pass
 
             self.scheduler.add_interval_job(self.check_packets_to_send,
-                                            seconds=10)
+                                            seconds=RETRY_SEND_PACKETS_INTERVAL)
 
     def check_packets_to_send(self):
          if self.minimum_packets_to_send < len(self.packets):

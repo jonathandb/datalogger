@@ -14,7 +14,7 @@ from led_manager import LedManager, Led, LedState, PinName, LedCall
 
 LOG_LOCATION = '/var/log/datalogger/'
 CONFIG_LOCATION = '/home/jon/.config/datalogger.ini'
-
+CHECK_CONNECTION_INTERVAL = 60
 
 class DataLogger:
     def __init__(self):
@@ -63,11 +63,6 @@ class DataLogger:
 
                 self.load_online_configuration_and_initiate_sending_data()
                 self.packet_manager.initiate_send_packets(self.connection)
-                
-                #periodically check changes in configuration
-                self.scheduler.add_interval_job(self.load_online_configuration_and_initiate_sending_data,
-                                                seconds=configuration.get_time_interval_to_check_online_config())
-
             else:
                 '''
                 if there is no connection:
@@ -90,8 +85,6 @@ class DataLogger:
                 sleep(3600)
                 self.logger.info('Alive and kicking')
                 
-                if not self.connection.connected:
-                    self.wait_for_connection_to_load_configuration()
         except Exception as e:
             self.logger.error(e)
             self.log_send_store_handler.send_logs_job()
@@ -133,6 +126,8 @@ class DataLogger:
                     self.scheduler.unschedule_func(self.load_online_configuration_and_initiate_sending_data)
                 except:
                     pass
+                
+                #periodically check changes in configuration
                 self.scheduler.add_interval_job(self.load_online_configuration_and_initiate_sending_data,
                                                 seconds=configuration.get_time_interval_to_check_online_config())
             
@@ -148,12 +143,12 @@ class DataLogger:
         if not self.connection.is_connected():
             #no internet connection, start job to check connection
             self.scheduler.add_interval_job(self.try_to_connect_to_internet,
-                                            seconds=20) 
+                                            seconds=CHECK_CONNECTION_INTERVAL)
         else:
             if not self.connection.check_server_connection():
                 #no connection with server, start job to check connection
                 self.scheduler.add_interval_job(self.try_to_load_online_configuration,
-                                                seconds=20)
+                                                seconds=CHECK_CONNECTION_INTERVAL)
 
     def try_to_connect_to_internet(self):
         if self.connection.check_internet_connection():
@@ -162,7 +157,7 @@ class DataLogger:
             if not self.connection.check_server_connection():
                     #no connection with server, start job to check connection
                     self.scheduler.add_interval_job(self.try_to_load_online_configuration,
-                                                    seconds=20)
+                                                    seconds=CHECK_CONNECTION_INTERVAL)
             else:
                 self.load_online_configuration_and_initiate_sending_data()
 

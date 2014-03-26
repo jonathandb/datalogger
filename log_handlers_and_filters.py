@@ -5,6 +5,9 @@ from connection_manager import ConnectionManager
 import configuration
 import os, re
 
+
+SINGLE_LOG_FILE_SIZE = 500000
+
 class LogSendStoreHandler(logging.Handler):
     def __init__(self):
         logging.Handler.__init__(self)
@@ -153,7 +156,7 @@ class LogSendStoreHandler(logging.Handler):
         try:
              if os.path.isfile(self.abs_path_log):
                 size = os.path.getsize(os.path.abspath(self.abs_path_log))
-                if size > 500000:
+                if size > SINGLE_LOG_FILE_SIZE:
                     log_nr = highest_log_number
                     while log_nr >= 0:
                         os.rename(self.abs_path_log + '.' + str(log_nr),
