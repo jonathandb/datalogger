@@ -20,21 +20,21 @@ class ConnectionManager:
         try:
             self.server_url = configuration.get_server_path()
         except:
-            self.logger.warning('Failed to update configuration of %s' % __name__)
+            self.logger.warning('Failed to update configuration of {0}'.format(__name__))
 
     def is_connected(self):
         return self.connected
 
     def check_internet_connection(self):
-        self.logger.info("Trying to connect to internet..")
+        self.logger.info('Trying to connect to internet..')
         try:
             requests.get("http://www.google.com")
         except Exception as e:
-            self.logger.warning("No connection to the internet")
+            self.logger.warning('No connection to the internet')
             self.connected = False
             self.update_led()
             return False
-        self.logger.info("Connected to the internet.")
+        self.logger.info('Connected to the internet.')
         self.connected = True
         self.update_led()
         return True
@@ -44,10 +44,10 @@ class ConnectionManager:
             if requests.get(self.server_url+"request/config/checksum").status_code == 200:
                 self.connected = True
         except Exception as e:
-            self.logger.warning("No connection to the server")
+            self.logger.warning('No connection to the server')
             self.connected = False
             return False
-        self.logger.info("Connected to the server.")
+        self.logger.info('Connected to the server.')
         self.update_led()
         return True 
 
@@ -71,7 +71,7 @@ class ConnectionManager:
                 raise requests.ConnectionError()
 
         except Exception as e:
-            self.logger.warning("Failed to load configuration from server: %s" % e)
+            self.logger.warning('Failed to load configuration from server: {0}'.format(e))
             raise
 
     def send_packets(self, packets):
@@ -84,17 +84,16 @@ class ConnectionManager:
                 if not post.json()['status'] == 'success':
                     nr_of_sent_packets = 0
             else:
-                self.logger.warning('Failed to interpret response of server, http code= %s', post.status_code)
+                self.logger.warning('Failed to interpret response of server, http code= {0}'.format(post.status_code))
                 nr_of_sent_packets = 0
             self.connected = True 
         except Exception as e:
-            self.logger.warning('Failed to send packets, server message: %s', e)
+            self.logger.warning('Failed to send packets, server message: {0}'.format(e))
             nr_of_sent_packets = 0
             self.connected = False
             self.update_led()
         self.update_led()
-        self.logger.info('%s packages are sent, current nr of packets is %s. ',
-                        nr_of_sent_packets, len(packets))
+        self.logger.info('{0} packages are sent, current nr of packets is {1}.'.format(nr_of_sent_packets, len(packets)))
         return nr_of_sent_packets
 
     def validate_response(self, post):
@@ -114,13 +113,9 @@ class ConnectionManager:
 
     def log_response(self, post):
         if post.json()['status'] == 'error':
-            self.logger.warning('Failed to send data, code %s, server message: %s', 
-                                post.status_code, 
-                                post.json()['msg'])
+            self.logger.warning('Failed to send data, code {0}, server message: {1}'.format(post.status_code, post.json()['msg']))
         elif post.json()['status'] == 'success':
-            self.logger.info('Sent packets to server, code %s, server message: %s', 
-                             post.status_code, 
-                             post.json()['msg'])
+            self.logger.info('Sent data to server, code {0}, server message: {1}'.format(post.status_code, post.json()['msg']))
 
     def send_logs(self, logs):
         nr_of_sent_logs = 0
@@ -133,11 +128,11 @@ class ConnectionManager:
                 if not post.json()['status'] == 'success':
                     nr_of_sent_logs = 0
             else:
-                self.logger.warning('Failed to interpret response of server, http code= %s', post.status_code)
+                self.logger.warning('Failed to interpret response of server, http code= {0}'.format(post.status_code))
             nr_of_sent_logs = 0
             self.connected = True 
         except Exception as e:
-            self.logger.warning('Failed to send logs to server:', e)
+            self.logger.warning('Failed to send logs to server: {0}'.format(e))
             nr_of_sent_logs = 0
             self.connected = False
         self.update_led()

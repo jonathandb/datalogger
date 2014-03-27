@@ -1,5 +1,4 @@
 
-
 local = None
 timers = None
 modbusSlaves = None
@@ -55,7 +54,7 @@ def get_configuration_parameter(section, key):
     except KeyError:
         import logging
         logger = logging.getLogger(__name__)
-        logger.error('Parameter %s does not exist in configuration' % key)
+        logger.error('Parameter {0} does not exist in configuration'.format(key))
 
         if section == 'server' and key == 'url':
             logger.warning('using default url http://200.2.191.227:5000')

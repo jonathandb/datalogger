@@ -33,7 +33,7 @@ class MCUReadSensorScheduler:
                 self.create_timers()
 
         except:
-            self.logger.warning('Failed to update configuration of %s' % __name__)
+            self.logger.warning('Failed to update configuration of {0}'.format(__name__))
 
     def create_modbus_reader(self, i2c_bus_address, i2c_slave_address):
         self.modbus_slave_reader = ModbusSlaveReader(i2c_bus_address, i2c_slave_address)

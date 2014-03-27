@@ -37,7 +37,7 @@ class MCUModbusSlaveReader:
             self.bus.write_byte(self.mcu_address, modbus_address)
             self.bus.write_byte(self.mcu_address, register_address)
             time.sleep(.1)
-            self.logger.debug('Address %s and register %s set to read',
+            self.logger.debug('Address {0} and register {1} set to read'.format(
                               modbus_address, register_address)
         except Exception as e:
             self.logger.error("Connection with mcu lost")

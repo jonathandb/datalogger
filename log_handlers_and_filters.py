@@ -32,7 +32,7 @@ class LogSendStoreHandler(logging.Handler):
             self.configured = True
         except:
             self.configured = False
-            self.logger.warning('Failed to update configuration of %s' % __name__)
+            self.logger.warning('Failed to update configuration of {0}'.format(__name__))
             raise
     
     def emit(self, record):
@@ -129,8 +129,7 @@ class LogSendStoreHandler(logging.Handler):
             if len(self.file_logs) > 1:
                 stream = open(self.abs_path_log, 'a')
                 for msg in self.file_logs:
-                    fs = "%s\n"
-                    stream.write(fs % msg)
+                    stream.write('{0}\n'.format(msg))
                 stream.close()
                 self.file_logs = []
         except Exception as e:
@@ -146,9 +145,9 @@ class LogSendStoreHandler(logging.Handler):
                 highest_log_number -= 1
                 total_size, highest_log_number = self.examine_logfolder()
         except:
-            self.logger.error('Unable to remove log file %s' %
+            self.logger.error('Unable to remove log file {0}'.format(
                               self.abs_path_log + '.' +
-                              str(highest_log_number))
+                              str(highest_log_number)))
 
         #rename logs
         try:
@@ -162,8 +161,7 @@ class LogSendStoreHandler(logging.Handler):
                         log_nr -= 1
                     os.rename(self.abs_path_log, self.abs_path_log + '.0')
         except:
-            self.logger.error('Unable to rename log file %s' +
-                              self.abs_path_log)
+            self.logger.error('Unable to rename log file {0}'.format(self.abs_path_log))
 
     def examine_logfolder(self):
         total_size = 0

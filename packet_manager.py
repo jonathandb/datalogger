@@ -22,7 +22,7 @@ class PacketManager():
             self.packet_send_interval = configuration.get_time_interval_to_send_packets()
             self.minimum_packets_to_send = configuration.get_minimum_packets_to_send()
         except:
-            self.logger.warning('Failed to update configuration of %s' % __name__)   
+            self.logger.warning('Failed to update configuration of {0}'.format(__name__))   
     
     def initiate_send_packets(self, connection):
         self.connection = connection
