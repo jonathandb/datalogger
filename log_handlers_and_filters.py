@@ -118,12 +118,10 @@ class LogSendStoreHandler(logging.Handler):
 
     def send_logs_job(self):
         if len(self.send_logs) > 1:
-            if self.connection.send_logs(self.send_logs):
+            nr_of_sent_logs = self.connection.send_logs(self.send_logs)
+            if nr_of_sent_logs > 0:
                 #successfull sent, clear sent logs
-                self.send_logs = []
-            else:
-                raise ConnectionError('Unable to send logs')
-
+                del self.send_logs[0:nr_of_sent_logs]
 
     def store_logs_job(self):
         self.keep_logfile_in_max_limits()
@@ -198,7 +196,7 @@ class StructuredMessage(object):
 
 class JobInfoFilter(logging.Filter):
     def filter(self, record):
-        return not record.levelno <= logging.INFO
+        return not record.levelno <= logging.WARNING
 
 class ModbusClientFilter(logging.Filter):
     def filter(self, record):
