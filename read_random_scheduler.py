@@ -49,7 +49,7 @@ class ReadSensorScheduler:
         values = []
         for slave in timer.slaves:
             values.append(random.randint(1, 10))
-        print("read random sensor")
+        self.logger.debug("read random sensor")
         self.packet_manager.store_packet_in_memory(timer.type, values)
         try:
             self.led_call.flash()

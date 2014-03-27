@@ -77,8 +77,6 @@ class ConnectionManager:
     def send_packets(self, packets):
         nr_of_sent_packages = 0
         try:
-            print(json.dumps(packets))
-
             nr_of_sent_packages = len(packets)
             post = requests.post(self.server_url+"request/packets",data=json.dumps(packets), headers=self.json_header)
             if post.status_code == 200:
