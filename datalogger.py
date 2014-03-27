@@ -79,11 +79,13 @@ class DataLogger:
             self.led_manager.update_led(PinName.powered, LedState.on)
             self.set_up_led_manager_calls()
             
+            #sleep 1 second to intialise led of log handler
+            sleep(1)
             self.logger.info('Initialisation complete')
 
             while True:
                 sleep(10)
-                self.logger.info('Alive and kicking')
+                self.logger.debug('Alive and kicking')
                 self.scheduler.print_jobs()
                 
         except Exception as e:

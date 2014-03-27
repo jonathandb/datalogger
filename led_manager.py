@@ -62,17 +62,19 @@ class LedManager():
                     elif led.state == LedState.flash:
                         self.flash(led.get_pin(), FLASH_TIME)
                 return 
-        raise Exception("Led doesn't exist")
+        raise Exception('Led doesn\'t exist')
 
     def enable_output(self, pin_nr):
-        self.activate(pin_nr)
-        self.set_as_output(pin_nr)
+        if self.activate(pin_nr):
+            self.set_as_output(pin_nr)
 
     def activate(self, pin_nr):
+        activated = False
         try:
             f= open ('/sys/class/gpio/export','w') 
             f.write(str(pin_nr)) 
             f.close()
+            activated = True
         except IOError as e:
             if 'Device or resource busy' in e:
                 self.logger.debug('GPIO pin {0} already activated'.format(pin_nr))
@@ -83,7 +85,7 @@ class LedManager():
             for d in dirnames:
                 if 'gpio' + str(pin_nr) in d:
                     self.pindirs[pin_nr] = d
-
+        return activated
     def set_as_output(self, pin_nr):
         try:
             path = '/sys/class/gpio/' + self.pindirs[pin_nr] +  '/direction' 
@@ -91,7 +93,7 @@ class LedManager():
             f.write('out') 
             f.close()
         except:
-            self.logger.debug('Failed to change value GPIO pin {0}'.format(pin_nr))
+            self.logger.debug('Failed to set GPIO pin {0} as output'.format(pin_nr))
 
     def turn_on(self, pin_nr):
         try:

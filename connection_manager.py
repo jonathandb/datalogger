@@ -35,7 +35,6 @@ class ConnectionManager:
             self.update_led()
             return False
         self.logger.info('Connected to the internet.')
-        self.connected = True
         self.update_led()
         return True
 
@@ -52,48 +51,53 @@ class ConnectionManager:
         return True 
 
     def get_checksum(self):
-        try:
-            checksum_req = requests.get(self.server_url+"request/config/checksum")
-            if checksum_req.status_code != 200:
-                raise requests.ConnectionError()
-            return checksum_req.text
-        except Exception as e:
-            self.logger.warning('Failed to get configuration checksum from server, is server application running?')
-            raise
+        if self.connected:
+            try:
+                checksum_req = requests.get(self.server_url+"request/config/checksum")
+                if checksum_req.status_code != 200:
+                    raise requests.ConnectionError()
+                return checksum_req.text
+            except Exception as e:
+                self.logger.warning('Failed to get configuration checksum from server, is server application running?')
+                raise
         return 0
 
     def get_configuration(self):
-        try:
-            config_req = requests.get(self.server_url+"request/config")
-            if config_req.status_code == 200:
-                return config_req.json()
-            else:
-                raise requests.ConnectionError()
+        if self.connected:
+            try:
+                config_req = requests.get(self.server_url+"request/config")
+                if config_req.status_code == 200:
+                    return config_req.json()
+                else:
+                    raise requests.ConnectionError()
 
-        except Exception as e:
-            self.logger.warning('Failed to load configuration from server: {0}'.format(e))
-            raise
+            except Exception as e:
+                self.logger.warning('Failed to load configuration from server: {0}'.format(e))
+                raise
 
     def send_packets(self, packets):
         nr_of_sent_packets = 0
-        try:
-            nr_of_sent_packets = len(packets)
-            post = requests.post(self.server_url+"request/packets",data=json.dumps(packets), headers=self.json_header)
-            if self.validate_response(post):
-                self.log_response(post)
-                if not post.json()['status'] == 'success':
+        if self.connected:
+            try:
+                nr_of_sent_packets = len(packets)
+                post = requests.post(self.server_url+"request/packets",data=json.dumps(packets), headers=self.json_header)
+                if self.validate_response(post):
+                    self.log_response(post)
+                    if not post.json()['status'] == 'success':
+                        nr_of_sent_packets = 0
+                else:
+                    self.logger.warning('Failed to interpret response of server, http code= {0}'.format(post.status_code))
                     nr_of_sent_packets = 0
-            else:
-                self.logger.warning('Failed to interpret response of server, http code= {0}'.format(post.status_code))
+                self.connected = True 
+            except Exception as e:
+                self.logger.warning('Failed to send packets, server message: {0}'.format(e))
                 nr_of_sent_packets = 0
-            self.connected = True 
-        except Exception as e:
-            self.logger.warning('Failed to send packets, server message: {0}'.format(e))
-            nr_of_sent_packets = 0
-            self.connected = False
+                self.connected = False
+                self.update_led()
             self.update_led()
-        self.update_led()
-        self.logger.info('{0} packages are sent, current nr of packets is {1}.'.format(nr_of_sent_packets, len(packets)))
+            self.logger.info('{0} packages are sent, current nr of packets is {1}.'.format(nr_of_sent_packets, len(packets)))
+        else:
+            self.logger.info('Postponing sending packets, no connection to server')
         return nr_of_sent_packets
 
     def validate_response(self, post):
@@ -119,23 +123,26 @@ class ConnectionManager:
 
     def send_logs(self, logs):
         nr_of_sent_logs = 0
-        try:
-            nr_of_sent_logs= len(logs)
-            post = requests.post(self.server_url+'request/logs',data=json.dumps(logs), headers=self.json_header)
-            
-            if self.validate_response(post):
-                self.log_response(post)
-                if not post.json()['status'] == 'success':
-                    nr_of_sent_logs = 0
-            else:
-                self.logger.warning('Failed to interpret response of server, http code= {0}'.format(post.status_code))
-            nr_of_sent_logs = 0
-            self.connected = True 
-        except Exception as e:
-            self.logger.warning('Failed to send logs to server: {0}'.format(e))
-            nr_of_sent_logs = 0
-            self.connected = False
-        self.update_led()
+        if self.connected:
+            try:
+                nr_of_sent_logs= len(logs)
+                post = requests.post(self.server_url+'request/logs',data=json.dumps(logs), headers=self.json_header)
+                
+                if self.validate_response(post):
+                    self.log_response(post)
+                    if not post.json()['status'] == 'success':
+                        nr_of_sent_logs = 0
+                else:
+                    self.logger.warning('Failed to interpret response of server, http code= {0}'.format(post.status_code))
+                nr_of_sent_logs = 0
+                self.connected = True 
+            except Exception as e:
+                self.logger.warning('Failed to send logs to server: {0}'.format(e))
+                nr_of_sent_logs = 0
+                self.connected = False
+            self.update_led()
+        else:
+            self.logger.info('Postponing sending logs, no connection to server')
         return nr_of_sent_logs
 
     def update_led(self):
