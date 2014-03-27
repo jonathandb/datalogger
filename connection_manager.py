@@ -79,45 +79,52 @@ class ConnectionManager:
         try:
             nr_of_sent_packages = len(packets)
             post = requests.post(self.server_url+"request/packets",data=json.dumps(packets), headers=self.json_header)
-            if post.status_code == 200:
-                self.logger.info('Server message: %s' % post.json()['success_message'])
-            elif post.status_code == 422:
-                nr_of_sent_packages = 0
-                self.logger.warning('Sent packets were not correct')
+            print(post.text)
+            if self.validate_response(post):
+                self.log_response(post)
             else:
-                raise requests.ConnectionError()
+                self.logger.warning('Failed to interpret response of server, http code= %s', post.status_code)
         except Exception as e:
-            self.logger.warning('Failed to send packets to server: %s' % e)
+            self.logger.warning('Failed to send packets, server message: %s' % e)
             self.connected = False
             self.update_led()
         self.connected = True
         self.update_led()
         return nr_of_sent_packages
 
-    def validate_send_packets_response(json):
+    def validate_response(self, post):
         json_schema = {
             "type" : "object",
             "properties" : {
-                "action_state" : {"type" : "string"},
-                "success_message" : {"type" : "string"},
+                "status" : {"type" : "string"},
+                "msg" : {"type" : "string"},
             },
         }
 
         try:
-            validate(json_schema, json)
+            validate(json_schema, post.json())
         except:
             return False
         return True
 
+    def log_response(self, post):
+        if json['status'] == 'error':
+            self.logger.warning('Failed to send packets, code %s, server message: %s', 
+                                post.status_code, 
+                                post.json()['msg'])
+        elif json['status'] == 'success':
+            self.logger.info('Sent packets to server, code %s, server message: %s', 
+                             post.status_code, 
+                             post.json()['msg'])
+
     def send_logs(self, logs):
         try:
-            post = requests.post(self.server_url,data=json.dumps(logs), headers=self.json_header)
-            if post.status_code == 200:
-                self.logger.info('%s logs sent' % len(logs))
-            elif post.status_code == 422:
-                self.logger.warning('Sent logs were not valid')
+            post = requests.post(self.server_url+'request/logs',data=json.dumps(logs), headers=self.json_header)
+            
+            if self.validate_response(post):
+                self.log_response(post)
             else:
-                raise requests.ConnectionError()
+                self.logger.warning('Failed to interpret response of server, http code= %s', post.status_code)
         except Exception as e:
             self.logger.warning('Failed to send logs to server:' % e)
             self.connected = False

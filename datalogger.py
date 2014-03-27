@@ -23,11 +23,11 @@ class DataLogger:
             #initiate logger
             self.logger = logging.getLogger()
 
-            self.logger.setLevel(logging.INFO)
+            self.logger.setLevel(logging.DEBUG)
             
             self.log_send_store_handler = LogSendStoreHandler()
 
-            formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+            formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(name)s - %(message)s')
             self.log_send_store_handler.setFormatter(formatter)
             
             memory_handler = logging.handlers.MemoryHandler(1)
@@ -43,7 +43,7 @@ class DataLogger:
             self.scheduler.start()
             job_info_filter = JobInfoFilter()
             logging.getLogger('apscheduler.scheduler').addFilter(job_info_filter)
-            
+            logging.getLogger('apscheduler.threadpool').addFilter(job_info_filter)
             self.packet_manager = PacketManager(self.scheduler)
 
             if configuration.is_store_logs_local():

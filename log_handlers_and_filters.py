@@ -38,7 +38,7 @@ class LogSendStoreHandler(logging.Handler):
     def emit(self, record):
         try:
             print(self.format(record))
-            
+
             try:
                 self.led_call.flash()
             except:
@@ -198,7 +198,7 @@ class StructuredMessage(object):
 
 class JobInfoFilter(logging.Filter):
     def filter(self, record):
-        return not record.levelno == logging.INFO
+        return not record.levelno <= logging.INFO
 
 class ModbusClientFilter(logging.Filter):
     def filter(self, record):

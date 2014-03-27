@@ -2,9 +2,11 @@ from apscheduler.scheduler import Scheduler
 from datetime import timedelta, time, datetime, date
 import configuration
 import random
+import logging
 
 class ReadSensorScheduler:
     def __init__(self, scheduler, packet_manager):
+        self.logger = logging.getLogger(__name__)
         self.scheduler = scheduler
         self.packet_manager = packet_manager
         self.update_configuration()
