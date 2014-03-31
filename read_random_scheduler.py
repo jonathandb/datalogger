@@ -3,13 +3,16 @@ from datetime import timedelta, time, datetime, date
 import configuration
 import random
 import logging
+import math
 
 class ReadSensorScheduler:
+
     def __init__(self, scheduler, packet_manager):
         self.logger = logging.getLogger(__name__)
         self.scheduler = scheduler
         self.packet_manager = packet_manager
         self.update_configuration()
+        self.x = 0
         
     def update_configuration(self):
         try:
@@ -49,8 +52,16 @@ class ReadSensorScheduler:
 
     def read_sensor(self, timer):
         values = []
+        
         for slave in timer.slaves:
-            values.append(random.randint(1, 10))
+            y = math.sin(self.x)*10
+            if slave.address == 1 and slave.register == 1:
+                values.append(y)
+            #elif slave.address == 1 and slave.register == 2:
+            #    values.append(-y)
+            else:
+                values.append((math.pow(self.x,3) % 20) - 10)
+        self.x += 0.1
         self.logger.debug("read random sensor")
         self.packet_manager.store_packet_in_memory(timer.type, values)
         try:
