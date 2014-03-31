@@ -24,16 +24,16 @@ class DataLogger:
             self.logger = logging.getLogger()
 
             self.logger.setLevel(logging.DEBUG)
-            
+
             self.log_send_store_handler = LogSendStoreHandler()
 
             formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(name)s - %(message)s')
             self.log_send_store_handler.setFormatter(formatter)
-            
+
             memory_handler = logging.handlers.MemoryHandler(1)
             memory_handler.setTarget(self.log_send_store_handler)
             self.logger.addHandler(memory_handler)
-            
+
             self.logger.info('Initialising system...')
             #load local configuration
             self.conf_man = ConfigurationManager(CONFIG_LOCATION)
@@ -52,11 +52,11 @@ class DataLogger:
 
             #initiate network connection
             self.connection = ConnectionManager()
-            
+
             #set up logging
             if configuration.is_send_logs_to_server():
                 self.log_send_store_handler.initiate_send_logs(self.connection, self.scheduler)
-            
+
             #try to connect
             connected = self.connection.check_internet_connection() and self.connection.check_server_connection()
             if connected:
@@ -69,16 +69,16 @@ class DataLogger:
                     keep check for a connection
                     temporarily use offline timer and modbus slave configuration
                 '''
-                
+
                 self.wait_for_connection_to_load_configuration()
-            
+
             #initiate sensor timers
             self.read_sensor_scheduler = ReadSensorScheduler(self.scheduler,
                                                              self.packet_manager)
             self.led_manager = LedManager(self.scheduler)
             self.led_manager.update_led(PinName.powered, LedState.on)
             self.set_up_led_manager_calls()
-            
+
             #sleep 1 second to intialise led of log handler
             sleep(1)
             self.logger.info('Initialisation complete')
@@ -87,7 +87,7 @@ class DataLogger:
                 sleep(10)
                 self.logger.debug('Alive and kicking')
                 self.scheduler.print_jobs()
-                
+
         except Exception as e:
             self.logger.error(e)
             self.log_send_store_handler.send_logs_job()
@@ -106,9 +106,9 @@ class DataLogger:
         #check online configuration
         try:
             online_checksum = self.connection.get_checksum()
-            self.logger.info("Checking online configuration..") 
+            self.logger.info("Checking online configuration..")
             if self.conf_man.is_configuration_online_different(online_checksum):
-                self.logger.info("Online configuration is new, updating configuration..") 
+                self.logger.info("Online configuration is new, updating configuration..")
                 #online configuration is different
                 online_configuration = self.connection.get_configuration()
                 self.conf_man.validate_json_configuration(online_configuration)
@@ -124,24 +124,23 @@ class DataLogger:
                 except:
                     pass
                 self.packet_manager.update_configuration()
-         
-                try:
-                    self.scheduler.unschedule_func(self.load_online_configuration_and_initiate_sending_data)
-                except:
-                    pass
 
                 if configuration.is_send_logs_to_server():
                     self.log_send_store_handler.initiate_send_logs(self.connection,
                                                    self.scheduler)
         except:
             self.logger.warning('Error updating configuration, problem with connection to server')
-        
+        try:
+            self.scheduler.unschedule_func(self.load_online_configuration_and_initiate_sending_data)
+        except:
+            pass
+
         #periodically check changes in configuration
         self.scheduler.add_interval_job(self.load_online_configuration_and_initiate_sending_data,
                                         seconds=configuration.get_time_interval_to_check_online_config())
-    
+
         self.packet_manager.initiate_send_packets(self.connection)
-    
+
     def wait_for_connection_to_load_configuration(self):
         if not self.connection.is_connected():
             #no internet connection, start job to check connection
@@ -156,7 +155,7 @@ class DataLogger:
     def try_to_connect_to_internet(self):
         if self.connection.check_internet_connection():
             self.scheduler.unschedule_func(self.try_to_connect_to_internet)
-             
+
             if not self.connection.check_server_connection():
                     #no connection with server, start job to check connection
                     self.scheduler.add_interval_job(self.try_to_load_online_configuration,
@@ -167,7 +166,7 @@ class DataLogger:
     def try_to_load_online_configuration(self):
         if self.connection.check_server_connection():
             self.load_online_configuration_and_initiate_sending_data()
-            
+
             self.scheduler.unschedule_func(self.try_to_load_configuration)
 
 
