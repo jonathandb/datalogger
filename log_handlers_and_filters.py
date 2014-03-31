@@ -4,23 +4,24 @@ from apscheduler.scheduler import Scheduler
 from connection_manager import ConnectionManager
 import configuration
 import os, re
-
+from datetime import timedelta, time, datetime, date
+import time
 
 SINGLE_LOG_FILE_SIZE = 500000
 
 class LogSendStoreHandler(logging.Handler):
     def __init__(self):
         logging.Handler.__init__(self)
-        
+
         if not hasattr(self, 'send_logs'):
             self.send_logs = []
-        
+
         if not hasattr(self, 'file_logs'):
             self.file_logs = []
-        
+
         self.configured = False
         self.logger = logging.getLogger()
-        #self.update_configuration() 
+        #self.update_configuration()
 
     def update_configuration(self):
         try:
@@ -34,7 +35,7 @@ class LogSendStoreHandler(logging.Handler):
             self.configured = False
             self.logger.warning('Failed to update configuration of {0}'.format(__name__))
             raise
-    
+
     def emit(self, record):
         try:
             print(self.format(record))
@@ -46,17 +47,19 @@ class LogSendStoreHandler(logging.Handler):
 
             if self.configured:
                 if record.levelno >= self.send_log_level:
+                    timestamp = time.mktime(datetime.now().timetuple())
                     log = {'msg': record.msg,
                            'funcName': record.funcName,
                            'filename': record.filename,
                            'lineno': record.lineno,
-                           'levelno': record.levelno}
+                           'levelno': record.levelno,
+                           'timeDate': timestamp}
                     self.send_logs.append(log)
-                
-                if record.levelno >= self.store_log_level: 
+
+                if record.levelno >= self.store_log_level:
                     msg = self.format(record)
                     self.file_logs.append(msg)
-                
+
         except (KeyboardInterrupt, SystemExit):
             raise
         except:
@@ -74,12 +77,12 @@ class LogSendStoreHandler(logging.Handler):
             return 20
         elif levelstring == 'DEBUG':
             return 10
-        else: 
-            return 0   
-        
+        else:
+            return 0
+
     def initiate_send_logs(self, connection, scheduler):
         self.connection = connection
-                
+
         try:
             scheduler.unschedule_func(self.send_logs_job)
         except:
@@ -90,11 +93,11 @@ class LogSendStoreHandler(logging.Handler):
 
     def initiate_store_logs(self, scheduler, log_location):
         base_filename = "datalogger.log"
-        
+
         #check if folder exists, if not: create one
         if not os.path.exists(log_location):
             os.mkdir(log_location)
-        
+
         if os.path.isfile(log_location):
             i = 0
             while os.path.isfile(log_location + str(i)):
@@ -106,12 +109,12 @@ class LogSendStoreHandler(logging.Handler):
         self.abs_path_log_folder = os.path.abspath(log_location)
         self.abs_path_log = os.path.abspath(os.path.join(log_location, base_filename))
 
-        
+
         try:
             scheduler.unschedule_func(self.store_logs_job)
         except:
             pass
-        
+
         scheduler.add_interval_job(self.store_logs_job,
                                         seconds=self.time_interval_to_store_local)
 
@@ -137,7 +140,7 @@ class LogSendStoreHandler(logging.Handler):
 
     def keep_logfile_in_max_limits(self):
         total_size, highest_log_number = self.examine_logfolder()
-        
+
         #remove logs until logs are under max local log size
         try:
             while total_size > self.max_log_size:
