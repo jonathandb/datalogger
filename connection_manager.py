@@ -1,5 +1,4 @@
 import configuration
-import time
 import requests
 import logging
 import json
@@ -12,7 +11,7 @@ class ConnectionManager:
 
         connection_filter = ConnectionFilter()
         logging.getLogger('requests.packages.urllib3.connectionpool').addFilter(connection_filter)
-        
+
         self.connected = False
         self.update_configuration()
 
@@ -29,7 +28,7 @@ class ConnectionManager:
         self.logger.info('Trying to connect to internet..')
         try:
             requests.get("http://www.google.com")
-        except Exception as e:
+        except Exception:
             self.logger.warning('No connection to the internet')
             self.connected = False
             self.update_led()
@@ -42,13 +41,15 @@ class ConnectionManager:
         try:
             if requests.get(self.server_url+"request/config/checksum").status_code == 200:
                 self.connected = True
-        except Exception as e:
+            else:
+                raise
+        except Exception:
             self.logger.warning('No connection to the server')
             self.connected = False
             return False
         self.logger.info('Connected to the server.')
         self.update_led()
-        return True 
+        return True
 
     def get_checksum(self):
         if self.connected:
@@ -57,7 +58,7 @@ class ConnectionManager:
                 if checksum_req.status_code != 200:
                     raise requests.ConnectionError()
                 return checksum_req.text
-            except Exception as e:
+            except Exception:
                 self.logger.warning('Failed to get configuration checksum from server, is server application running?')
                 raise
         return 0
@@ -80,6 +81,7 @@ class ConnectionManager:
         if self.connected:
             try:
                 nr_of_sent_packets = len(packets)
+                self.logger.info('{0} packets are ready to be sent'.format(nr_of_sent_packets))
                 post = requests.post(self.server_url+"request/packets",data=json.dumps(packets), headers=self.json_header)
                 if self.validate_response(post):
                     self.log_response(post)
@@ -88,7 +90,7 @@ class ConnectionManager:
                 else:
                     self.logger.warning('Failed to interpret response of server, http code= {0}'.format(post.status_code))
                     nr_of_sent_packets = 0
-                self.connected = True 
+                self.connected = True
             except Exception as e:
                 self.logger.warning('Failed to send packets, server message: {0}'.format(e))
                 nr_of_sent_packets = 0
@@ -127,7 +129,7 @@ class ConnectionManager:
             try:
                 nr_of_sent_logs= len(logs)
                 post = requests.post(self.server_url+'request/logs',data=json.dumps(logs), headers=self.json_header)
-                
+
                 if self.validate_response(post):
                     self.log_response(post)
                     if not post.json()['status'] == 'success':
@@ -135,7 +137,7 @@ class ConnectionManager:
                 else:
                     self.logger.warning('Failed to interpret response of server, http code= {0}'.format(post.status_code))
                 nr_of_sent_logs = 0
-                self.connected = True 
+                self.connected = True
             except Exception as e:
                 self.logger.warning('Failed to send logs to server: {0}'.format(e))
                 nr_of_sent_logs = 0
@@ -159,4 +161,4 @@ class ConnectionManager:
 
 class ConnectionFilter(logging.Filter):
     def filter(self, record):
-        return False 
+        return False
