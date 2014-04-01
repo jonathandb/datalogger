@@ -91,7 +91,7 @@ class DataLogger:
         except Exception as e:
             self.logger.error(e)
             self.log_send_store_handler.send_logs_job()
-            #raise
+            raise
 
     def set_up_led_manager_calls(self):
         sensor_led_call = LedCall(self.led_manager, PinName.readingsensor)
@@ -129,7 +129,7 @@ class DataLogger:
                     self.log_send_store_handler.initiate_send_logs(self.connection,
                                                    self.scheduler)
         except:
-            self.logger.warning('Error updating configuration, problem with connection to server')
+            self.logger.warning('Problem updating configuration')
         try:
             self.scheduler.unschedule_func(self.load_online_configuration_and_initiate_sending_data)
         except:
@@ -167,7 +167,7 @@ class DataLogger:
         if self.connection.check_server_connection():
             self.load_online_configuration_and_initiate_sending_data()
 
-            self.scheduler.unschedule_func(self.try_to_load_configuration)
+            self.scheduler.unschedule_func(self.try_to_load_online_configuration)
 
 
 
