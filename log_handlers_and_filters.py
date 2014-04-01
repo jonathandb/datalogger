@@ -1,13 +1,12 @@
 import logging
 import logging.handlers
-from apscheduler.scheduler import Scheduler
-from connection_manager import ConnectionManager
 import configuration
-import os, re
-from datetime import timedelta, time, datetime, date
+import os
+from datetime import datetime
 import time
 
 SINGLE_LOG_FILE_SIZE = 500000
+
 
 class LogSendStoreHandler(logging.Handler):
     def __init__(self):
@@ -21,7 +20,7 @@ class LogSendStoreHandler(logging.Handler):
 
         self.configured = False
         self.logger = logging.getLogger()
-        #self.update_configuration()
+        self.update_configuration()
 
     def update_configuration(self):
         try:
@@ -34,7 +33,6 @@ class LogSendStoreHandler(logging.Handler):
         except:
             self.configured = False
             self.logger.warning('Failed to update configuration of {0}'.format(__name__))
-            raise
 
     def emit(self, record):
         try:
@@ -64,7 +62,6 @@ class LogSendStoreHandler(logging.Handler):
             raise
         except:
             self.handleError(record)
-
 
     def get_log_level_by_string(self, levelstring):
         if levelstring == 'CRITICAL':
@@ -102,7 +99,6 @@ class LogSendStoreHandler(logging.Handler):
             i = 0
             while os.path.isfile(log_location + str(i)):
                 i += 1
-            log_folder = log_location + str(i)
             if not os.path.isfolder(log_location):
                 os.mkdir(log_location)
 
@@ -117,7 +113,6 @@ class LogSendStoreHandler(logging.Handler):
 
         scheduler.add_interval_job(self.store_logs_job,
                                         seconds=self.time_interval_to_store_local)
-
 
     def send_logs_job(self):
         if len(self.send_logs) > 1:
@@ -135,7 +130,7 @@ class LogSendStoreHandler(logging.Handler):
                     stream.write('{0}\n'.format(msg))
                 stream.close()
                 self.file_logs = []
-        except Exception as e:
+        except:
             self.logger.error('Unable to write log')
 
     def keep_logfile_in_max_limits(self):
@@ -187,13 +182,6 @@ class LogSendStoreHandler(logging.Handler):
 
     def set_led_call(self, led_call):
         self.led_call = led_call
-
-class StructuredMessage(object):
-    def __init__(self, message, **kwargs):
-        self.message = message
-        self.kwargs = kwargs
-    def __str__(self):
-        return '%s >>> %s' % (self.message, json.dumps(self.kwargs))
 
 class JobInfoFilter(logging.Filter):
     def filter(self, record):
