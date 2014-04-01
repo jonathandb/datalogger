@@ -1,7 +1,6 @@
-import requests
 import json
 from jsonschema import validate
-from datetime import timedelta, time, datetime
+from datetime import timedelta, datetime
 import configparser
 import configuration
 import logging
@@ -16,42 +15,41 @@ class Timer(object):
 
 class ConfigurationManager:
     def __init__(self, config_location):
-        self.logger = logging.getLogger()
+        self.logger = logging.getLogger(__name__)
         self.config_location = config_location
 
         self.load_local_configuration()
-    
+
     def load_local_configuration(self):
-    	if configuration.local == None:
-            try:
-                if not os.path.exists(self.config_location):
-                    self.logger.error('Configuration file doesn\' exist!')
+        try:
+            if not os.path.exists(self.config_location):
+                self.logger.error('Configuration file doesn\' exist!')
 
-                configuration.local = configparser.ConfigParser()
-                configuration.local.read(self.config_location)
-                configuration.timers = []
-                configuration.modbus_slaves = []
+            configuration.local = configparser.ConfigParser()
+            configuration.local.read(self.config_location)
+            configuration.timers = []
+            configuration.modbus_slaves = []
 
-                for json_modbus_slave in json.loads(configuration.local['sensorConfiguration']['modbusSlaves']):
-                    s = ModbusSlave()
-                    s.type = json_modbus_slave[0]
-                    s.address = json_modbus_slave[1]
-                    s.register = json_modbus_slave[2]
-                    configuration.modbus_slaves.append(s)
-                    
-                for json_timer in json.loads(configuration.local['sensorConfiguration']['timers']):
-                    t = Timer()
-                    t.type = json_timer[0]
-                    t.slaves = []
-                    for slave in configuration.modbus_slaves:
-                        if slave.type == t.type:
-                            t.slaves.append(slave)
-                    t.start_time = datetime.utcfromtimestamp(json_timer[1]).time()
-                    t.time_interval = timedelta(seconds=json_timer[2])
-                    configuration.timers.append(t)
-            except KeyError as k:
-                self.logger.warning('Local configuration incomplete, key  %s not found ' % k)
-                
+            for json_modbus_slave in json.loads(configuration.local['sensorConfiguration']['modbusSlaves']):
+                s = ModbusSlave()
+                s.type = json_modbus_slave[0]
+                s.address = json_modbus_slave[1]
+                s.register = json_modbus_slave[2]
+                configuration.modbus_slaves.append(s)
+
+            for json_timer in json.loads(configuration.local['sensorConfiguration']['timers']):
+                t = Timer()
+                t.type = json_timer[0]
+                t.slaves = []
+                for slave in configuration.modbus_slaves:
+                    if slave.type == t.type:
+                        t.slaves.append(slave)
+                t.start_time = datetime.utcfromtimestamp(json_timer[1]).time()
+                t.time_interval = timedelta(seconds=json_timer[2])
+                configuration.timers.append(t)
+        except KeyError as k:
+            self.logger.warning('Local configuration incomplete, key  %s not found ' % k)
+
     def is_configuration_online_different(self, online_checksum):
         if configuration.get_checksum() == online_checksum:
             return False
@@ -92,7 +90,7 @@ class ConfigurationManager:
             pass
 
         configuration.local['sensorConfiguration']['checksum'] = str(checksum)
-        
+
         self.try_save_configuration_parameter(online_configuration,
                                       'sensorConfiguration','timers')
         self.try_save_configuration_parameter(online_configuration,
@@ -118,11 +116,11 @@ class ConfigurationManager:
         self.try_save_configuration_parameter(online_configuration,
                                       'logging','timeIntervalToSendLog')
         self.try_save_configuration_parameter(online_configuration,
-                                      'logging','sendLogsToServer')       
+                                      'logging','sendLogsToServer')
         self.try_save_configuration_parameter(online_configuration,
                                       'logging','storeLogsLocal')
         self.try_save_configuration_parameter(online_configuration,
-                                      'logging','timeIntervalToCheckOnlineConfig')       
+                                      'logging','timeIntervalToCheckOnlineConfig')
         self.try_save_configuration_parameter(online_configuration,
                                       'logging','maxLocalLogSize')
         self.try_save_configuration_parameter(online_configuration,
@@ -130,12 +128,21 @@ class ConfigurationManager:
         self.try_save_configuration_parameter(online_configuration,
                                       'i2c','busAddress')
         try:
+            config_dirpath =  os.path.dirname(os.path.abspath(self.config_location))
+            if not os.path.isdir(config_dirpath):
+                try:
+                    os.makedirs(config_dirpath)
+                    self.logger.info('Made configuration folder {0}'.format(config_dirpath))
+                except:
+                    self.logger.error('Problem making configuration folder')
+                    raise
+
             with open(self.config_location, 'w') as configfile:
                 configuration.local.write(configfile)
-            self.logger.info("New Configuration loaded and saved")
+            self.logger.info("New Configuration saved")
         except:
             self.logger.error('Problem storing configuration file')
-        
+            raise
         self.load_local_configuration()
 
     def try_save_configuration_parameter(self, online_configuration, section, key):
