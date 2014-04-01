@@ -91,16 +91,19 @@ class LogSendStoreHandler(logging.Handler):
     def initiate_store_logs(self, scheduler, log_location):
         base_filename = "datalogger.log"
 
-        #check if folder exists, if not: create one
-        if not os.path.exists(log_location):
-            os.mkdir(log_location)
-
-        if os.path.isfile(log_location):
-            i = 0
-            while os.path.isfile(log_location + str(i)):
-                i += 1
-            if not os.path.isfolder(log_location):
+        try:
+            #check if folder exists, if not: create one
+            if not os.path.exists(log_location):
                 os.mkdir(log_location)
+
+            if os.path.isfile(log_location):
+                i = 0
+                while os.path.isfile(log_location + str(i)):
+                    i += 1
+                if not os.path.isfolder(log_location):
+                    os.mkdir(log_location)
+        except Exception as e:
+            self.logger.warning('Unable to create log folder: {0}'.format(e))
 
         self.abs_path_log_folder = os.path.abspath(log_location)
         self.abs_path_log = os.path.abspath(os.path.join(log_location, base_filename))

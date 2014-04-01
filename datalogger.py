@@ -11,9 +11,10 @@ from connection_manager import ConnectionManager
 from packet_manager import PacketManager
 import pdb
 from led_manager import LedManager, Led, LedState, PinName, LedCall
+import os
 
 LOG_LOCATION = '/var/log/datalogger/'
-CONFIG_LOCATION = '/home/jon/.config/datalogger.ini'
+CONFIG_LOCATION = os.path.join(os.path.expanduser('~'), '.config/datalogger.ini')
 CHECK_CONNECTION_INTERVAL = 60
 
 class DataLogger:
@@ -130,6 +131,7 @@ class DataLogger:
                                                    self.scheduler)
         except:
             self.logger.warning('Problem updating configuration')
+            raise
         try:
             self.scheduler.unschedule_func(self.load_online_configuration_and_initiate_sending_data)
         except:
