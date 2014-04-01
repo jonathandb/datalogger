@@ -9,7 +9,7 @@ SINGLE_LOG_FILE_SIZE = 500000
 
 
 class LogSendStoreHandler(logging.Handler):
-    def __init__(self):
+    def __init__(self, log_location):
         logging.Handler.__init__(self)
 
         if not hasattr(self, 'send_logs'):
@@ -18,17 +18,29 @@ class LogSendStoreHandler(logging.Handler):
         if not hasattr(self, 'file_logs'):
             self.file_logs = []
 
+        self.log_location = log_location
         self.configured = False
         self.logger = logging.getLogger()
         self.update_configuration()
 
-    def update_configuration(self):
+    def update_configuration(self, *args, **kwargs):
         try:
             self.send_log_level = self.get_log_level_by_string(configuration.get_log_level_to_send_to_server())
             self.store_log_level = self.get_log_level_by_string(configuration.get_log_level_to_store_local())
             self.time_interval_to_send_log = configuration.get_time_interval_to_send_log()
             self.time_interval_to_store_local = configuration.get_time_interval_to_store_local()
             self.max_log_size = configuration.get_max_local_log_size()
+
+            try:
+                scheduler = kwargs.get('scheduler', None)
+                connection = kwargs.get('connection', None)
+                if configuration.is_store_logs_local():
+                    self.initiate_store_logs(scheduler, self.log_location)
+                if configuration.is_send_logs_to_server():
+                    self.initiate_send_logs(connection, scheduler)
+            except:
+                pass
+
             self.configured = True
         except:
             self.configured = False
@@ -133,8 +145,8 @@ class LogSendStoreHandler(logging.Handler):
                     stream.write('{0}\n'.format(msg))
                 stream.close()
                 self.file_logs = []
-        except:
-            self.logger.error('Unable to write log')
+        except Exception as e:
+            self.logger.error('Unable to write log: {0}'.format(e))
 
     def keep_logfile_in_max_limits(self):
         total_size, highest_log_number = self.examine_logfolder()

@@ -26,7 +26,7 @@ class DataLogger:
 
             self.logger.setLevel(logging.DEBUG)
 
-            self.log_send_store_handler = LogSendStoreHandler()
+            self.log_send_store_handler = LogSendStoreHandler(LOG_LOCATION)
 
             formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(name)s - %(message)s')
             self.log_send_store_handler.setFormatter(formatter)
@@ -47,16 +47,11 @@ class DataLogger:
             logging.getLogger('apscheduler.threadpool').addFilter(job_info_filter)
             self.packet_manager = PacketManager(self.scheduler)
 
-            if configuration.is_store_logs_local():
-                self.log_send_store_handler.initiate_store_logs(self.scheduler,
-                                                                LOG_LOCATION)
-
             #initiate network connection
             self.connection = ConnectionManager()
 
-            #set up logging
-            if configuration.is_send_logs_to_server():
-                self.log_send_store_handler.initiate_send_logs(self.connection, self.scheduler)
+            #add scheduler and connection to log handler
+            self.log_send_store_handler.update_configuration(self.scheduler, self.connection)
 
             #try to connect
             connected = self.connection.check_internet_connection() and self.connection.check_server_connection()
@@ -118,17 +113,13 @@ class DataLogger:
                 self.packet_manager.remove_all_packets_from_memory()
 
                 #update systems that make use of the configuration
-                self.log_send_store_handler.update_configuration()
+                self.log_send_store_handler.update_configuration(self.scheduler, self.connection)
                 self.connection.update_configuration()
                 try:
                     self.read_sensor_scheduler.update_configuration()
                 except:
                     pass
                 self.packet_manager.update_configuration()
-
-                if configuration.is_send_logs_to_server():
-                    self.log_send_store_handler.initiate_send_logs(self.connection,
-                                                   self.scheduler)
         except:
             self.logger.warning('Problem updating configuration')
             raise
