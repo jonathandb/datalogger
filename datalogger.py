@@ -205,4 +205,5 @@ class DataLogger:
                 self.try_to_load_online_configuration)
 
 
-dl = DataLogger()
+if __name__ == "__main__":
+    dl = DataLogger()
