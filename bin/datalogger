@@ -1,0 +1,5 @@
+#!/usr/bin/env python
+
+from datalogger import DataLogger
+
+dl = DataLogger()
