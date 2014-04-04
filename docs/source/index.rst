@@ -24,5 +24,5 @@ Contents:
    requirements
    installationguide
 
-   modules
-
+   modules/modules
+   code

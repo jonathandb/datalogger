@@ -3,16 +3,13 @@
 Minimum requirements
 --------------------
 
-If you want to run the datalogger without the need of writing code, this is what you'll need:
- * Hardware that is:
-
+If you want to run the datalogger without the need of writing code, you'll need hardware that is:
   * capable of running linux.
   * able to read sensors:
 
     * via serial port with a modbus level convertor.
     * via I2C from a arduino compatible microcontroller.
-  
-  * able to connect to the internet periodically.
+  * able to connect to the internet periodically for communication with the server.
 
 Notes:
 It is possible to extend the software to read the data from elsewhere.
