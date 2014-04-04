@@ -22,7 +22,7 @@ import os
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #sys.path.insert(0, os.path.abspath('.'))
 #sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath('.'))))
-sys.path.insert(0, "/home/jon/dev/datalogger")
+sys.path.insert(0, "/home/jon/dev/datalogger/datalogger")
 print(os.path.dirname(os.path.dirname(os.path.abspath('.'))))
 # -- General configuration ------------------------------------------------
 
@@ -34,6 +34,7 @@ print(os.path.dirname(os.path.dirname(os.path.abspath('.'))))
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
+    'sphinx.ext.viewcode',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -267,3 +268,16 @@ texinfo_documents = [
 
 # If true, do not generate a @detailmenu in the "Top" node's menu.
 #texinfo_no_detailmenu = False
+
+# Ignore following modules
+import mock, sys
+MOCK_MODULES = ['smbus',
+                'pymodbus',
+                'pymodbus.client',
+                'pymodbus.client.sync',
+                'pymodbus.other_message']
+for mod_name in MOCK_MODULES:
+    sys.modules[mod_name] = mock.Mock()
+
+# Sort members by type
+autodoc_member_order = 'bysource'
