@@ -41,7 +41,6 @@ class DataLogger:
         - A timed job is created that checks if the online configuration is\
         updated
         - The management of leds is started.
-
     """
 
     def __init__(self):
@@ -118,7 +117,7 @@ class DataLogger:
     def load_online_configuration_and_initiate_sending_data(self):
         # check online configuration
         try:
-            online_checksum = self.connection.get_checksum()
+            online_checksum = self.connection.get_configuration_checksum()
             self.logger.info("Checking online configuration..")
             if self.conf_man.is_online_configuration_different(online_checksum):
                 self.logger.info(

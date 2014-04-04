@@ -67,7 +67,7 @@ class ConnectionManager:
         self.update_led()
         return True
 
-    def get_checksum(self):
+    def get_configuration_checksum(self):
         if self.connected:
             try:
                 checksum_req = requests.get(
