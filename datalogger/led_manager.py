@@ -94,12 +94,15 @@ class LedManager():
                 self.logger.debug('GPIO pin {0} already activated'.format(pin_nr))
             else:
                 self.logger.debug('Failed to activate GPIO pin {0}'.format(pin_nr))
+        except:
+            self.logger.debug('Unknow error when trying to active the gpio pin')
 
         for dirpath, dirnames, filename in os.walk('/sys/class/gpio/'):
             for d in dirnames:
                 if 'gpio' + str(pin_nr) in d:
                     self.pindirs[pin_nr] = d
         return activated
+
     def set_as_output(self, pin_nr):
         try:
             path = '/sys/class/gpio/' + self.pindirs[pin_nr] +  '/direction'
