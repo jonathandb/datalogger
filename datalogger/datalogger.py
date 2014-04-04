@@ -30,15 +30,15 @@ class DataLogger:
     If there is no connection with the internet:
         - A timed job is created that controls internet connection.
         - Logging of data is started with local configuration.
-        - If the internet connection is started, and the online configuration
-        differs, the old wrongly logged data will be removed.
+        - If the internet connection is started, and the online\
+        configuration differs, the old wrongly logged data will be removed.
 
     If there is connection with the internet and the server is working:
-        - Check if the online configuration differs from the local one. If so,
+        - Check if the online configuration differs from the local one. If so,\
         the configuration will be updated.
         - Logging of data is started.
         - Sending of data is started.
-        - A timed job is created that checks if the online configuration is
+        - A timed job is created that checks if the online configuration is\
         updated
         - The management of leds is started.
 
@@ -57,9 +57,7 @@ class DataLogger:
                 '%(asctime)s - %(levelname)s - %(name)s - %(message)s')
             self.log_send_store_handler.setFormatter(formatter)
 
-            memory_handler = logging.handlers.MemoryHandler(1)
-            memory_handler.setTarget(self.log_send_store_handler)
-            self.logger.addHandler(memory_handler)
+            self.logger.addHandler(self.log_send_store_handler)
 
             self.logger.info('Initialising system...')
             # load local configuration
