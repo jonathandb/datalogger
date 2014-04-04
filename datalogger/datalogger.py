@@ -115,15 +115,6 @@ class DataLogger:
             self.log_send_store_handler.send_logs_job()
             raise
 
-    def set_up_led_manager_calls(self):
-        sensor_led_call = LedCall(self.led_manager, PinName.readingsensor)
-        connected_led_call = LedCall(self.led_manager, PinName.connected)
-        logging_led_call = LedCall(self.led_manager, PinName.logging)
-
-        self.read_sensor_scheduler.set_led_call(sensor_led_call)
-        self.connection.set_led_call(connected_led_call)
-        self.log_send_store_handler.set_led_call(logging_led_call)
-
     def load_online_configuration_and_initiate_sending_data(self):
         # check online configuration
         try:
@@ -195,6 +186,14 @@ class DataLogger:
             self.scheduler.unschedule_func(
                 self.try_to_load_online_configuration)
 
+    def set_up_led_manager_calls(self):
+        sensor_led_call = LedCall(self.led_manager, PinName.readingsensor)
+        connected_led_call = LedCall(self.led_manager, PinName.connected)
+        logging_led_call = LedCall(self.led_manager, PinName.logging)
+
+        self.read_sensor_scheduler.set_led_call(sensor_led_call)
+        self.connection.set_led_call(connected_led_call)
+        self.log_send_store_handler.set_led_call(logging_led_call)
 
 if __name__ == "__main__":
     dl = DataLogger()
