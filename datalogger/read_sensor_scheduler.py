@@ -88,7 +88,7 @@ class ReadSensorScheduler:
                 slave.register)
             values.append(value)
 
-        self.packet_manager.store_packet(timer.type, values)
+        self.packet_manager.store_packet_in_memory(timer.type, values)
         try:
             self.led_call.flash()
         except:
