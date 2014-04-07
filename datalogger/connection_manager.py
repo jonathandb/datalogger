@@ -6,6 +6,8 @@ from jsonschema import validate
 
 
 CHECKSUM_URL_SUFFIX = 'request/config/checksum'
+PACKETS_URL_SUFFIX = 'request/packets'
+LOGS_URL_SUFFIX = 'request/logs'
 
 
 class ConnectionManager:
@@ -106,7 +108,7 @@ class ConnectionManager:
                         nr_of_sent_packets))
                 post = requests.post(
                     self.server_url +
-                    "request/packets",
+                    PACKETS_URL_SUFFIX,
                     data=json.dumps(packets),
                     headers=self.json_header)
                 if self.validate_response(post):
@@ -169,7 +171,7 @@ class ConnectionManager:
                 nr_of_sent_logs = len(logs)
                 post = requests.post(
                     self.server_url +
-                    'request/logs',
+                    LOGS_URL_SUFFIX,
                     data=json.dumps(logs),
                     headers=self.json_header)
 
