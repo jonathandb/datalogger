@@ -141,7 +141,7 @@ class DataLogger:
                 self.packet_manager.update_configuration()
         except:
             self.logger.warning('Problem updating configuration')
-        try:
+        try:  # try to remove job
             self.scheduler.unschedule_func(
                 self.load_online_configuration_and_initiate_sending_data)
         except:
