@@ -52,8 +52,8 @@ class PacketManager():
         """checks if the minimum of packets that needs to be sent is reached.
         If it is reached the packets will be sent, otherwise it will be checked
         if the minimum packets are reached with the time interval set in
-        RETRY_SEND_PACKETS_INTERVAL .
-        """
+        RETRY_SEND_PACKETS_INTERVAL."""
+
         if self.minimum_packets_to_send < len(self.packets):
             # try to send packets
             nr_of_sent_packets = self.connection.send_packets(self.packets)
