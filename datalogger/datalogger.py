@@ -74,8 +74,8 @@ class DataLogger:
 
             # add scheduler and connection to log handler
             self.log_send_store_handler.update_configuration(
-                self.scheduler,
-                self.connection)
+                scheduler = self.scheduler,
+                connection = self.connection)
 
             # try to connect
             connected = self.connection.check_internet_connection(
@@ -111,8 +111,8 @@ class DataLogger:
 
         except Exception as e:
             self.logger.error(e)
-            self.log_send_store_handler.send_logs_job()
             raise
+            self.log_send_store_handler.send_logs_job()
 
     def load_online_configuration_and_initiate_sending_data(self):
         # check online configuration
@@ -123,7 +123,6 @@ class DataLogger:
                 self.logger.info(
                     'Online configuration is new, updating configuration..')
                 online_configuration = self.connection.get_configuration()
-                print(online_configuration)
                 self.conf_man.validate_json_configuration(online_configuration)
                 self.conf_man.save_configuration_local(
                     online_checksum,
@@ -132,8 +131,8 @@ class DataLogger:
 
                 # update systems that make use of the configuration
                 self.log_send_store_handler.update_configuration(
-                    self.scheduler,
-                    self.connection)
+                    scheduler = self.scheduler,
+                    connection = self.connection)
                 self.connection.update_configuration()
                 try:
                     self.read_sensor_scheduler.update_configuration()

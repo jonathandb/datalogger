@@ -30,7 +30,7 @@ class LogSendStoreHandler(logging.Handler):
         self.logger = logging.getLogger()
         self.update_configuration()
 
-    def update_configuration(self, *args, **kwargs):
+    def update_configuration(self, **kwargs):
         try:
             self.send_log_level = self.get_log_level_by_string(
                 configuration.get_log_level_to_send_to_server())
@@ -44,10 +44,16 @@ class LogSendStoreHandler(logging.Handler):
 
             try:
                 scheduler = kwargs.get('scheduler', None)
-                connection = kwargs.get('connection', None)
-                if configuration.is_store_logs_local():
+                if configuration.is_store_logs_local() and scheduler is not None:
                     self.initiate_store_logs(scheduler, self.log_location)
-                if configuration.is_send_logs_to_server():
+            except:
+                pass
+
+            try:
+                connection = kwargs.get('connection', None)
+                scheduler = kwargs.get('scheduler', None)
+                conn_sched_none = connection and scheduler is not None
+                if configuration.is_send_logs_to_server() and conn_sched_none:
                     self.initiate_send_logs(connection, scheduler)
             except:
                 pass
@@ -57,6 +63,7 @@ class LogSendStoreHandler(logging.Handler):
             self.configured = False
             self.logger.warning(
                 'Failed to update configuration of {0}'.format(__name__))
+            raise
 
     def emit(self, record):
         """Is called when a log is created.
@@ -118,7 +125,6 @@ class LogSendStoreHandler(logging.Handler):
 
     def initiate_store_logs(self, scheduler, log_location):
         base_filename = "datalogger.log"
-
         try:
             # check if folder exists, if not: create one
             if not os.path.exists(log_location):
