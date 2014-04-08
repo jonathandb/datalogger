@@ -13,3 +13,5 @@ Classes
   code/packet_manager
   code/connection_manager
   code/read_sensor_scheduler
+  code/configuration_manager
+  code/log_handlers_and_filters

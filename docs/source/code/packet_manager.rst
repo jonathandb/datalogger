@@ -3,7 +3,7 @@ Class PacketManager
 ===================
 
  * :ref:`packet_init`
- * :ref:`update_configuration`
+ * :ref:`packet_update_configuration`
  * :ref:`initiate_send_packets`
  * :ref:`send_packets_job`
  * :ref:`check_packets_to_send`
@@ -19,7 +19,7 @@ The scheduler is implemented so jobs can be created. The logger is initialised. 
 .. literalinclude:: ../../../datalogger/packet_manager.py
    :pyobject: PacketManager.__init__
 
-.. _update_configuration:
+.. _packet_update_configuration:
 
 update_configuration()
 -----------------------
@@ -33,7 +33,7 @@ This method is loaded when the PacketManager is initialised and a new configurat
 
 initiate_send_packets(connection)
 ---------------------------------
-The :class:`~connection_manager:ConnectionManager` instance is implemented and the configuration is updated. A single scheduled job of :ref:`send_packets_job` is started.
+The :class:`~connection_manager.ConnectionManager` instance is implemented and the configuration is updated. A single scheduled job of :ref:`send_packets_job` is started.
 
 .. literalinclude:: ../../../datalogger/packet_manager.py
    :pyobject: PacketManager.initiate_send_packets
@@ -59,11 +59,8 @@ This job is started when the ``self.packet_send_interval`` is reached for the :r
 
 .. _store_packet_in_memory:
 
-store_packets_in_memory(type, packets)
---------------------------------------
-
-.. literalinclude:: ../../../datalogger/packet_manager.py
-   :pyobject: PacketManager.store_packets_in_memory
+store_packet_in_memory(type, values)
+------------------------------------
 
 The timer type and the values are passed to this method and stored together with the current UNIX UTC time ``timestamp`` and the configuration checksum in a packet. That packet is appended to the self.packets list.
 

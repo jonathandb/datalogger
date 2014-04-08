@@ -2,18 +2,16 @@
 Class ReadSensorScheduler
 =========================
 
- * :ref:`led_init`
- * :ref:`update_led`
- * :ref:`update_led`
- * :ref:`enable_output`
- * :ref:`activate`
- * :ref:`set_as_output`
- * :ref:`turn_on`
- * :ref:`turn_off`
- * :ref:`flash`
+ * :ref:`read_sensor_init`
+ * :ref:`read_sensor_update_configuration`
+ * :ref:`create_modbus_reader`
+ * :ref:`add_timer`
+ * :ref:`create_timers`
+ * :ref:`check_modbus_connection`
+ * :ref:`read_sensor`
+ * :ref:`read_sensor_set_led_call`
 
-
-.. _led_init:
+.. _read_sensor_init:
 
 __init__(scheduler)
 -------------------
@@ -22,7 +20,7 @@ The logger is initialised. The :class:`~apscheduler:scheduler:Scheduler` and :cl
 .. literalinclude:: ../../../datalogger/read_sensor_scheduler.py
    :pyobject: ReadSensorScheduler.__init__
 
-.. _update_configuration:
+.. _read_sensor_update_configuration:
 
 update_configuration()
 ----------------------
@@ -78,7 +76,7 @@ This method is run when the timer goes off. It reads all the sensors that belong
 .. literalinclude:: ../../../datalogger/read_sensor_scheduler.py
    :pyobject: ReadSensorScheduler.read_sensor
 
-.. _set_led_call:
+.. _read_sensor_set_led_call:
 
 set_led_call(led_call)
 ----------------------

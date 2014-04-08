@@ -2,10 +2,19 @@
 Class ConnectionManager
 =======================
 
- * :ref:`packet_init`
- * :ref:`update_configuration`
- * :ref:`initiate_send_packets`
-
+ * :ref:`connection_init`
+ * :ref:`conn_update_configuration`
+ * :ref:`is_connected`
+ * :ref:`check_internet_connection`
+ * :ref:`check_server_connection`
+ * :ref:`get_configuration_checksum`
+ * :ref:`get_configuration`
+ * :ref:`send_packets`
+ * :ref:`validate_response`
+ * :ref:`log_response`
+ * :ref:`send_logs`
+ * :ref:`conn_update_led`
+ * :ref:`conn_set_led_call`
 
 .. _connection_init:
 
@@ -16,7 +25,7 @@ The default json_header is set that is used when sending json data. The logger i
 .. literalinclude:: ../../../datalogger/connection_manager.py
    :pyobject: ConnectionManager.__init__
 
-.. _update_configuration:
+.. _conn_update_configuration:
 
 update_configuration()
 ----------------------
@@ -75,7 +84,7 @@ Returns the configuration as a json object. Similar to :ref:`get_configuration_c
 
 send_packets(packets)
 ---------------------
-The number of packets that are being sent is stored in ``nr_of_sent_packets``. Because packets can grow larger during the post request ``requests.post(self.server_url + PACKETS_URL_SUFFIX, data=json.dumps(packets), headers=self.json_header)`` when there is a slow internet connection.  ``nr_of_sent_packets`` is returned so that the number of sent packets can be removed from the stored packets in :class:`~packet_manager:PacketManager` in the method :ref:`send_packets_job`.
+The number of packets that are being sent is stored in ``nr_of_sent_packets``. Because packets can grow larger during the post request ``requests.post(self.server_url + PACKETS_URL_SUFFIX, data=json.dumps(packets), headers=self.json_header)`` when there is a slow internet connection.  ``nr_of_sent_packets`` is returned so that the number of sent packets can be removed from the stored packets in :class:`~packet_manager.PacketManager` in the method :ref:`send_packets_job`.
 
 .. literalinclude:: ../../../datalogger/connection_manager.py
    :pyobject: ConnectionManager.send_packets
@@ -107,7 +116,7 @@ The number of logs that are being sent is stored in ``nr_of_sent_logs``. Because
 .. literalinclude:: ../../../datalogger/connection_manager.py
    :pyobject: ConnectionManager.send_logs
 
-.. _update_led:
+.. _conn_update_led:
 
 update_led()
 ------------
@@ -116,8 +125,8 @@ Every time there is a possibility that the connection status (``self.connected``
 .. literalinclude:: ../../../datalogger/connection_manager.py
    :pyobject: ConnectionManager.update_led
 
-.. _set_led_call:
+.. _conn_set_led_call:
 
 set_led_call(led_call)
 ----------------------
-This method implements the :class:`~led_manager:LedCall` isntance.
+This method implements the :class:`~led_manager.LedCall` instance.

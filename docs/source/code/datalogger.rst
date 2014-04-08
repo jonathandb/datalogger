@@ -1,6 +1,6 @@
 
 ================
-class DataLogger
+Class DataLogger
 ================
 
  * :ref:`data_init`

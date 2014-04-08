@@ -1,4 +1,4 @@
-================
+
 Class LedManager
 ================
 
@@ -16,7 +16,7 @@ Class LedManager
 .. _led_init:
 
 __init__(scheduler)
-----------
+-------------------
 The logger is initialised and the scheduler is implemented.
 Each pin that the :class:`~led_manager.PinName` IntEnum contains is added to the self.leds list as a :class:`~led_manager.Led` object.
 
@@ -27,7 +27,7 @@ Each pin that the :class:`~led_manager.PinName` IntEnum contains is added to the
 
 update_led(pin_name, ledstate)
 ------------------------------
-This method is passed as a reference in the LedCall class. That way systems can call this method when they have implemented an LedCall object. See the :ref:`datalogger` method :ref:`set_up_led_manager_calls` to see the implementation.
+This method is passed as a reference in the LedCall class. That way systems can call this method when they have implemented an LedCall object. See the :class:`~datalogger.DataLogger` method :ref:`set_up_led_manager_calls` to see the implementation.
 
 Each time this method is called the gpio pin that is linked to a led in self.leds will be:
 

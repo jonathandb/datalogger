@@ -82,6 +82,7 @@ Install the following packages:
 And following pip packages:
 
 .. code-block:: bash
+
   pip
   requests
   jsonschema
