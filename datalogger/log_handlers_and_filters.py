@@ -180,7 +180,7 @@ class LogSendStoreHandler(logging.Handler):
 
     def keep_logfile_in_max_limits(self):
         """Organises the logfiles.
-        If a logfile is to big, it is stored under an other name and a
+        If a logfile is to big, it is stored under another name and a
         new logfile is created.
         If there are too many logfiles, the oldest one is removed.
         The total max log size is set in the configuration. The individual

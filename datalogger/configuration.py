@@ -50,18 +50,18 @@ def get_log_level_to_store_local():
 
 def get_configuration_parameter(section, key):
     try:
-        return local[section][key] 
-    except KeyError:
+        return local[section][key]
+    except:
         import logging
         logger = logging.getLogger(__name__)
         logger.error('Parameter {0} does not exist in configuration'.format(key))
 
         if section == 'server' and key == 'url':
             logger.warning('using default url http://200.2.191.227:5000')
-            return 'http://200.2.191.227:5000/'
+            return 'http://10.37.7.241:5000/'
         if section == 'server' and key == 'timeIntervalToCheckOnlineConfig':
             logger.warning('using default timeIntervalToCheckOnlineConfig 100 ')
-            return '100' 
+            return '100'
         if section == 'server' and key == 'timeIntervalToSendPackets':
             logger.warning('using default timeIntervalToSendPackets 10 ')
             return '10'
@@ -71,7 +71,9 @@ def get_configuration_parameter(section, key):
         if section =='logging' and key == 'timeIntervalToStoreLocal':
             logger.warning('using default timeIntervalToStoreLocal 300')
             return '300'
-    except:
-        import logging
-        logger = logging.getLogger(__name__)
-        logger.error("Can't get configuration parameters, configuration not loaded")
+        if section =='logging' and key == 'timeIntervalToSendLog':
+            logger.warning('using default timeIntervalToSendLog 3600')
+            return '3600'
+        if section =='logging' and key == 'maxLocalLogSize':
+            logger.warning('using default maxLocalLogSize 1000000')
+            return '1000000'

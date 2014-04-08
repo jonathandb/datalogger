@@ -166,7 +166,6 @@ class ConfigurationManager:
             'timeIntervalToCheckOnlineConfig')
         self.try_save_configuration_parameter(
             new_configuration,
-
             'logging',
             'maxLocalLogSize')
         self.try_save_configuration_parameter(
@@ -209,3 +208,4 @@ class ConfigurationManager:
             self.logger.warning(
                 'Parameter %s does not exist in online configuration' %
                 key)
+
