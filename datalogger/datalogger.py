@@ -123,8 +123,9 @@ class DataLogger:
                 self.logger.info(
                     'Online configuration is new, updating configuration..')
                 online_configuration = self.connection.get_configuration()
+                print(online_configuration)
                 self.conf_man.validate_json_configuration(online_configuration)
-                self.conf_man.save_online_configuration_local(
+                self.conf_man.save_configuration_local(
                     online_checksum,
                     online_configuration)
                 self.packet_manager.remove_all_packets_from_memory()
@@ -141,6 +142,7 @@ class DataLogger:
                 self.packet_manager.update_configuration()
         except:
             self.logger.warning('Problem updating configuration')
+            raise
         try:  # try to remove job
             self.scheduler.unschedule_func(
                 self.load_online_configuration_and_initiate_sending_data)
