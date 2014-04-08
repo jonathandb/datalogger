@@ -61,7 +61,7 @@ All possible previous :ref:`read_sensor` jobs are deleted and all new timers are
 
 check_modbus_connection()
 -------------------------
-This function checks the connection of the :class:`~modbus_slave_reader:ModbusSlaveReader` isntance. If the connection is successfull, it creates the timers.
+This function checks the connection of the modbus slave in :ref:`check_connection`. If the connection is successfull, it creates the timers.
 
 .. literalinclude:: ../../../datalogger/read_sensor_scheduler.py
    :pyobject: ReadSensorScheduler.check_modbus_connection

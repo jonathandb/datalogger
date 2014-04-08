@@ -15,3 +15,4 @@ Classes
   code/read_sensor_scheduler
   code/configuration_manager
   code/log_handlers_and_filters
+  code/modbus_slave_reader
