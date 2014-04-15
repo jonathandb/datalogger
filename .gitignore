@@ -3,4 +3,4 @@ docs/build/
 docs/make.bat
 docs/source/installation/
 idee.txt
-
+*.pyc
