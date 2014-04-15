@@ -15,7 +15,7 @@ Class ReadSensorScheduler
 
 __init__(scheduler)
 -------------------
-The logger is initialised. The :class:`~apscheduler:scheduler:Scheduler` and :class:`~packet_manager:PacketManager` are implemented. The configuration is loaded. 
+The logger is initialised. The :class:`~apscheduler.scheduler.Scheduler` and :class:`~packet_manager.PacketManager` are implemented. The configuration is loaded. 
 
 .. literalinclude:: ../../../datalogger/read_sensor_scheduler.py
    :pyobject: ReadSensorScheduler.__init__
@@ -34,7 +34,7 @@ This method is loaded when the PacketManager is initialised and a new configurat
 
 create_modbus_reader()
 ----------------------
-In this function a :class:`~modbus_slave_reader:ModbusSlaveReader` instance is made and an attempt is made to connected with the modbus slaves.
+In this function a :class:`~modbus_slave_reader.ModbusSlaveReader` instance is made and an attempt is made to connected with the modbus slaves.
 
 .. literalinclude:: ../../../datalogger/read_sensor_scheduler.py
    :pyobject: ReadSensorScheduler.create_modbus_reader
@@ -71,7 +71,7 @@ This function checks the connection of the modbus slave in :ref:`check_connectio
 
 read_sensor(timer)
 ------------------
-This method is run when the timer goes off. It reads all the sensors that belongs to the timer and puts them in a list which is then stored in the :class:`~packet_manager:PacketManager` with the :ref:`store_packet_in_memory` method. A signal is given to the led_manager to flash the sensor led.
+This method is run when the timer goes off. It reads all the sensors that belongs to the timer and puts them in a list which is then stored in the :class:`~packet_manager.PacketManager` with the :ref:`store_packet_in_memory` method. A signal is given to the led_manager to flash the sensor led.
 
 .. literalinclude:: ../../../datalogger/read_sensor_scheduler.py
    :pyobject: ReadSensorScheduler.read_sensor
@@ -80,7 +80,7 @@ This method is run when the timer goes off. It reads all the sensors that belong
 
 set_led_call(led_call)
 ----------------------
-This method implements the :class:`~led_manager:LedCall` isntance.
+This method implements the :class:`~led_manager.LedCall` isntance.
 
 .. literalinclude:: ../../../datalogger/read_sensor_scheduler.py
    :pyobject: ReadSensorScheduler.set_led_call

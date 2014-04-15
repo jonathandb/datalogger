@@ -48,7 +48,7 @@ Returns the self.connected variable.
 
 check_internet_connection()
 ---------------------------
-Tries to connect with the internet. If connected it returns True, else False.
+Tries to connect with the internet. If connected it returns ``True``, else ``False``.
 
 .. literalinclude:: ../../../datalogger/connection_manager.py
    :pyobject: ConnectionManager.check_internet_connection
@@ -57,7 +57,7 @@ Tries to connect with the internet. If connected it returns True, else False.
 
 check_server_connection()
 -------------------------
-Tries to connect with the server. If connected it returns True, else False.
+Tries to connect with the server. If connected it returns ``True``, else ``False``.
 
 .. literalinclude:: ../../../datalogger/connection_manager.py
    :pyobject: ConnectionManager.check_server_connection
