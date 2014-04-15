@@ -23,10 +23,9 @@ class PacketManager():
     def update_configuration(self):
         try:
             self.checksum = configuration.get_checksum()
-            self.packet_send_interval = configuration.get_time_interval_to_send_packets(
-                )
-            self.minimum_packets_to_send = configuration.get_minimum_packets_to_send(
-                )
+            c = configuration
+            self.packet_send_interval = c.get_time_interval_to_send_packets()
+            self.minimum_packets_to_send = c.get_minimum_packets_to_send()
         except:
             self.logger.warning(
                 'Failed to update configuration of {0}'.format(__name__))
