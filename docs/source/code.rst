@@ -2,10 +2,6 @@ Code explained
 ==============
 Explanation of how every class works.
 
-=======
-Classes
-=======
-
 .. toctree::
 
   code/datalogger

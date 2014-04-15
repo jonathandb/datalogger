@@ -42,7 +42,7 @@ class ModbusSlaveReader:
             rq = ReportSlaveIdRequest()
             rr = self.client.execute(rq)
             assert(rr is None)
-            self.logger.warning('Unable to see modbus master on network')
+            self.logger.warning('Able to see modbus master on network')
             return True
         except:
             self.logger.warning('Unable to see modbus master on network')

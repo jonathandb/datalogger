@@ -19,10 +19,9 @@ NTC
 Contents:
 ---------
 .. toctree::
-   :maxdepth: 6
+   :maxdepth: 2
   
    requirements
    installationguide
-
-   modules/modules
    code
+   modules/modules

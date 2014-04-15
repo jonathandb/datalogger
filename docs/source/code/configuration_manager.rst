@@ -23,7 +23,7 @@ The logger is initialised. And the configuration location ``config_location`` is
 load_local_configuration
 ------------------------
 As the method title says, it loads the local configuration. The whole process of loading the configuration is put in a try-except block. In it, the :class:`~configparser.ConfigParser` object is initialised and the configuration location is set in it.. 
- When the configuration or a configuration parameter is not found, it is cached in it. The configuration is stored in global variables in the :mod:`configuration` module.
+When the configuration or a configuration parameter is not found, it is cached in it. The configuration is stored in global variables in the :mod:`configuration` module.
 
 .. literalinclude:: ../../../datalogger/configuration_manager.py
    :pyobject: ConfigurationManager.load_local_configuration
