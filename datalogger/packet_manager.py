@@ -2,6 +2,7 @@ from datetime import datetime
 import time
 import configuration
 import logging
+import ntplib
 
 RETRY_SEND_PACKETS_INTERVAL = 20
 
@@ -19,6 +20,8 @@ class PacketManager():
         self.packets = []
         self.logger = logging.getLogger(__name__)
         self.update_configuration()
+        self.packets_synced = False
+        self.time_offset = 0
 
     def update_configuration(self):
         try:
@@ -26,9 +29,29 @@ class PacketManager():
             c = configuration
             self.packet_send_interval = c.get_time_interval_to_send_packets()
             self.minimum_packets_to_send = c.get_minimum_packets_to_send()
+
         except:
             self.logger.warning(
                 'Failed to update configuration of {0}'.format(__name__))
+
+    def update_time(self):
+        if not self.packets_synced:
+            try:
+                ntpc = ntplib.NTPClient()
+                ntp_response = ntpc.request('europe.pool.ntp.org', version=3)
+                self.time_offset = ntp_response.offset
+                debug_message = 'Updated time. Offset between system time and '\
+                                'ntp time is {0}'.format(self.time_offset)
+                self.logger.debug(debug_message)
+
+                nr_of_packets = len(self.packets)
+                for packet in self.packets:
+                    packet['timeDate'] += self.time_offset
+
+                self.logger.info('{0} packets synced'.format(nr_of_packets))
+                self.packets_synced = True
+            except:
+                self.logger.warning('Failed to update time')
 
     def initiate_send_packets(self, connection):
         self.connection = connection
@@ -45,7 +68,7 @@ class PacketManager():
                                             seconds=self.packet_send_interval)
         except:
             self.logger.error(
-                "Failed to start send packets job, incomplete configuration")
+                'Failed to start send packets job, incomplete configuration')
 
     def send_packets_job(self):
         """checks if the minimum of packets that needs to be sent is reached.
@@ -53,6 +76,7 @@ class PacketManager():
         if the minimum packets are reached with the time interval set in
         RETRY_SEND_PACKETS_INTERVAL."""
 
+        self.update_time()
         if self.minimum_packets_to_send < len(self.packets):
             # try to send packets
             nr_of_sent_packets = self.connection.send_packets(self.packets)
@@ -82,8 +106,11 @@ class PacketManager():
             self.send_packets_job()
 
     def store_packet_in_memory(self, type, values):
-        # type, timestamp, values
         timestamp = time.mktime(datetime.now().timetuple())
+
+        if self.packets_synced:
+            timestamp += self.time_offset
+
         packet = {
             'checksum': self.checksum,
             'type': type,

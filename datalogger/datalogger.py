@@ -78,10 +78,11 @@ class DataLogger:
                 connection = self.connection)
 
             # try to connect
-            connected = self.connection.check_internet_connection(
-                ) and self.connection.check_server_connection()
-            if connected:
+            connected_to_internet = self.connection.check_internet_connection()
+            connected_to_server = self.connection.check_server_connection()
+            if connected_to_internet and connected_to_server:
                 self.load_online_configuration_and_initiate_sending_data()
+                self.packet_manager.update_time()
                 self.packet_manager.initiate_send_packets(self.connection)
             else:
                 '''
@@ -90,6 +91,9 @@ class DataLogger:
                     temporarily use offline timer and modbus slave
                     configuration
                 '''
+
+                if connected_to_internet:
+                    self.packet_manager.update_time()
                 self.wait_for_connection_to_load_configuration()
 
             # initiate sensor timers
@@ -161,6 +165,7 @@ class DataLogger:
             self.scheduler.add_interval_job(self.try_to_connect_to_internet,
                                             seconds=CHECK_CONNECTION_INTERVAL)
         else:
+            self.packet_manager.update_time()
             if not self.connection.check_server_connection():
                 # no connection with server, start job to check connection
                 self.scheduler.add_interval_job(
@@ -171,6 +176,7 @@ class DataLogger:
         if self.connection.check_internet_connection():
             self.scheduler.unschedule_func(self.try_to_connect_to_internet)
 
+            self.packet_manager.update_time()
             if not self.connection.check_server_connection():
                     # no connection with server, start job to check connection
                 self.scheduler.add_interval_job(
