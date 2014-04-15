@@ -193,6 +193,9 @@ htmlhelp_basename = 'Dataloggerdoc'
 
 # -- Options for LaTeX output ---------------------------------------------
 
+f = open('custom-style.tex', 'r+');
+PREAMBLE = f.read();
+
 latex_elements = {
 # The paper size ('letterpaper' or 'a4paper').
 #'papersize': 'letterpaper',
@@ -201,7 +204,7 @@ latex_elements = {
 #'pointsize': '10pt',
 
 # Additional stuff for the LaTeX preamble.
-#'preamble': '',
+'preamble': PREAMBLE
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
