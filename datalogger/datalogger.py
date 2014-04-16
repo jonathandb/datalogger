@@ -74,8 +74,8 @@ class DataLogger:
 
             # add scheduler and connection to log handler
             self.log_send_store_handler.update_configuration(
-                scheduler = self.scheduler,
-                connection = self.connection)
+                scheduler=self.scheduler,
+                connection=self.connection)
 
             # try to connect
             connected_to_internet = self.connection.check_internet_connection()
@@ -111,7 +111,17 @@ class DataLogger:
             while True:
                 sleep(10)
                 self.logger.debug('Alive and kicking')
-                self.scheduler.print_jobs()
+                if self.logger.level is logging.DEBUG:
+                    scheduler_jobs = self.scheduler.get_jobs()
+                    if len(scheduler_jobs) > 1:
+                        self.logger.debug('Current scheduler jobs:')
+                        for index, job in enumerate(scheduler_jobs):
+                            self.logger.debug(' Job {0}: {1} {2}'.format(
+                                index,
+                                job.name,
+                                job.next_run_time))
+                    else:
+                        self.logger.debug('No running scheduler jobs')
 
         except Exception as e:
             self.logger.error(e)
@@ -135,8 +145,8 @@ class DataLogger:
 
                 # update systems that make use of the configuration
                 self.log_send_store_handler.update_configuration(
-                    scheduler = self.scheduler,
-                    connection = self.connection)
+                    scheduler=self.scheduler,
+                    connection=self.connection)
                 self.connection.update_configuration()
                 try:
                     self.read_sensor_scheduler.update_configuration()
