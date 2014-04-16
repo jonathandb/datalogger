@@ -41,7 +41,7 @@ In the try-except block, following systems are intitialised:
    :start-after: try:
    :end-before: # try to connect
 
-Next, if there is a connection to the server, the online configuration is compared to the local one on the basis of a checksum.
+Next, if there is a connection to the server, the online configuration is compared to the local one on the basis of a checksum. This happens in :ref:`load_online_configuration_and_initiate_sending_data`. After that the time is synchronised in :ref:`update_time` and the :class:`packet_manager` starts sending packets to the server in :ref:`initiate_send_packets`.
 If there is no connection to the server a job is started that, as soon as the connection to the server is back, checks and optionally updates the configuration. 
 
 .. literalinclude:: ../../../datalogger/datalogger.py

@@ -29,6 +29,15 @@ This method is loaded when the PacketManager is initialised and a new configurat
 .. literalinclude:: ../../../datalogger/packet_manager.py
    :pyobject: PacketManager.update_configuration
 
+.. _update_time:
+
+update_time()
+-----------------------
+If ntp time is not yet synced (``self.packets_synced``), the time is checked online with the ntplib. In ``self.time_offset`` the time difference is stored and the timestamps of all the already logged packets are updated.
+
+.. literalinclude:: ../../../datalogger/packet_manager.py
+   :pyobject: PacketManager.update_time
+
 .. _initiate_send_packets:
 
 initiate_send_packets(connection)
@@ -63,6 +72,7 @@ store_packet_in_memory(type, values)
 ------------------------------------
 
 The timer type and the values are passed to this method and stored together with the current UNIX UTC time ``timestamp`` and the configuration checksum in a packet. That packet is appended to the self.packets list.
+If the time is synced (``self.packets_synced``) in :ref:`update_time`, the ``self.time_offset`` is added to the timestamp. 
 
 .. literalinclude:: ../../../datalogger/packet_manager.py
    :pyobject: PacketManager.store_packet_in_memory
