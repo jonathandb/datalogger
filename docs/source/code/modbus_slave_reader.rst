@@ -14,6 +14,7 @@ The logger is initialised. A :class:`~pymodbus.client.sync.ModbusSerialClient` i
 
 .. literalinclude:: ../../../datalogger/modbus_slave_reader.py
    :pyobject: ModbusSlaveReader.__init__
+   :url:
 
 .. _read_register_value:
 
@@ -23,6 +24,7 @@ A value is read from the modbus slave its register.
 
 .. literalinclude:: ../../../datalogger/modbus_slave_reader.py
    :pyobject: ModbusSlaveReader.read_register_value
+   :url:
 
 
 .. _check_connection:
@@ -33,5 +35,6 @@ This function is used in :ref:`check_modbus_connection` to make sure the connect
 
 .. literalinclude:: ../../../datalogger/modbus_slave_reader.py
    :pyobject: ModbusSlaveReader.check_connection
+   :url:
 
 

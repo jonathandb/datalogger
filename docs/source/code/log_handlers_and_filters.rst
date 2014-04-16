@@ -22,6 +22,7 @@ The parent ``Handler`` class is initialised. The ``self.send_logs`` and ``self.f
 
 .. literalinclude:: ../../../datalogger/log_handlers_and_filters.py
    :pyobject: LogSendStoreHandler.__init__
+   :url:
 
 .. _log_update_configuration:
 
@@ -32,6 +33,7 @@ This method is run in :ref:`data_init` when the :class:`~packet_manager.PacketMa
 
 .. literalinclude:: ../../../datalogger/log_handlers_and_filters.py
    :pyobject: LogSendStoreHandler.update_configuration
+   :url:
 
 .. _emit:
 
@@ -41,6 +43,7 @@ When a new log is created this method is called. The log is printed to the conso
 
 .. literalinclude:: ../../../datalogger/log_handlers_and_filters.py
    :pyobject: LogSendStoreHandler.emit
+   :url:
 
 
 .. _get_log_level_by_string:
@@ -51,6 +54,7 @@ This method converts the log level in string format to its numeric value.
 
 .. literalinclude:: ../../../datalogger/log_handlers_and_filters.py
    :pyobject: LogSendStoreHandler.get_log_level_by_string
+   :url:
 
 
 .. _initiate_send_logs:
@@ -61,6 +65,7 @@ The :class:`~connection_manager.ConnectionManager` instance is implemented. A si
 
 .. literalinclude:: ../../../datalogger/log_handlers_and_filters.py
    :pyobject: LogSendStoreHandler.initiate_send_logs
+   :url:
 
 
 .. _initiate_store_logs:
@@ -71,6 +76,7 @@ First it is checked if the log folder exists, if not it is created. A single sch
 
 .. literalinclude:: ../../../datalogger/log_handlers_and_filters.py
    :pyobject: LogSendStoreHandler.initiate_store_logs
+   :url:
 
 
 .. _send_logs_job:
@@ -81,6 +87,7 @@ This jobs sends the logs via the :class:`~connection_manager.ConnectionManager`.
 
 .. literalinclude:: ../../../datalogger/log_handlers_and_filters.py
    :pyobject: LogSendStoreHandler.send_logs_job
+   :url:
 
 .. _store_logs_job:
 
@@ -90,6 +97,7 @@ After running :ref:`keep_logfile_in_max_limits` the logs are stored in ``self.ab
 
 .. literalinclude:: ../../../datalogger/log_handlers_and_filters.py
    :pyobject: LogSendStoreHandler.store_logs_job
+   :url:
 
 
 .. _keep_logfile_in_max_limits:
@@ -100,6 +108,7 @@ Organises the logfiles. If a logfile is to big, it is stored under another name 
 
 .. literalinclude:: ../../../datalogger/log_handlers_and_filters.py
    :pyobject: LogSendStoreHandler.keep_logfile_in_max_limits
+   :url:
 
 
 .. _examine_logfolder:
@@ -110,6 +119,7 @@ Is used in :ref:`keep_logfile_in_max_limits` to calculate the total log size, an
 
 .. literalinclude:: ../../../datalogger/log_handlers_and_filters.py
    :pyobject: LogSendStoreHandler.examine_logfolder
+   :url:
 
 
 .. _log_set_led_call:
@@ -120,5 +130,6 @@ This method implements the :class:`~led_manager.LedCall` instance.
 
 .. literalinclude:: ../../../datalogger/log_handlers_and_filters.py
    :pyobject: LogSendStoreHandler.set_led_call
+   :url:
 
 

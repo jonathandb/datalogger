@@ -19,6 +19,7 @@ The logger is initialised. The :class:`~apscheduler.scheduler.Scheduler` and :cl
 
 .. literalinclude:: ../../../datalogger/read_sensor_scheduler.py
    :pyobject: ReadSensorScheduler.__init__
+   :url:
 
 .. _read_sensor_update_configuration:
 
@@ -29,6 +30,7 @@ This method is loaded when the PacketManager is initialised and a new configurat
 
 .. literalinclude:: ../../../datalogger/read_sensor_scheduler.py
    :pyobject: ReadSensorScheduler.update_configuration
+   :url:
 
 .. _create_modbus_reader:
 
@@ -38,6 +40,7 @@ In this function a :class:`~modbus_slave_reader.ModbusSlaveReader` instance is m
 
 .. literalinclude:: ../../../datalogger/read_sensor_scheduler.py
    :pyobject: ReadSensorScheduler.create_modbus_reader
+   :url:
 
 .. _add_timer:
 
@@ -47,6 +50,7 @@ This method calculates what the time is when the timer goes off. Then a :ref:`re
 
 .. literalinclude:: ../../../datalogger/read_sensor_scheduler.py
    :pyobject: ReadSensorScheduler.add_timer
+   :url:
 
 .. _create_timers:
 
@@ -56,6 +60,7 @@ All possible previous :ref:`read_sensor` jobs are deleted and all new timers are
 
 .. literalinclude:: ../../../datalogger/read_sensor_scheduler.py
    :pyobject: ReadSensorScheduler.create_timers
+   :url:
 
 .. _check_modbus_connection:
 
@@ -65,7 +70,7 @@ This function checks the connection of the modbus slave in :ref:`check_connectio
 
 .. literalinclude:: ../../../datalogger/read_sensor_scheduler.py
    :pyobject: ReadSensorScheduler.check_modbus_connection
-
+   :url:
 
 .. _read_sensor:
 
@@ -75,6 +80,7 @@ This method is run when the timer goes off. It reads all the sensors that belong
 
 .. literalinclude:: ../../../datalogger/read_sensor_scheduler.py
    :pyobject: ReadSensorScheduler.read_sensor
+   :url:
 
 .. _read_sensor_set_led_call:
 
@@ -84,5 +90,6 @@ This method implements the :class:`~led_manager.LedCall` isntance.
 
 .. literalinclude:: ../../../datalogger/read_sensor_scheduler.py
    :pyobject: ReadSensorScheduler.set_led_call
+   :url:
 
 

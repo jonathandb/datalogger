@@ -38,6 +38,7 @@ In the try-except block, following systems are intitialised:
 
 .. literalinclude:: ../../../datalogger/datalogger.py
    :pyobject: DataLogger.__init__
+   :url:
    :start-after: try:
    :end-before: # try to connect
 
@@ -46,6 +47,7 @@ If there is no connection to the server a job is started that, as soon as the co
 
 .. literalinclude:: ../../../datalogger/datalogger.py
    :pyobject: DataLogger.__init__
+   :url:
    :start-after: self.connection)
    :end-before: # initiate sensor timers
 
@@ -53,6 +55,7 @@ After that, the :class:`~read_sensor_scheduler.ReadSensorScheduler` is started a
 
 .. literalinclude:: ../../../datalogger/datalogger.py
    :pyobject: DataLogger.__init__
+   :url:
    :start-after: self.wait_for_connection_to_load_configuration()
    :end-before: except Exception as e:
 
@@ -66,6 +69,7 @@ The systems that use configuration paramaters are updated. The configuration upd
 
 .. literalinclude:: ../../../datalogger/datalogger.py
    :pyobject: DataLogger.load_online_configuration_and_initiate_sending_data
+   :url:
    :end-before: try:  # try to remove job
 
 A job is created in the method that loads itself periodically. The time interval between the job is defined in the configuration as parameter *timeintervaltocheckonlineconfig*.
@@ -75,6 +79,7 @@ The last step in the method is to initiate the start of sending packets.
 
 .. literalinclude:: ../../../datalogger/datalogger.py
    :pyobject: DataLogger.load_online_configuration_and_initiate_sending_data
+   :url:
    :start-after: self.logger.warning('Problem updating configuration')
 
 .. _wait_for_connection_to_load_configuration:
@@ -86,6 +91,7 @@ If there is no internet connection, it starts a job that periodically checks if 
 
 .. literalinclude:: ../../../datalogger/datalogger.py
    :pyobject: DataLogger.wait_for_connection_to_load_configuration
+   :url:
 
 .. _try_to_connect_to_internet:
 
@@ -103,6 +109,7 @@ If there is connection with the internet:
 
 .. literalinclude:: ../../../datalogger/datalogger.py
    :pyobject: DataLogger.try_to_connect_to_internet
+   :url:
 
 .. _try_to_load_online_configuration:
 
@@ -112,6 +119,7 @@ It there is connection with the server :ref:`load_online_configuration_and_initi
 
 .. literalinclude:: ../../../datalogger/datalogger.py
    :pyobject: DataLogger.try_to_load_online_configuration
+   :url:
 
 .. _set_up_led_manager_calls:
 
@@ -121,4 +129,5 @@ For each system that needs to manipulate the state of leds a LedCall is being in
 
 .. literalinclude:: ../../../datalogger/datalogger.py
    :pyobject: DataLogger.set_up_led_manager_calls
+   :url:
 

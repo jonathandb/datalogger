@@ -22,6 +22,7 @@ Each pin that the :class:`~led_manager.PinName` IntEnum contains is added to the
 
 .. literalinclude:: ../../../datalogger/led_manager.py
    :pyobject: LedManager.__init__
+   :url:
 
 .. _update_led:
 
@@ -36,6 +37,7 @@ Each time this method is called the gpio pin that is linked to a led in self.led
 
 .. literalinclude:: ../../../datalogger/led_manager.py
    :pyobject: LedManager.update_led
+   :url:
 
 .. _enable_output:
 
@@ -46,6 +48,7 @@ If the activation is successfull, the pin is set as output.
 
 .. literalinclude:: ../../../datalogger/led_manager.py
    :pyobject: LedManager.enable_output
+   :url:
 
 .. _activate:
 
@@ -56,6 +59,7 @@ the /sys/class/gpio/export socket. After that the socket location is stored in t
 
 .. literalinclude:: ../../../datalogger/led_manager.py
    :pyobject: LedManager.activate
+   :url:
 
 .. _set_as_output:
 
@@ -65,6 +69,7 @@ An attempt is done to set the activated gpio pin as an output.
 
 .. literalinclude:: ../../../datalogger/led_manager.py
    :pyobject: LedManager.set_as_output
+   :url:
 
 .. _turn_on:
 
@@ -73,6 +78,7 @@ turn_on(pin_nr)
 
 .. literalinclude:: ../../../datalogger/led_manager.py
    :pyobject: LedManager.turn_on
+   :url:
 
 .. _turn_off:
 
@@ -81,6 +87,7 @@ turn_off(pin_nr)
 
 .. literalinclude:: ../../../datalogger/led_manager.py
    :pyobject: LedManager.turn_off
+   :url:
    
 .. _flash:
 
@@ -89,5 +96,6 @@ flash(pin_nr, msecs)
 
 .. literalinclude:: ../../../datalogger/led_manager.py
    :pyobject: LedManager.flash
+   :url:
 
 

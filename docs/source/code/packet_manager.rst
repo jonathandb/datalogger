@@ -18,6 +18,7 @@ The scheduler is implemented so jobs can be created. The logger is initialised. 
 
 .. literalinclude:: ../../../datalogger/packet_manager.py
    :pyobject: PacketManager.__init__
+   :url:
 
 .. _packet_update_configuration:
 
@@ -28,6 +29,7 @@ This method is loaded when the PacketManager is initialised and a new configurat
 
 .. literalinclude:: ../../../datalogger/packet_manager.py
    :pyobject: PacketManager.update_configuration
+   :url:
 
 .. _update_time:
 
@@ -37,6 +39,7 @@ If ntp time is not yet synced (``self.packets_synced``), the time is checked onl
 
 .. literalinclude:: ../../../datalogger/packet_manager.py
    :pyobject: PacketManager.update_time
+   :url:
 
 .. _initiate_send_packets:
 
@@ -46,6 +49,7 @@ The :class:`~connection_manager.ConnectionManager` instance is implemented and t
 
 .. literalinclude:: ../../../datalogger/packet_manager.py
    :pyobject: PacketManager.initiate_send_packets
+   :url:
 
 .. _send_packets_job:
 
@@ -55,6 +59,7 @@ Checks if the minimum of packets that needs to be sent is reached. If it is reac
 
 .. literalinclude:: ../../../datalogger/packet_manager.py
    :pyobject: PacketManager.send_packets_job
+   :url:
    :start-after: RETRY_SEND_PACKETS_INTERVAL."""
 
 .. _check_packets_to_send:
@@ -65,6 +70,7 @@ This job is started when the ``self.packet_send_interval`` is reached for the :r
 
 .. literalinclude:: ../../../datalogger/packet_manager.py
    :pyobject: PacketManager.check_packets_to_send
+   :url:
 
 .. _store_packet_in_memory:
 
@@ -76,6 +82,7 @@ If the time is synced (``self.packets_synced``) in :ref:`update_time`, the ``sel
 
 .. literalinclude:: ../../../datalogger/packet_manager.py
    :pyobject: PacketManager.store_packet_in_memory
+   :url:
 
 .. _remove_all_packets_from_memory:
 
@@ -85,5 +92,6 @@ If a new configuration is loaded from the internet in :ref:`load_online_configur
 
 .. literalinclude:: ../../../datalogger/packet_manager.py
    :pyobject: PacketManager.remove_all_packets_from_memory
+   :url:
 
 

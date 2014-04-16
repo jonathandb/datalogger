@@ -17,6 +17,7 @@ The logger is initialised. And the configuration location ``config_location`` is
 
 .. literalinclude:: ../../../datalogger/configuration_manager.py
    :pyobject: ConfigurationManager.__init__
+   :url:
 
 .. _load_local_configuration:
 
@@ -27,7 +28,7 @@ When the configuration or a configuration parameter is not found, it is cached i
 
 .. literalinclude:: ../../../datalogger/configuration_manager.py
    :pyobject: ConfigurationManager.load_local_configuration
-
+   :url:
 
 .. _is_online_configuration_different:
 
@@ -37,7 +38,7 @@ Compares the passed variable online_checksum with the local checksum and returns
 
 .. literalinclude:: ../../../datalogger/configuration_manager.py
    :pyobject: ConfigurationManager.is_online_configuration_different
-
+   :url:
 
 .. _validate_json_configuration:
 
@@ -47,7 +48,7 @@ This method is used to check if the downloaded configuration in json format is v
 
 .. literalinclude:: ../../../datalogger/configuration_manager.py
    :pyobject: ConfigurationManager.validate_json_configuration
-
+   :url:
 
 .. _save_configuration_local:
 
@@ -60,7 +61,7 @@ When all the configuration parameters are stored in the :mod:`configuration` mod
 
 .. literalinclude:: ../../../datalogger/configuration_manager.py
    :pyobject: ConfigurationManager.save_configuration_local
-
+   :url:
 
 .. _try_save_configuration_parameter:
 
@@ -70,5 +71,5 @@ An attempt is done to store the online configuration parameter in the :mod:`conf
 
 .. literalinclude:: ../../../datalogger/configuration_manager.py
    :pyobject: ConfigurationManager.try_save_configuration_parameter
-
+   :url:
 

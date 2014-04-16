@@ -24,6 +24,7 @@ The default json_header is set that is used when sending json data. The logger i
 
 .. literalinclude:: ../../../datalogger/connection_manager.py
    :pyobject: ConnectionManager.__init__
+   :url:
 
 .. _conn_update_configuration:
 
@@ -34,6 +35,7 @@ This method is loaded when the ConnectionManager is initialised and a new config
 
 .. literalinclude:: ../../../datalogger/connection_manager.py
    :pyobject: ConnectionManager.update_configuration
+   :url:
 
 .. _is_connected:
 
@@ -43,6 +45,7 @@ Returns the self.connected variable.
 
 .. literalinclude:: ../../../datalogger/connection_manager.py
    :pyobject: ConnectionManager.is_connected
+   :url:
 
 .. _check_internet_connection:
 
@@ -52,6 +55,7 @@ Tries to connect with the internet. If connected it returns ``True``, else ``Fal
 
 .. literalinclude:: ../../../datalogger/connection_manager.py
    :pyobject: ConnectionManager.check_internet_connection
+   :url:
 
 .. _check_server_connection:
 
@@ -61,6 +65,7 @@ Tries to connect with the server. If connected it returns ``True``, else ``False
 
 .. literalinclude:: ../../../datalogger/connection_manager.py
    :pyobject: ConnectionManager.check_server_connection
+   :url:
 
 .. _get_configuration_checksum:
 
@@ -70,6 +75,7 @@ Returns the configuration checksum of the server. If the http status code is not
 
 .. literalinclude:: ../../../datalogger/connection_manager.py
    :pyobject: ConnectionManager.get_configuration_checksum
+   :url:
 
 .. _get_configuration:
 
@@ -79,6 +85,7 @@ Returns the configuration as a json object. Similar to :ref:`get_configuration_c
 
 .. literalinclude:: ../../../datalogger/connection_manager.py
    :pyobject: ConnectionManager.get_configuration
+   :url:
 
 .. _send_packets:
 
@@ -88,6 +95,7 @@ The number of packets that are being sent is stored in ``nr_of_sent_packets``. B
 
 .. literalinclude:: ../../../datalogger/connection_manager.py
    :pyobject: ConnectionManager.send_packets
+   :url:
 
 .. _validate_response:
 
@@ -97,6 +105,7 @@ This method checks if received json packet is valid.
 
 .. literalinclude:: ../../../datalogger/connection_manager.py
    :pyobject: ConnectionManager.validate_response
+   :url:
 
 .. _log_response:
 
@@ -106,6 +115,7 @@ This method logs if the response was successful with the included message from t
 
 .. literalinclude:: ../../../datalogger/connection_manager.py
    :pyobject: ConnectionManager.log_response
+   :url:
 
 .. _send_logs:
 
@@ -115,6 +125,7 @@ The number of logs that are being sent is stored in ``nr_of_sent_logs``. Because
 
 .. literalinclude:: ../../../datalogger/connection_manager.py
    :pyobject: ConnectionManager.send_logs
+   :url:
 
 .. _conn_update_led:
 
@@ -124,6 +135,7 @@ Every time there is a possibility that the connection status (``self.connected``
 
 .. literalinclude:: ../../../datalogger/connection_manager.py
    :pyobject: ConnectionManager.update_led
+   :url:
 
 .. _conn_set_led_call:
 
