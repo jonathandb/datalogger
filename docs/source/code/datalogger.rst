@@ -27,7 +27,7 @@ In the intialisation method of the :class:`~datalogger.DataLogger` class, the co
     raise
 
 
-In the try-except block, following systems are intitialised:
+In the try-except block, following systems are initialised:
 
  * :class:`~log_handlers_and_filters.LogSendStoreHandler`
  * :class:`~configuration_manager.ConfigurationManager`

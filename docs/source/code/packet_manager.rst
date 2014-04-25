@@ -60,7 +60,6 @@ Checks if the minimum of packets that needs to be sent is reached. If it is reac
 .. literalinclude:: ../../../datalogger/packet_manager.py
    :pyobject: PacketManager.send_packets_job
    :url:
-   :start-after: RETRY_SEND_PACKETS_INTERVAL."""
 
 .. _check_packets_to_send:
 
