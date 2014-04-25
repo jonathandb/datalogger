@@ -184,8 +184,8 @@ class ConnectionManager:
                         'http code= {0}'.format(
                             post.status_code)
                     self.logger.warning(warning)
+                    nr_of_sent_logs = 0
 
-                nr_of_sent_logs = 0
                 self.connected = True
             except Exception as e:
                 self.logger.warning(
