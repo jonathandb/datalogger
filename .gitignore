@@ -1,5 +1,6 @@
 datalogger/__pycache__/
 docs/build/
+!docs/build/html/
 docs/make.bat
 docs/source/_themes/
 idee.txt
