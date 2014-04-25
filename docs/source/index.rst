@@ -13,9 +13,6 @@ The functions are:
  * Configure datalogger
  * Extend software
 
-TODO:
-NTC
-
 Contents:
 ---------
 .. toctree::
