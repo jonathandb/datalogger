@@ -1,0 +1,467 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Class ConnectionManager &mdash; Datalogger 1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Datalogger 1 documentation" href="../index.html"/>
+        <link rel="up" title="Code explained" href="../code.html"/>
+        <link rel="next" title="Class ReadSensorScheduler" href="read_sensor_scheduler.html"/>
+        <link rel="prev" title="Class PacketManager" href="packet_manager.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="fa fa-home"> Datalogger</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../requirements.html">Minimum requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installationguide.html">Installation guide</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../code.html">Code explained</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="datalogger.html">Class DataLogger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="led_manager.html">Class LedManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="packet_manager.html">Class PacketManager</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Class ConnectionManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="read_sensor_scheduler.html">Class ReadSensorScheduler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_manager.html">Class ConfigurationManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="log_handlers_and_filters.html">Class LogSendStoreHandler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modbus_slave_reader.html">Class ModbusSlaveReader</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/modules.html">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../modules/datalogger.html">datalogger module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/connection_manager.html">connection_manager module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/packet_manager.html">packet_manager module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/log_handlers_and_filters.html">log_handlers_and_filters module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/configuration_manager.html">configuration_manager module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/configuration.html">configuration module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/led_manager.html">led_manager module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/mcu_modbus_slave_reader.html">mcu_modbus_slave_reader module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/mcu_read_sensor_scheduler.html">mcu_read_sensor_scheduler module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/modbus_slave_reader.html">modbus_slave_reader module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/read_random_scheduler.html">read_random_scheduler module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/read_sensor_scheduler.html">read_sensor_scheduler module</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Datalogger</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../code.html">Code explained</a> &raquo;</li>
+      
+    <li>Class ConnectionManager</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../_sources/code/connection_manager.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="class-connectionmanager">
+<h1>Class ConnectionManager<a class="headerlink" href="#class-connectionmanager" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="#connection-init"><em>__init__()</em></a></li>
+<li><a class="reference internal" href="#conn-update-configuration"><em>update_configuration()</em></a></li>
+<li><a class="reference internal" href="#is-connected"><em>is_connected()</em></a></li>
+<li><a class="reference internal" href="#check-internet-connection"><em>check_internet_connection()</em></a></li>
+<li><a class="reference internal" href="#check-server-connection"><em>check_server_connection()</em></a></li>
+<li><a class="reference internal" href="#get-configuration-checksum"><em>get_configuration_checksum()</em></a></li>
+<li><a class="reference internal" href="#get-configuration"><em>get_configuration()</em></a></li>
+<li><a class="reference internal" href="#send-packets"><em>send_packets(packets)</em></a></li>
+<li><a class="reference internal" href="#validate-response"><em>validate_response(post)</em></a></li>
+<li><a class="reference internal" href="#log-response"><em>log_response(post)</em></a></li>
+<li><a class="reference internal" href="#send-logs"><em>send_logs(logs)</em></a></li>
+<li><a class="reference internal" href="#conn-update-led"><em>update_led()</em></a></li>
+<li><a class="reference internal" href="#conn-set-led-call"><em>set_led_call(led_call)</em></a></li>
+</ul>
+</div></blockquote>
+<div class="section" id="init">
+<span id="connection-init"></span><h2>__init__()<a class="headerlink" href="#init" title="Permalink to this headline">¶</a></h2>
+<p>The default json_header is set that is used when sending json data. The logger is initialised and a log filter for the requests package is made to limit its packages. The variable self.connected is set to False. It gives the possibility to see if the last connection to the internet or server was successfull. The configuration is loaded.</p>
+<div class="highlight-python"><a class="viewcode-back" href="../_modules/connection_manager.html#ConnectionManager"> [source]</a><a class="viewcode-back" href="../modules/connection_manager.html#connection_manager.ConnectionManager"> [api]</a><div class="highlight"><pre>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">json_header</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;content-type&#39;</span><span class="p">:</span> <span class="s">&#39;application/json&#39;</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+
+        <span class="n">connection_filter</span> <span class="o">=</span> <span class="n">ConnectionFilter</span><span class="p">()</span>
+        <span class="n">requests_logger_name</span> <span class="o">=</span> <span class="s">&#39;requests.packages.urllib3.connectionpool&#39;</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">requests_logger_name</span><span class="p">)</span><span class="o">.</span><span class="n">addFilter</span><span class="p">(</span>
+            <span class="n">connection_filter</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">connected</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_configuration</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="update-configuration">
+<span id="conn-update-configuration"></span><h2>update_configuration()<a class="headerlink" href="#update-configuration" title="Permalink to this headline">¶</a></h2>
+<p>The server url is loaded from the configuration.
+This method is loaded when the ConnectionManager is initialised and a new configuration is loaded (see <a class="reference internal" href="datalogger.html#load-online-configuration-and-initiate-sending-data"><em>load_online_configuration_and_initiate_sending_data()</em></a>).</p>
+<div class="highlight-python"><a class="viewcode-back" href="../_modules/connection_manager.html#ConnectionManager.update_configuration"> [source]</a><a class="viewcode-back" href="../modules/connection_manager.html#connection_manager.ConnectionManager.update_configuration"> [api]</a><div class="highlight"><pre>    <span class="k">def</span> <span class="nf">update_configuration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">server_url</span> <span class="o">=</span> <span class="n">configuration</span><span class="o">.</span><span class="n">get_server_path</span><span class="p">()</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="s">&#39;Failed to update configuration of {0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">__name__</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="is-connected">
+<span id="id1"></span><h2>is_connected()<a class="headerlink" href="#is-connected" title="Permalink to this headline">¶</a></h2>
+<p>Returns the self.connected variable.</p>
+<div class="highlight-python"><a class="viewcode-back" href="../_modules/connection_manager.html#ConnectionManager.is_connected"> [source]</a><a class="viewcode-back" href="../modules/connection_manager.html#connection_manager.ConnectionManager.is_connected"> [api]</a><div class="highlight"><pre>    <span class="k">def</span> <span class="nf">is_connected</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">connected</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="check-internet-connection">
+<span id="id2"></span><h2>check_internet_connection()<a class="headerlink" href="#check-internet-connection" title="Permalink to this headline">¶</a></h2>
+<p>Tries to connect with the internet. If connected it returns <tt class="docutils literal"><span class="pre">True</span></tt>, else <tt class="docutils literal"><span class="pre">False</span></tt>.</p>
+<div class="highlight-python"><a class="viewcode-back" href="../_modules/connection_manager.html#ConnectionManager.check_internet_connection"> [source]</a><a class="viewcode-back" href="../modules/connection_manager.html#connection_manager.ConnectionManager.check_internet_connection"> [api]</a><div class="highlight"><pre>    <span class="k">def</span> <span class="nf">check_internet_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&#39;Trying to connect to internet..&#39;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;http://www.google.com&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s">&#39;No connection to the internet&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">connected</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">update_led</span><span class="p">()</span>
+            <span class="k">return</span> <span class="bp">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&#39;Connected to the internet.&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_led</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">True</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="check-server-connection">
+<span id="id3"></span><h2>check_server_connection()<a class="headerlink" href="#check-server-connection" title="Permalink to this headline">¶</a></h2>
+<p>Tries to connect with the server. If connected it returns <tt class="docutils literal"><span class="pre">True</span></tt>, else <tt class="docutils literal"><span class="pre">False</span></tt>.</p>
+<div class="highlight-python"><a class="viewcode-back" href="../_modules/connection_manager.html#ConnectionManager.check_server_connection"> [source]</a><a class="viewcode-back" href="../modules/connection_manager.html#connection_manager.ConnectionManager.check_server_connection"> [api]</a><div class="highlight"><pre>    <span class="k">def</span> <span class="nf">check_server_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">req</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">server_url</span><span class="o">+</span><span class="n">CHECKSUM_URL_SUFFIX</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">req</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">connected</span> <span class="o">=</span> <span class="bp">True</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s">&#39;No connection to the server&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">connected</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="k">return</span> <span class="bp">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&#39;Connected to the server.&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_led</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">True</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-configuration-checksum">
+<span id="id4"></span><h2>get_configuration_checksum()<a class="headerlink" href="#get-configuration-checksum" title="Permalink to this headline">¶</a></h2>
+<p>Returns the configuration checksum of the server. If the http status code is not 200, a <tt class="xref py py-class docutils literal"><span class="pre">requests.ConnectionError()</span></tt> is raised so that an log message is generated and the outer try-except block in <a class="reference internal" href="datalogger.html#load-online-configuration-and-initiate-sending-data"><em>load_online_configuration_and_initiate_sending_data()</em></a> can catch it.</p>
+<div class="highlight-python"><a class="viewcode-back" href="../_modules/connection_manager.html#ConnectionManager.get_configuration_checksum"> [source]</a><a class="viewcode-back" href="../modules/connection_manager.html#connection_manager.ConnectionManager.get_configuration_checksum"> [api]</a><div class="highlight"><pre>    <span class="k">def</span> <span class="nf">get_configuration_checksum</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">connected</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">checksum_req</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">server_url</span> <span class="o">+</span> <span class="n">CHECKSUM_URL_SUFFIX</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">checksum_req</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="mi">200</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="n">requests</span><span class="o">.</span><span class="n">ConnectionError</span><span class="p">()</span>
+                <span class="k">return</span> <span class="n">checksum_req</span><span class="o">.</span><span class="n">text</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="n">warning</span> <span class="o">=</span> <span class="s">&#39;Failed to get configuration checksum from server,&#39;</span>\
+                    <span class="s">&#39;is server application running?&#39;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">warning</span><span class="p">)</span>
+                <span class="k">raise</span>
+        <span class="k">return</span> <span class="mi">0</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-configuration">
+<span id="id5"></span><h2>get_configuration()<a class="headerlink" href="#get-configuration" title="Permalink to this headline">¶</a></h2>
+<p>Returns the configuration as a json object. Similar to <a class="reference internal" href="#get-configuration-checksum"><em>get_configuration_checksum()</em></a>, if the http status code is not 200, a <tt class="xref py py-class docutils literal"><span class="pre">requests.ConnectionError()</span></tt> is raised so that an log message is generated and the outer try-except block in <a class="reference internal" href="datalogger.html#load-online-configuration-and-initiate-sending-data"><em>load_online_configuration_and_initiate_sending_data()</em></a> can catch it.</p>
+<div class="highlight-python"><a class="viewcode-back" href="../_modules/connection_manager.html#ConnectionManager.get_configuration"> [source]</a><a class="viewcode-back" href="../modules/connection_manager.html#connection_manager.ConnectionManager.get_configuration"> [api]</a><div class="highlight"><pre>    <span class="k">def</span> <span class="nf">get_configuration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">connected</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">config_req</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">server_url</span><span class="o">+</span><span class="s">&quot;request/config&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">config_req</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">config_req</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="n">requests</span><span class="o">.</span><span class="n">ConnectionError</span><span class="p">()</span>
+
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                    <span class="s">&#39;Failed to load configuration from server: {0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+                <span class="k">raise</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="send-packets-packets">
+<span id="send-packets"></span><h2>send_packets(packets)<a class="headerlink" href="#send-packets-packets" title="Permalink to this headline">¶</a></h2>
+<p>The number of packets that are being sent is stored in <tt class="docutils literal"><span class="pre">nr_of_sent_packets</span></tt>. Because packets can grow larger during the post request <tt class="docutils literal"><span class="pre">requests.post(self.server_url</span> <span class="pre">+</span> <span class="pre">PACKETS_URL_SUFFIX,</span> <span class="pre">data=json.dumps(packets),</span> <span class="pre">headers=self.json_header)</span></tt> when there is a slow internet connection.  <tt class="docutils literal"><span class="pre">nr_of_sent_packets</span></tt> is returned so that the number of sent packets can be removed from the stored packets in <a class="reference internal" href="../modules/packet_manager.html#packet_manager.PacketManager" title="packet_manager.PacketManager"><tt class="xref py py-class docutils literal"><span class="pre">PacketManager</span></tt></a> in the method <a class="reference internal" href="packet_manager.html#send-packets-job"><em>send_packets_job()</em></a>.</p>
+<div class="highlight-python"><a class="viewcode-back" href="../_modules/connection_manager.html#ConnectionManager.send_packets"> [source]</a><a class="viewcode-back" href="../modules/connection_manager.html#connection_manager.ConnectionManager.send_packets"> [api]</a><div class="highlight"><pre>    <span class="k">def</span> <span class="nf">send_packets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">packets</span><span class="p">):</span>
+        <span class="n">nr_of_sent_packets</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">connected</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">nr_of_sent_packets</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">packets</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                    <span class="s">&#39;{0} packets are ready to be sent&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="n">nr_of_sent_packets</span><span class="p">))</span>
+                <span class="n">post</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">server_url</span> <span class="o">+</span>
+                    <span class="n">PACKETS_URL_SUFFIX</span><span class="p">,</span>
+                    <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">packets</span><span class="p">),</span>
+                    <span class="n">headers</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">json_header</span><span class="p">)</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">validate_response</span><span class="p">(</span><span class="n">post</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">log_response</span><span class="p">(</span><span class="n">post</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">post</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s">&#39;status&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;success&#39;</span><span class="p">:</span>
+                        <span class="n">nr_of_sent_packets</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">warning</span> <span class="o">=</span> <span class="s">&#39;Failed to interpret response of server,&#39;</span>\
+                        <span class="s">&#39;http code= {0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">post</span><span class="o">.</span><span class="n">status_code</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">warning</span><span class="p">)</span>
+                    <span class="n">nr_of_sent_packets</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">connected</span> <span class="o">=</span> <span class="bp">True</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                    <span class="s">&#39;Failed to send packets, server message: {0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+                <span class="n">nr_of_sent_packets</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">connected</span> <span class="o">=</span> <span class="bp">False</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">update_led</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">update_led</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="s">&#39;{0} packages are sent, current nr of packets is {1}.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">nr_of_sent_packets</span><span class="p">,</span>
+                    <span class="nb">len</span><span class="p">(</span><span class="n">packets</span><span class="p">)))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="s">&#39;Postponing sending packets, no connection to server&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">nr_of_sent_packets</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="validate-response-post">
+<span id="validate-response"></span><h2>validate_response(post)<a class="headerlink" href="#validate-response-post" title="Permalink to this headline">¶</a></h2>
+<p>This method checks if received json packet is valid.</p>
+<div class="highlight-python"><a class="viewcode-back" href="../_modules/connection_manager.html#ConnectionManager.validate_response"> [source]</a><a class="viewcode-back" href="../modules/connection_manager.html#connection_manager.ConnectionManager.validate_response"> [api]</a><div class="highlight"><pre>    <span class="k">def</span> <span class="nf">validate_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">post</span><span class="p">):</span>
+        <span class="n">json_schema</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;object&quot;</span><span class="p">,</span>
+            <span class="s">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s">&quot;status&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;string&quot;</span><span class="p">},</span>
+                <span class="s">&quot;msg&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;string&quot;</span><span class="p">},</span>
+            <span class="p">},</span>
+        <span class="p">}</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">validate</span><span class="p">(</span><span class="n">json_schema</span><span class="p">,</span> <span class="n">post</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span>
+        <span class="k">return</span> <span class="bp">True</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="log-response-post">
+<span id="log-response"></span><h2>log_response(post)<a class="headerlink" href="#log-response-post" title="Permalink to this headline">¶</a></h2>
+<p>This method logs if the response was successful with the included message from the server.</p>
+<div class="highlight-python"><a class="viewcode-back" href="../_modules/connection_manager.html#ConnectionManager.log_response"> [source]</a><a class="viewcode-back" href="../modules/connection_manager.html#connection_manager.ConnectionManager.log_response"> [api]</a><div class="highlight"><pre>    <span class="k">def</span> <span class="nf">log_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">post</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">post</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s">&#39;status&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;error&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="s">&#39;Failed to send data, code {0}, server message: {1}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">post</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span>
+                    <span class="n">post</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s">&#39;msg&#39;</span><span class="p">]))</span>
+        <span class="k">elif</span> <span class="n">post</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s">&#39;status&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;success&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="s">&#39;Sent data to server, code {0}, server message: {1}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">post</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span>
+                    <span class="n">post</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s">&#39;msg&#39;</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="send-logs-logs">
+<span id="send-logs"></span><h2>send_logs(logs)<a class="headerlink" href="#send-logs-logs" title="Permalink to this headline">¶</a></h2>
+<p>The number of logs that are being sent is stored in <tt class="docutils literal"><span class="pre">nr_of_sent_logs</span></tt>. Because the list of logs can grow larger during the post request <tt class="docutils literal"><span class="pre">requests.post(self.server_url</span> <span class="pre">+</span> <span class="pre">LOGS_URL_SUFFIX,</span> <span class="pre">data=json.dumps(logs),</span> <span class="pre">headers=self.json_header)</span></tt> when there is a slow internet connection.  <tt class="docutils literal"><span class="pre">nr_of_sent_logs</span></tt> is returned so that the number of sent logs can be removed from the stored logs in <a class="reference internal" href="../modules/log_handlers_and_filters.html#log_handlers_and_filters.LogSendStoreHandler" title="log_handlers_and_filters.LogSendStoreHandler"><tt class="xref py py-class docutils literal"><span class="pre">LogSendStoreHandler</span></tt></a> in the method <a class="reference internal" href="log_handlers_and_filters.html#send-logs-job"><em>send_logs_job()</em></a>.</p>
+<div class="highlight-python"><a class="viewcode-back" href="../_modules/connection_manager.html#ConnectionManager.send_logs"> [source]</a><a class="viewcode-back" href="../modules/connection_manager.html#connection_manager.ConnectionManager.send_logs"> [api]</a><div class="highlight"><pre>    <span class="k">def</span> <span class="nf">send_logs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">logs</span><span class="p">):</span>
+        <span class="n">nr_of_sent_logs</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">connected</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">nr_of_sent_logs</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">logs</span><span class="p">)</span>
+                <span class="n">post</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">server_url</span> <span class="o">+</span>
+                    <span class="n">LOGS_URL_SUFFIX</span><span class="p">,</span>
+                    <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">logs</span><span class="p">),</span>
+                    <span class="n">headers</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">json_header</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">validate_response</span><span class="p">(</span><span class="n">post</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">log_response</span><span class="p">(</span><span class="n">post</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">post</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s">&#39;status&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;success&#39;</span><span class="p">:</span>
+                        <span class="n">nr_of_sent_logs</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">warning</span> <span class="o">=</span> <span class="s">&#39;Failed to interpret response of server,&#39;</span>\
+                        <span class="s">&#39;http code= {0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                            <span class="n">post</span><span class="o">.</span><span class="n">status_code</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">warning</span><span class="p">)</span>
+                    <span class="n">nr_of_sent_logs</span> <span class="o">=</span> <span class="mi">0</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">connected</span> <span class="o">=</span> <span class="bp">True</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                    <span class="s">&#39;Failed to send logs to server: {0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+                <span class="n">nr_of_sent_logs</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">connected</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">update_led</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="s">&#39;Postponing sending logs, no connection to server&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">nr_of_sent_logs</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="update-led">
+<span id="conn-update-led"></span><h2>update_led()<a class="headerlink" href="#update-led" title="Permalink to this headline">¶</a></h2>
+<p>Every time there is a possibility that the connection status (<tt class="docutils literal"><span class="pre">self.connected</span></tt>) is changed, this method is called to update the led status.</p>
+<div class="highlight-python"><a class="viewcode-back" href="../_modules/connection_manager.html#ConnectionManager.update_led"> [source]</a><a class="viewcode-back" href="../modules/connection_manager.html#connection_manager.ConnectionManager.update_led"> [api]</a><div class="highlight"><pre>    <span class="k">def</span> <span class="nf">update_led</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">connected</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">led_call</span><span class="o">.</span><span class="n">on</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">led_call</span><span class="o">.</span><span class="n">off</span><span class="p">()</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="set-led-call-led-call">
+<span id="conn-set-led-call"></span><h2>set_led_call(led_call)<a class="headerlink" href="#set-led-call-led-call" title="Permalink to this headline">¶</a></h2>
+<p>This method implements the <a class="reference internal" href="../modules/led_manager.html#led_manager.LedCall" title="led_manager.LedCall"><tt class="xref py py-class docutils literal"><span class="pre">LedCall</span></tt></a> instance.</p>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="read_sensor_scheduler.html" class="btn btn-neutral float-right" title="Class ReadSensorScheduler">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="packet_manager.html" class="btn btn-neutral" title="Class PacketManager"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Jonathan De Beir.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

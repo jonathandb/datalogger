@@ -1,0 +1,294 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>log_handlers_and_filters module &mdash; Datalogger 1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Datalogger 1 documentation" href="../index.html"/>
+        <link rel="up" title="API" href="modules.html"/>
+        <link rel="next" title="configuration_manager module" href="configuration_manager.html"/>
+        <link rel="prev" title="packet_manager module" href="packet_manager.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="fa fa-home"> Datalogger</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../requirements.html">Minimum requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installationguide.html">Installation guide</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../code.html">Code explained</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../code/datalogger.html">Class DataLogger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/led_manager.html">Class LedManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/packet_manager.html">Class PacketManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/connection_manager.html">Class ConnectionManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/read_sensor_scheduler.html">Class ReadSensorScheduler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/configuration_manager.html">Class ConfigurationManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/log_handlers_and_filters.html">Class LogSendStoreHandler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/modbus_slave_reader.html">Class ModbusSlaveReader</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="datalogger.html">datalogger module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="connection_manager.html">connection_manager module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="packet_manager.html">packet_manager module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">log_handlers_and_filters module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_manager.html">configuration_manager module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html">configuration module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="led_manager.html">led_manager module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mcu_modbus_slave_reader.html">mcu_modbus_slave_reader module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mcu_read_sensor_scheduler.html">mcu_read_sensor_scheduler module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modbus_slave_reader.html">modbus_slave_reader module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="read_random_scheduler.html">read_random_scheduler module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="read_sensor_scheduler.html">read_sensor_scheduler module</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Datalogger</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="modules.html">API</a> &raquo;</li>
+      
+    <li>log_handlers_and_filters module</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../_sources/modules/log_handlers_and_filters.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="module-log_handlers_and_filters">
+<span id="log-handlers-and-filters-module"></span><h1>log_handlers_and_filters module<a class="headerlink" href="#module-log_handlers_and_filters" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="log_handlers_and_filters.LogSendStoreHandler">
+<em class="property">class </em><tt class="descclassname">log_handlers_and_filters.</tt><tt class="descname">LogSendStoreHandler</tt><big>(</big><em>log_location</em><big>)</big><a class="reference internal" href="../_modules/log_handlers_and_filters.html#LogSendStoreHandler"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../code/log_handlers_and_filters.html#LogSendStoreHandler"><span class="viewcode-link">[doc]</span></a><a class="headerlink" href="#log_handlers_and_filters.LogSendStoreHandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">logging.Handler</span></tt></p>
+<p>This handler decides what happens with the created logs messages.
+The logs can be sent to the server or/and stored locally.
+The sending and storing can done in configurable time intervals to
+limit wear of network connection and storage.</p>
+<dl class="method">
+<dt id="log_handlers_and_filters.LogSendStoreHandler.update_configuration">
+<tt class="descname">update_configuration</tt><big>(</big><em>**kwargs</em><big>)</big><a class="reference internal" href="../_modules/log_handlers_and_filters.html#LogSendStoreHandler.update_configuration"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../code/log_handlers_and_filters.html#update-configuration"><span class="viewcode-link">[doc]</span></a><a class="headerlink" href="#log_handlers_and_filters.LogSendStoreHandler.update_configuration" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="log_handlers_and_filters.LogSendStoreHandler.emit">
+<tt class="descname">emit</tt><big>(</big><em>record</em><big>)</big><a class="reference internal" href="../_modules/log_handlers_and_filters.html#LogSendStoreHandler.emit"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../code/log_handlers_and_filters.html#emit"><span class="viewcode-link">[doc]</span></a><a class="headerlink" href="#log_handlers_and_filters.LogSendStoreHandler.emit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Is called when a log is created.
+If logs needs to be sent or stored, they are stored in their
+corresponding lists.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="log_handlers_and_filters.LogSendStoreHandler.get_log_level_by_string">
+<tt class="descname">get_log_level_by_string</tt><big>(</big><em>levelstring</em><big>)</big><a class="reference internal" href="../_modules/log_handlers_and_filters.html#LogSendStoreHandler.get_log_level_by_string"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../code/log_handlers_and_filters.html#get-log-level-by-string"><span class="viewcode-link">[doc]</span></a><a class="headerlink" href="#log_handlers_and_filters.LogSendStoreHandler.get_log_level_by_string" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="log_handlers_and_filters.LogSendStoreHandler.initiate_send_logs">
+<tt class="descname">initiate_send_logs</tt><big>(</big><em>connection</em>, <em>scheduler</em><big>)</big><a class="reference internal" href="../_modules/log_handlers_and_filters.html#LogSendStoreHandler.initiate_send_logs"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../code/log_handlers_and_filters.html#initiate-send-logs"><span class="viewcode-link">[doc]</span></a><a class="headerlink" href="#log_handlers_and_filters.LogSendStoreHandler.initiate_send_logs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="log_handlers_and_filters.LogSendStoreHandler.initiate_store_logs">
+<tt class="descname">initiate_store_logs</tt><big>(</big><em>scheduler</em>, <em>log_location</em><big>)</big><a class="reference internal" href="../_modules/log_handlers_and_filters.html#LogSendStoreHandler.initiate_store_logs"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../code/log_handlers_and_filters.html#initiate-store-logs"><span class="viewcode-link">[doc]</span></a><a class="headerlink" href="#log_handlers_and_filters.LogSendStoreHandler.initiate_store_logs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="log_handlers_and_filters.LogSendStoreHandler.send_logs_job">
+<tt class="descname">send_logs_job</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/log_handlers_and_filters.html#LogSendStoreHandler.send_logs_job"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../code/log_handlers_and_filters.html#send-logs-job"><span class="viewcode-link">[doc]</span></a><a class="headerlink" href="#log_handlers_and_filters.LogSendStoreHandler.send_logs_job" title="Permalink to this definition">¶</a></dt>
+<dd><p>Is called on a time interval set in the configuration.
+If sending of the logs is successfull, the logs that needs to be sent
+are cleared.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="log_handlers_and_filters.LogSendStoreHandler.store_logs_job">
+<tt class="descname">store_logs_job</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/log_handlers_and_filters.html#LogSendStoreHandler.store_logs_job"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../code/log_handlers_and_filters.html#store-logs-job"><span class="viewcode-link">[doc]</span></a><a class="headerlink" href="#log_handlers_and_filters.LogSendStoreHandler.store_logs_job" title="Permalink to this definition">¶</a></dt>
+<dd><p>Is called on a time interval set in the configuration.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="log_handlers_and_filters.LogSendStoreHandler.keep_logfile_in_max_limits">
+<tt class="descname">keep_logfile_in_max_limits</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/log_handlers_and_filters.html#LogSendStoreHandler.keep_logfile_in_max_limits"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../code/log_handlers_and_filters.html#keep-logfile-in-max-limits"><span class="viewcode-link">[doc]</span></a><a class="headerlink" href="#log_handlers_and_filters.LogSendStoreHandler.keep_logfile_in_max_limits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Organises the logfiles.
+If a logfile is to big, it is stored under another name and a
+new logfile is created.
+If there are too many logfiles, the oldest one is removed.
+The total max log size is set in the configuration. The individual
+log file size is set in global variable SINGLE_LOG_FILE_SIZE .</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="log_handlers_and_filters.LogSendStoreHandler.examine_logfolder">
+<tt class="descname">examine_logfolder</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/log_handlers_and_filters.html#LogSendStoreHandler.examine_logfolder"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../code/log_handlers_and_filters.html#examine-logfolder"><span class="viewcode-link">[doc]</span></a><a class="headerlink" href="#log_handlers_and_filters.LogSendStoreHandler.examine_logfolder" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="log_handlers_and_filters.LogSendStoreHandler.set_led_call">
+<tt class="descname">set_led_call</tt><big>(</big><em>led_call</em><big>)</big><a class="reference internal" href="../_modules/log_handlers_and_filters.html#LogSendStoreHandler.set_led_call"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../code/log_handlers_and_filters.html#set-led-call"><span class="viewcode-link">[doc]</span></a><a class="headerlink" href="#log_handlers_and_filters.LogSendStoreHandler.set_led_call" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="log_handlers_and_filters.JobInfoFilter">
+<em class="property">class </em><tt class="descclassname">log_handlers_and_filters.</tt><tt class="descname">JobInfoFilter</tt><big>(</big><em>name=''</em><big>)</big><a class="reference internal" href="../_modules/log_handlers_and_filters.html#JobInfoFilter"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../code/log_handlers_and_filters.html#JobInfoFilter"><span class="viewcode-link">[doc]</span></a><a class="headerlink" href="#log_handlers_and_filters.JobInfoFilter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">logging.Filter</span></tt></p>
+<p>Filter for the apscheduler lib logs</p>
+<dl class="method">
+<dt id="log_handlers_and_filters.JobInfoFilter.filter">
+<tt class="descname">filter</tt><big>(</big><em>record</em><big>)</big><a class="reference internal" href="../_modules/log_handlers_and_filters.html#JobInfoFilter.filter"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../code/log_handlers_and_filters.html#filter"><span class="viewcode-link">[doc]</span></a><a class="headerlink" href="#log_handlers_and_filters.JobInfoFilter.filter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="log_handlers_and_filters.ModbusClientFilter">
+<em class="property">class </em><tt class="descclassname">log_handlers_and_filters.</tt><tt class="descname">ModbusClientFilter</tt><big>(</big><em>name=''</em><big>)</big><a class="reference internal" href="../_modules/log_handlers_and_filters.html#ModbusClientFilter"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../code/log_handlers_and_filters.html#ModbusClientFilter"><span class="viewcode-link">[doc]</span></a><a class="headerlink" href="#log_handlers_and_filters.ModbusClientFilter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">logging.Filter</span></tt></p>
+<p>Filter for the modbus lib logs</p>
+<dl class="method">
+<dt id="log_handlers_and_filters.ModbusClientFilter.filter">
+<tt class="descname">filter</tt><big>(</big><em>record</em><big>)</big><a class="reference internal" href="../_modules/log_handlers_and_filters.html#ModbusClientFilter.filter"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../code/log_handlers_and_filters.html#filter"><span class="viewcode-link">[doc]</span></a><a class="headerlink" href="#log_handlers_and_filters.ModbusClientFilter.filter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="configuration_manager.html" class="btn btn-neutral float-right" title="configuration_manager module">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="packet_manager.html" class="btn btn-neutral" title="packet_manager module"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Jonathan De Beir.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,431 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Class ConfigurationManager &mdash; Datalogger 1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Datalogger 1 documentation" href="../index.html"/>
+        <link rel="up" title="Code explained" href="../code.html"/>
+        <link rel="next" title="Class LogSendStoreHandler" href="log_handlers_and_filters.html"/>
+        <link rel="prev" title="Class ReadSensorScheduler" href="read_sensor_scheduler.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="fa fa-home"> Datalogger</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../requirements.html">Minimum requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installationguide.html">Installation guide</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../code.html">Code explained</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="datalogger.html">Class DataLogger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="led_manager.html">Class LedManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="packet_manager.html">Class PacketManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="connection_manager.html">Class ConnectionManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="read_sensor_scheduler.html">Class ReadSensorScheduler</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Class ConfigurationManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="log_handlers_and_filters.html">Class LogSendStoreHandler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modbus_slave_reader.html">Class ModbusSlaveReader</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/modules.html">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../modules/datalogger.html">datalogger module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/connection_manager.html">connection_manager module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/packet_manager.html">packet_manager module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/log_handlers_and_filters.html">log_handlers_and_filters module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/configuration_manager.html">configuration_manager module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/configuration.html">configuration module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/led_manager.html">led_manager module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/mcu_modbus_slave_reader.html">mcu_modbus_slave_reader module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/mcu_read_sensor_scheduler.html">mcu_read_sensor_scheduler module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/modbus_slave_reader.html">modbus_slave_reader module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/read_random_scheduler.html">read_random_scheduler module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/read_sensor_scheduler.html">read_sensor_scheduler module</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Datalogger</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../code.html">Code explained</a> &raquo;</li>
+      
+    <li>Class ConfigurationManager</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../_sources/code/configuration_manager.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="class-configurationmanager">
+<h1>Class ConfigurationManager<a class="headerlink" href="#class-configurationmanager" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="#conf-init"><em>__init__()</em></a></li>
+<li><a class="reference internal" href="#load-local-configuration"><em>load_local_configuration</em></a></li>
+<li><a class="reference internal" href="#is-online-configuration-different"><em>is_online_configuration_different</em></a></li>
+<li><a class="reference internal" href="#validate-json-configuration"><em>validate_json_configuration</em></a></li>
+<li><a class="reference internal" href="#save-configuration-local"><em>save_configuration_local</em></a></li>
+<li><a class="reference internal" href="#try-save-configuration-parameter"><em>try_save_configuration_parameter</em></a></li>
+</ul>
+</div></blockquote>
+<div class="section" id="init">
+<span id="conf-init"></span><h2>__init__()<a class="headerlink" href="#init" title="Permalink to this headline">¶</a></h2>
+<p>The logger is initialised. And the configuration location <tt class="docutils literal"><span class="pre">config_location</span></tt> is passed from the constructor. After that the local configuration is loaded in <a class="reference internal" href="#load-local-configuration"><em>load_local_configuration</em></a></p>
+<div class="highlight-python"><a class="viewcode-back" href="../_modules/configuration_manager.html#ConfigurationManager"> [source]</a><a class="viewcode-back" href="../modules/configuration_manager.html#configuration_manager.ConfigurationManager"> [api]</a><div class="highlight"><pre>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config_location</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config_location</span> <span class="o">=</span> <span class="n">config_location</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">load_local_configuration</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="load-local-configuration">
+<span id="id1"></span><h2>load_local_configuration<a class="headerlink" href="#load-local-configuration" title="Permalink to this headline">¶</a></h2>
+<p>As the method title says, it loads the local configuration. The whole process of loading the configuration is put in a try-except block. In it, the <tt class="xref py py-class docutils literal"><span class="pre">ConfigParser</span></tt> object is initialised and the configuration location is set in it..
+When the configuration or a configuration parameter is not found, it is cached in it. The configuration is stored in global variables in the <a class="reference internal" href="../modules/configuration.html#module-configuration" title="configuration"><tt class="xref py py-mod docutils literal"><span class="pre">configuration</span></tt></a> module.</p>
+<div class="highlight-python"><a class="viewcode-back" href="../_modules/configuration_manager.html#ConfigurationManager.load_local_configuration"> [source]</a><a class="viewcode-back" href="../modules/configuration_manager.html#configuration_manager.ConfigurationManager.load_local_configuration"> [api]</a><div class="highlight"><pre>    <span class="k">def</span> <span class="nf">load_local_configuration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Loads the locally stored configuration</span>
+<span class="sd">        Loads the json and put its parameters, modbus slaves</span>
+<span class="sd">        and timers in the configuration module</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config_location</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&#39;Configuration file doesn</span><span class="se">\&#39;</span><span class="s"> exist!&#39;</span><span class="p">)</span>
+
+            <span class="n">configuration</span><span class="o">.</span><span class="n">local</span> <span class="o">=</span> <span class="n">configparser</span><span class="o">.</span><span class="n">ConfigParser</span><span class="p">()</span>
+            <span class="n">configuration</span><span class="o">.</span><span class="n">local</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config_location</span><span class="p">)</span>
+            <span class="n">configuration</span><span class="o">.</span><span class="n">timers</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">configuration</span><span class="o">.</span><span class="n">modbus_slaves</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="n">slaves</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span>
+                <span class="n">configuration</span><span class="o">.</span><span class="n">local</span><span class="p">[</span><span class="s">&#39;sensorConfiguration&#39;</span><span class="p">][</span><span class="s">&#39;modbusSlaves&#39;</span><span class="p">])</span>
+            <span class="k">for</span> <span class="n">slave</span> <span class="ow">in</span> <span class="n">slaves</span><span class="p">:</span>
+                <span class="n">s</span> <span class="o">=</span> <span class="n">ModbusSlave</span><span class="p">()</span>
+                <span class="n">s</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="n">slave</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">s</span><span class="o">.</span><span class="n">address</span> <span class="o">=</span> <span class="n">slave</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">s</span><span class="o">.</span><span class="n">register</span> <span class="o">=</span> <span class="n">slave</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+                <span class="n">configuration</span><span class="o">.</span><span class="n">modbus_slaves</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+
+            <span class="n">timers</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span>
+                <span class="n">configuration</span><span class="o">.</span><span class="n">local</span><span class="p">[</span><span class="s">&#39;sensorConfiguration&#39;</span><span class="p">][</span><span class="s">&#39;timers&#39;</span><span class="p">])</span>
+            <span class="k">for</span> <span class="n">timer</span> <span class="ow">in</span> <span class="n">timers</span><span class="p">:</span>
+                <span class="n">t</span> <span class="o">=</span> <span class="n">Timer</span><span class="p">()</span>
+                <span class="n">t</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="n">timer</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">t</span><span class="o">.</span><span class="n">slaves</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">slave</span> <span class="ow">in</span> <span class="n">configuration</span><span class="o">.</span><span class="n">modbus_slaves</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">slave</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">t</span><span class="o">.</span><span class="n">type</span><span class="p">:</span>
+                        <span class="n">t</span><span class="o">.</span><span class="n">slaves</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">slave</span><span class="p">)</span>
+                <span class="n">t</span><span class="o">.</span><span class="n">start_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">utcfromtimestamp</span><span class="p">(</span><span class="n">timer</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+                <span class="n">t</span><span class="o">.</span><span class="n">time_interval</span> <span class="o">=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">timer</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+                <span class="n">configuration</span><span class="o">.</span><span class="n">timers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">k</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="s">&#39;Local configuration incomplete, key  </span><span class="si">%s</span><span class="s"> not found &#39;</span> <span class="o">%</span>
+                <span class="n">k</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="is-online-configuration-different">
+<span id="id2"></span><h2>is_online_configuration_different<a class="headerlink" href="#is-online-configuration-different" title="Permalink to this headline">¶</a></h2>
+<p>Compares the passed variable online_checksum with the local checksum and returns True if they differ.</p>
+<div class="highlight-python"><a class="viewcode-back" href="../_modules/configuration_manager.html#ConfigurationManager.is_online_configuration_different"> [source]</a><a class="viewcode-back" href="../modules/configuration_manager.html#configuration_manager.ConfigurationManager.is_online_configuration_different"> [api]</a><div class="highlight"><pre>    <span class="k">def</span> <span class="nf">is_online_configuration_different</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">online_checksum</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">configuration</span><span class="o">.</span><span class="n">get_checksum</span><span class="p">()</span> <span class="o">==</span> <span class="n">online_checksum</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">True</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="validate-json-configuration">
+<span id="id3"></span><h2>validate_json_configuration<a class="headerlink" href="#validate-json-configuration" title="Permalink to this headline">¶</a></h2>
+<p>This method is used to check if the downloaded configuration in json format is valid.</p>
+<div class="highlight-python"><a class="viewcode-back" href="../_modules/configuration_manager.html#ConfigurationManager.validate_json_configuration"> [source]</a><a class="viewcode-back" href="../modules/configuration_manager.html#configuration_manager.ConfigurationManager.validate_json_configuration"> [api]</a><div class="highlight"><pre>    <span class="k">def</span> <span class="nf">validate_json_configuration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">json_configuration</span><span class="p">):</span>
+        <span class="n">configuration_schema</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;object&quot;</span><span class="p">,</span> <span class="s">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s">&quot;timers&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;array&quot;</span><span class="p">,</span> <span class="s">&quot;items&quot;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;array&quot;</span><span class="p">,</span> <span class="s">&quot;items&quot;</span><span class="p">:</span> <span class="p">{</span>
+                            <span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;number&quot;</span><span class="p">,</span> <span class="s">&quot;minItems&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s">&quot;maxItems&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
+                    <span class="p">}</span>
+                <span class="p">},</span>
+                <span class="s">&quot;modbus_slaves&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;array&quot;</span><span class="p">,</span> <span class="s">&quot;items&quot;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;array&quot;</span><span class="p">,</span> <span class="s">&quot;items&quot;</span><span class="p">:</span> <span class="p">{</span>
+                            <span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;number&quot;</span><span class="p">,</span> <span class="s">&quot;minItems&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s">&quot;maxItems&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">validate</span><span class="p">(</span><span class="n">json_configuration</span><span class="p">,</span> <span class="n">configuration_schema</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s">&quot;not valid json: </span><span class="se">\n\r</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">e</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="save-configuration-local">
+<span id="id4"></span><h2>save_configuration_local<a class="headerlink" href="#save-configuration-local" title="Permalink to this headline">¶</a></h2>
+<p>In this method the passed configuration is stored locally. To make sure all configuration sections exist, an attempt is done to create them.  To store the parameters as optimal as possible, they are each loaded in a seperate try-except block in the method <a class="reference internal" href="#try-save-configuration-parameter"><em>try_save_configuration_parameter</em></a>.</p>
+<p>When all the configuration parameters are stored in the <a class="reference internal" href="../modules/configuration.html#module-configuration" title="configuration"><tt class="xref py py-mod docutils literal"><span class="pre">configuration</span></tt></a> module, the physical storing of the configuration is done. First it is checked if the folder of the configuration exists. If not, it is created recursively with the <tt class="docutils literal"><span class="pre">os.makedirs(config_dirpath)</span></tt> method. After that, the configuration is stored in the folder.</p>
+<div class="highlight-python"><a class="viewcode-back" href="../_modules/configuration_manager.html#ConfigurationManager.save_configuration_local"> [source]</a><a class="viewcode-back" href="../modules/configuration_manager.html#configuration_manager.ConfigurationManager.save_configuration_local"> [api]</a><div class="highlight"><pre>    <span class="k">def</span> <span class="nf">save_configuration_local</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">checksum</span><span class="p">,</span> <span class="n">new_configuration</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Saves the new configuration locally. &quot;&quot;&quot;</span>
+        <span class="c"># init sections</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">configuration</span><span class="o">.</span><span class="n">local</span><span class="o">.</span><span class="n">add_section</span><span class="p">(</span><span class="s">&#39;sensorConfiguration&#39;</span><span class="p">)</span>
+            <span class="n">configuration</span><span class="o">.</span><span class="n">local</span><span class="o">.</span><span class="n">add_section</span><span class="p">(</span><span class="s">&#39;server&#39;</span><span class="p">)</span>
+            <span class="n">configuration</span><span class="o">.</span><span class="n">local</span><span class="o">.</span><span class="n">add_section</span><span class="p">(</span><span class="s">&#39;logging&#39;</span><span class="p">)</span>
+            <span class="n">configuration</span><span class="o">.</span><span class="n">local</span><span class="o">.</span><span class="n">add_section</span><span class="p">(</span><span class="s">&#39;i2c&#39;</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+        <span class="n">configuration</span><span class="o">.</span><span class="n">local</span><span class="p">[</span><span class="s">&#39;sensorConfiguration&#39;</span><span class="p">][</span><span class="s">&#39;checksum&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">checksum</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">try_save_configuration_parameter</span><span class="p">(</span>
+            <span class="n">new_configuration</span><span class="p">,</span>
+            <span class="s">&#39;sensorConfiguration&#39;</span><span class="p">,</span>
+            <span class="s">&#39;timers&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">try_save_configuration_parameter</span><span class="p">(</span>
+            <span class="n">new_configuration</span><span class="p">,</span>
+            <span class="s">&#39;sensorConfiguration&#39;</span><span class="p">,</span>
+            <span class="s">&#39;modbusSlaves&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">try_save_configuration_parameter</span><span class="p">(</span>
+            <span class="n">new_configuration</span><span class="p">,</span>
+            <span class="s">&#39;server&#39;</span><span class="p">,</span>
+            <span class="s">&#39;url&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">try_save_configuration_parameter</span><span class="p">(</span>
+            <span class="n">new_configuration</span><span class="p">,</span>
+            <span class="s">&#39;server&#39;</span><span class="p">,</span>
+            <span class="s">&#39;timeout&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">try_save_configuration_parameter</span><span class="p">(</span>
+            <span class="n">new_configuration</span><span class="p">,</span>
+            <span class="s">&#39;server&#39;</span><span class="p">,</span>
+            <span class="s">&#39;timeIntervalToSendPackets&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">try_save_configuration_parameter</span><span class="p">(</span>
+            <span class="n">new_configuration</span><span class="p">,</span>
+            <span class="s">&#39;server&#39;</span><span class="p">,</span>
+            <span class="s">&#39;minimumPacketsToSend&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">try_save_configuration_parameter</span><span class="p">(</span>
+            <span class="n">new_configuration</span><span class="p">,</span>
+            <span class="s">&#39;sensorConfiguration&#39;</span><span class="p">,</span>
+            <span class="s">&#39;sendLogsToServer&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">try_save_configuration_parameter</span><span class="p">(</span>
+            <span class="n">new_configuration</span><span class="p">,</span>
+            <span class="s">&#39;logging&#39;</span><span class="p">,</span>
+            <span class="s">&#39;storeLogsLocal&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">try_save_configuration_parameter</span><span class="p">(</span>
+            <span class="n">new_configuration</span><span class="p">,</span>
+            <span class="s">&#39;logging&#39;</span><span class="p">,</span>
+            <span class="s">&#39;logLevelToSendToServer&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">try_save_configuration_parameter</span><span class="p">(</span>
+            <span class="n">new_configuration</span><span class="p">,</span>
+            <span class="s">&#39;logging&#39;</span><span class="p">,</span>
+            <span class="s">&#39;logLevelToStoreLocal&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">try_save_configuration_parameter</span><span class="p">(</span>
+            <span class="n">new_configuration</span><span class="p">,</span>
+            <span class="s">&#39;logging&#39;</span><span class="p">,</span>
+            <span class="s">&#39;timeIntervalToStoreLocal&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">try_save_configuration_parameter</span><span class="p">(</span>
+            <span class="n">new_configuration</span><span class="p">,</span>
+            <span class="s">&#39;logging&#39;</span><span class="p">,</span>
+            <span class="s">&#39;timeIntervalToSendLog&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">try_save_configuration_parameter</span><span class="p">(</span>
+            <span class="n">new_configuration</span><span class="p">,</span>
+            <span class="s">&#39;logging&#39;</span><span class="p">,</span>
+            <span class="s">&#39;sendLogsToServer&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">try_save_configuration_parameter</span><span class="p">(</span>
+            <span class="n">new_configuration</span><span class="p">,</span>
+            <span class="s">&#39;logging&#39;</span><span class="p">,</span>
+            <span class="s">&#39;storeLogsLocal&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">try_save_configuration_parameter</span><span class="p">(</span>
+            <span class="n">new_configuration</span><span class="p">,</span>
+            <span class="s">&#39;logging&#39;</span><span class="p">,</span>
+            <span class="s">&#39;timeIntervalToCheckOnlineConfig&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">try_save_configuration_parameter</span><span class="p">(</span>
+            <span class="n">new_configuration</span><span class="p">,</span>
+            <span class="s">&#39;logging&#39;</span><span class="p">,</span>
+            <span class="s">&#39;maxLocalLogSize&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">try_save_configuration_parameter</span><span class="p">(</span>
+            <span class="n">new_configuration</span><span class="p">,</span>
+            <span class="s">&#39;i2c&#39;</span><span class="p">,</span>
+            <span class="s">&#39;slaveAddress&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">try_save_configuration_parameter</span><span class="p">(</span>
+            <span class="n">new_configuration</span><span class="p">,</span>
+            <span class="s">&#39;i2c&#39;</span><span class="p">,</span>
+            <span class="s">&#39;busAddress&#39;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">config_dirpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">config_location</span><span class="p">))</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">config_dirpath</span><span class="p">):</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">config_dirpath</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                        <span class="s">&#39;Made configuration folder {0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">config_dirpath</span><span class="p">))</span>
+                <span class="k">except</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&#39;Problem making configuration folder&#39;</span><span class="p">)</span>
+                    <span class="k">raise</span>
+
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config_location</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">configfile</span><span class="p">:</span>
+                <span class="n">configuration</span><span class="o">.</span><span class="n">local</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">configfile</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;New Configuration saved&quot;</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&#39;Problem storing configuration file&#39;</span><span class="p">)</span>
+            <span class="k">raise</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">load_local_configuration</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="try-save-configuration-parameter">
+<span id="id5"></span><h2>try_save_configuration_parameter<a class="headerlink" href="#try-save-configuration-parameter" title="Permalink to this headline">¶</a></h2>
+<p>An attempt is done to store the online configuration parameter in the <a class="reference internal" href="../modules/configuration.html#module-configuration" title="configuration"><tt class="xref py py-mod docutils literal"><span class="pre">configuration</span></tt></a> module.</p>
+<div class="highlight-python"><a class="viewcode-back" href="../_modules/configuration_manager.html#ConfigurationManager.try_save_configuration_parameter"> [source]</a><a class="viewcode-back" href="../modules/configuration_manager.html#configuration_manager.ConfigurationManager.try_save_configuration_parameter"> [api]</a><div class="highlight"><pre>    <span class="k">def</span> <span class="nf">try_save_configuration_parameter</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">online_configuration</span><span class="p">,</span>
+            <span class="n">section</span><span class="p">,</span>
+            <span class="n">key</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">configuration</span><span class="o">.</span><span class="n">local</span><span class="p">[</span><span class="n">section</span><span class="p">][</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">online_configuration</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="s">&#39;Parameter </span><span class="si">%s</span><span class="s"> does not exist in online configuration&#39;</span> <span class="o">%</span>
+                <span class="n">key</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="log_handlers_and_filters.html" class="btn btn-neutral float-right" title="Class LogSendStoreHandler">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="read_sensor_scheduler.html" class="btn btn-neutral" title="Class ReadSensorScheduler"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Jonathan De Beir.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,399 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>connection_manager &mdash; Datalogger 1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Datalogger 1 documentation" href="../index.html"/>
+        <link rel="up" title="Module code" href="index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="fa fa-home"> Datalogger</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../requirements.html">Minimum requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installationguide.html">Installation guide</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../code.html">Code explained</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../code/datalogger.html">Class DataLogger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/led_manager.html">Class LedManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/packet_manager.html">Class PacketManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/connection_manager.html">Class ConnectionManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/read_sensor_scheduler.html">Class ReadSensorScheduler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/configuration_manager.html">Class ConfigurationManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/log_handlers_and_filters.html">Class LogSendStoreHandler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/modbus_slave_reader.html">Class ModbusSlaveReader</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/modules.html">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../modules/datalogger.html">datalogger module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/connection_manager.html">connection_manager module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/packet_manager.html">packet_manager module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/log_handlers_and_filters.html">log_handlers_and_filters module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/configuration_manager.html">configuration_manager module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/configuration.html">configuration module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/led_manager.html">led_manager module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/mcu_modbus_slave_reader.html">mcu_modbus_slave_reader module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/mcu_read_sensor_scheduler.html">mcu_read_sensor_scheduler module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/modbus_slave_reader.html">modbus_slave_reader module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/read_random_scheduler.html">read_random_scheduler module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/read_sensor_scheduler.html">read_sensor_scheduler module</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Datalogger</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">Module code</a> &raquo;</li>
+      
+    <li>connection_manager</li>
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <h1>Source code for connection_manager</h1><div class="highlight"><pre>
+<span class="kn">import</span> <span class="nn">configuration</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">jsonschema</span> <span class="kn">import</span> <span class="n">validate</span>
+
+
+<span class="n">CHECKSUM_URL_SUFFIX</span> <span class="o">=</span> <span class="s">&#39;request/config/checksum&#39;</span>
+<span class="n">PACKETS_URL_SUFFIX</span> <span class="o">=</span> <span class="s">&#39;request/packets&#39;</span>
+<span class="n">LOGS_URL_SUFFIX</span> <span class="o">=</span> <span class="s">&#39;request/logs&#39;</span>
+
+
+<div class="viewcode-block" id="ConnectionManager"p><a class="viewcode-back" href="../modules/connection_manager.html#connection_manager.ConnectionManager">[api]</a><a class="viewcode-back" href="../code/connection_manager.html#ConnectionManager">[docs]</a><span class="k">class</span> <span class="nc">ConnectionManager</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;This class provides a connection to the server and is able to:</span>
+<span class="sd">        - Check connection</span>
+<span class="sd">        - Sent packets</span>
+<span class="sd">        - Sent logs</span>
+<span class="sd">        - Give validation of the response of the requests</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">json_header</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;content-type&#39;</span><span class="p">:</span> <span class="s">&#39;application/json&#39;</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+
+        <span class="n">connection_filter</span> <span class="o">=</span> <span class="n">ConnectionFilter</span><span class="p">()</span>
+        <span class="n">requests_logger_name</span> <span class="o">=</span> <span class="s">&#39;requests.packages.urllib3.connectionpool&#39;</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">requests_logger_name</span><span class="p">)</span><span class="o">.</span><span class="n">addFilter</span><span class="p">(</span>
+            <span class="n">connection_filter</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">connected</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_configuration</span><span class="p">()</span>
+
+<div class="viewcode-block" id="ConnectionManager.update_configuration"p><a class="viewcode-back" href="../modules/connection_manager.html#connection_manager.ConnectionManager.update_configuration">[api]</a><a class="viewcode-back" href="../code/connection_manager.html#update-configuration">[docs]</a>    <span class="k">def</span> <span class="nf">update_configuration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">server_url</span> <span class="o">=</span> <span class="n">configuration</span><span class="o">.</span><span class="n">get_server_path</span><span class="p">()</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="s">&#39;Failed to update configuration of {0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">__name__</span><span class="p">))</span>
+</div>
+<div class="viewcode-block" id="ConnectionManager.is_connected"p><a class="viewcode-back" href="../modules/connection_manager.html#connection_manager.ConnectionManager.is_connected">[api]</a><a class="viewcode-back" href="../code/connection_manager.html#is-connected">[docs]</a>    <span class="k">def</span> <span class="nf">is_connected</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">connected</span>
+</div>
+<div class="viewcode-block" id="ConnectionManager.check_internet_connection"p><a class="viewcode-back" href="../modules/connection_manager.html#connection_manager.ConnectionManager.check_internet_connection">[api]</a><a class="viewcode-back" href="../code/connection_manager.html#check-internet-connection">[docs]</a>    <span class="k">def</span> <span class="nf">check_internet_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&#39;Trying to connect to internet..&#39;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;http://www.google.com&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s">&#39;No connection to the internet&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">connected</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">update_led</span><span class="p">()</span>
+            <span class="k">return</span> <span class="bp">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&#39;Connected to the internet.&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_led</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">True</span>
+</div>
+<div class="viewcode-block" id="ConnectionManager.check_server_connection"p><a class="viewcode-back" href="../modules/connection_manager.html#connection_manager.ConnectionManager.check_server_connection">[api]</a><a class="viewcode-back" href="../code/connection_manager.html#check-server-connection">[docs]</a>    <span class="k">def</span> <span class="nf">check_server_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">req</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">server_url</span><span class="o">+</span><span class="n">CHECKSUM_URL_SUFFIX</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">req</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">connected</span> <span class="o">=</span> <span class="bp">True</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s">&#39;No connection to the server&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">connected</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="k">return</span> <span class="bp">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&#39;Connected to the server.&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_led</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">True</span>
+</div>
+<div class="viewcode-block" id="ConnectionManager.get_configuration_checksum"p><a class="viewcode-back" href="../modules/connection_manager.html#connection_manager.ConnectionManager.get_configuration_checksum">[api]</a><a class="viewcode-back" href="../code/connection_manager.html#get-configuration-checksum">[docs]</a>    <span class="k">def</span> <span class="nf">get_configuration_checksum</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">connected</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">checksum_req</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">server_url</span> <span class="o">+</span> <span class="n">CHECKSUM_URL_SUFFIX</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">checksum_req</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="mi">200</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="n">requests</span><span class="o">.</span><span class="n">ConnectionError</span><span class="p">()</span>
+                <span class="k">return</span> <span class="n">checksum_req</span><span class="o">.</span><span class="n">text</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="n">warning</span> <span class="o">=</span> <span class="s">&#39;Failed to get configuration checksum from server,&#39;</span>\
+                    <span class="s">&#39;is server application running?&#39;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">warning</span><span class="p">)</span>
+                <span class="k">raise</span>
+        <span class="k">return</span> <span class="mi">0</span>
+</div>
+<div class="viewcode-block" id="ConnectionManager.get_configuration"p><a class="viewcode-back" href="../modules/connection_manager.html#connection_manager.ConnectionManager.get_configuration">[api]</a><a class="viewcode-back" href="../code/connection_manager.html#get-configuration">[docs]</a>    <span class="k">def</span> <span class="nf">get_configuration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">connected</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">config_req</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">server_url</span><span class="o">+</span><span class="s">&quot;request/config&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">config_req</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">config_req</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="n">requests</span><span class="o">.</span><span class="n">ConnectionError</span><span class="p">()</span>
+
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                    <span class="s">&#39;Failed to load configuration from server: {0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+                <span class="k">raise</span>
+</div>
+<div class="viewcode-block" id="ConnectionManager.send_packets"p><a class="viewcode-back" href="../modules/connection_manager.html#connection_manager.ConnectionManager.send_packets">[api]</a><a class="viewcode-back" href="../code/connection_manager.html#send-packets">[docs]</a>    <span class="k">def</span> <span class="nf">send_packets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">packets</span><span class="p">):</span>
+        <span class="n">nr_of_sent_packets</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">connected</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">nr_of_sent_packets</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">packets</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                    <span class="s">&#39;{0} packets are ready to be sent&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="n">nr_of_sent_packets</span><span class="p">))</span>
+                <span class="n">post</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">server_url</span> <span class="o">+</span>
+                    <span class="n">PACKETS_URL_SUFFIX</span><span class="p">,</span>
+                    <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">packets</span><span class="p">),</span>
+                    <span class="n">headers</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">json_header</span><span class="p">)</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">validate_response</span><span class="p">(</span><span class="n">post</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">log_response</span><span class="p">(</span><span class="n">post</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">post</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s">&#39;status&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;success&#39;</span><span class="p">:</span>
+                        <span class="n">nr_of_sent_packets</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">warning</span> <span class="o">=</span> <span class="s">&#39;Failed to interpret response of server,&#39;</span>\
+                        <span class="s">&#39;http code= {0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">post</span><span class="o">.</span><span class="n">status_code</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">warning</span><span class="p">)</span>
+                    <span class="n">nr_of_sent_packets</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">connected</span> <span class="o">=</span> <span class="bp">True</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                    <span class="s">&#39;Failed to send packets, server message: {0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+                <span class="n">nr_of_sent_packets</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">connected</span> <span class="o">=</span> <span class="bp">False</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">update_led</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">update_led</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="s">&#39;{0} packages are sent, current nr of packets is {1}.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">nr_of_sent_packets</span><span class="p">,</span>
+                    <span class="nb">len</span><span class="p">(</span><span class="n">packets</span><span class="p">)))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="s">&#39;Postponing sending packets, no connection to server&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">nr_of_sent_packets</span>
+</div>
+<div class="viewcode-block" id="ConnectionManager.validate_response"p><a class="viewcode-back" href="../modules/connection_manager.html#connection_manager.ConnectionManager.validate_response">[api]</a><a class="viewcode-back" href="../code/connection_manager.html#validate-response">[docs]</a>    <span class="k">def</span> <span class="nf">validate_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">post</span><span class="p">):</span>
+        <span class="n">json_schema</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;object&quot;</span><span class="p">,</span>
+            <span class="s">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s">&quot;status&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;string&quot;</span><span class="p">},</span>
+                <span class="s">&quot;msg&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;string&quot;</span><span class="p">},</span>
+            <span class="p">},</span>
+        <span class="p">}</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">validate</span><span class="p">(</span><span class="n">json_schema</span><span class="p">,</span> <span class="n">post</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span>
+        <span class="k">return</span> <span class="bp">True</span>
+</div>
+<div class="viewcode-block" id="ConnectionManager.log_response"p><a class="viewcode-back" href="../modules/connection_manager.html#connection_manager.ConnectionManager.log_response">[api]</a><a class="viewcode-back" href="../code/connection_manager.html#log-response">[docs]</a>    <span class="k">def</span> <span class="nf">log_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">post</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">post</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s">&#39;status&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;error&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="s">&#39;Failed to send data, code {0}, server message: {1}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">post</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span>
+                    <span class="n">post</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s">&#39;msg&#39;</span><span class="p">]))</span>
+        <span class="k">elif</span> <span class="n">post</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s">&#39;status&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;success&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="s">&#39;Sent data to server, code {0}, server message: {1}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">post</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span>
+                    <span class="n">post</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s">&#39;msg&#39;</span><span class="p">]))</span>
+</div>
+<div class="viewcode-block" id="ConnectionManager.send_logs"p><a class="viewcode-back" href="../modules/connection_manager.html#connection_manager.ConnectionManager.send_logs">[api]</a><a class="viewcode-back" href="../code/connection_manager.html#send-logs">[docs]</a>    <span class="k">def</span> <span class="nf">send_logs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">logs</span><span class="p">):</span>
+        <span class="n">nr_of_sent_logs</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">connected</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">nr_of_sent_logs</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">logs</span><span class="p">)</span>
+                <span class="n">post</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">server_url</span> <span class="o">+</span>
+                    <span class="n">LOGS_URL_SUFFIX</span><span class="p">,</span>
+                    <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">logs</span><span class="p">),</span>
+                    <span class="n">headers</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">json_header</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">validate_response</span><span class="p">(</span><span class="n">post</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">log_response</span><span class="p">(</span><span class="n">post</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">post</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s">&#39;status&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;success&#39;</span><span class="p">:</span>
+                        <span class="n">nr_of_sent_logs</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">warning</span> <span class="o">=</span> <span class="s">&#39;Failed to interpret response of server,&#39;</span>\
+                        <span class="s">&#39;http code= {0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                            <span class="n">post</span><span class="o">.</span><span class="n">status_code</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">warning</span><span class="p">)</span>
+                    <span class="n">nr_of_sent_logs</span> <span class="o">=</span> <span class="mi">0</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">connected</span> <span class="o">=</span> <span class="bp">True</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                    <span class="s">&#39;Failed to send logs to server: {0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+                <span class="n">nr_of_sent_logs</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">connected</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">update_led</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="s">&#39;Postponing sending logs, no connection to server&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">nr_of_sent_logs</span>
+</div>
+<div class="viewcode-block" id="ConnectionManager.update_led"p><a class="viewcode-back" href="../modules/connection_manager.html#connection_manager.ConnectionManager.update_led">[api]</a><a class="viewcode-back" href="../code/connection_manager.html#update-led">[docs]</a>    <span class="k">def</span> <span class="nf">update_led</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">connected</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">led_call</span><span class="o">.</span><span class="n">on</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">led_call</span><span class="o">.</span><span class="n">off</span><span class="p">()</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">pass</span>
+</div>
+<div class="viewcode-block" id="ConnectionManager.set_led_call"p><a class="viewcode-back" href="../modules/connection_manager.html#connection_manager.ConnectionManager.set_led_call">[api]</a><a class="viewcode-back" href="../code/connection_manager.html#set-led-call">[docs]</a>    <span class="k">def</span> <span class="nf">set_led_call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">led_call</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">led_call</span> <span class="o">=</span> <span class="n">led_call</span>
+
+</div></div>
+<div class="viewcode-block" id="ConnectionFilter"p><a class="viewcode-back" href="../modules/connection_manager.html#connection_manager.ConnectionFilter">[api]</a><a class="viewcode-back" href="../code/connection_manager.html#ConnectionFilter">[docs]</a><span class="k">class</span> <span class="nc">ConnectionFilter</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">Filter</span><span class="p">):</span>
+
+<div class="viewcode-block" id="ConnectionFilter.filter"p><a class="viewcode-back" href="../modules/connection_manager.html#connection_manager.ConnectionFilter.filter">[api]</a><a class="viewcode-back" href="../code/connection_manager.html#filter">[docs]</a>    <span class="k">def</span> <span class="nf">filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">False</span></div></div>
+</pre></div>
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Jonathan De Beir.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

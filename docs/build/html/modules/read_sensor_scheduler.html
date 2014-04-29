@@ -1,0 +1,236 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>read_sensor_scheduler module &mdash; Datalogger 1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Datalogger 1 documentation" href="../index.html"/>
+        <link rel="up" title="API" href="modules.html"/>
+        <link rel="prev" title="read_random_scheduler module" href="read_random_scheduler.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="fa fa-home"> Datalogger</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../requirements.html">Minimum requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installationguide.html">Installation guide</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../code.html">Code explained</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../code/datalogger.html">Class DataLogger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/led_manager.html">Class LedManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/packet_manager.html">Class PacketManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/connection_manager.html">Class ConnectionManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/read_sensor_scheduler.html">Class ReadSensorScheduler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/configuration_manager.html">Class ConfigurationManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/log_handlers_and_filters.html">Class LogSendStoreHandler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/modbus_slave_reader.html">Class ModbusSlaveReader</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="datalogger.html">datalogger module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="connection_manager.html">connection_manager module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="packet_manager.html">packet_manager module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="log_handlers_and_filters.html">log_handlers_and_filters module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_manager.html">configuration_manager module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html">configuration module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="led_manager.html">led_manager module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mcu_modbus_slave_reader.html">mcu_modbus_slave_reader module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mcu_read_sensor_scheduler.html">mcu_read_sensor_scheduler module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modbus_slave_reader.html">modbus_slave_reader module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="read_random_scheduler.html">read_random_scheduler module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">read_sensor_scheduler module</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Datalogger</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="modules.html">API</a> &raquo;</li>
+      
+    <li>read_sensor_scheduler module</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../_sources/modules/read_sensor_scheduler.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="module-read_sensor_scheduler">
+<span id="read-sensor-scheduler-module"></span><h1>read_sensor_scheduler module<a class="headerlink" href="#module-read_sensor_scheduler" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="read_sensor_scheduler.ReadSensorScheduler">
+<em class="property">class </em><tt class="descclassname">read_sensor_scheduler.</tt><tt class="descname">ReadSensorScheduler</tt><big>(</big><em>scheduler</em>, <em>packet_manager</em><big>)</big><a class="reference internal" href="../_modules/read_sensor_scheduler.html#ReadSensorScheduler"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../code/read_sensor_scheduler.html#ReadSensorScheduler"><span class="viewcode-link">[doc]</span></a><a class="headerlink" href="#read_sensor_scheduler.ReadSensorScheduler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
+<p>This class sets up the timers that read the sensor data</p>
+<dl class="method">
+<dt id="read_sensor_scheduler.ReadSensorScheduler.update_configuration">
+<tt class="descname">update_configuration</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/read_sensor_scheduler.html#ReadSensorScheduler.update_configuration"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../code/read_sensor_scheduler.html#update-configuration"><span class="viewcode-link">[doc]</span></a><a class="headerlink" href="#read_sensor_scheduler.ReadSensorScheduler.update_configuration" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="read_sensor_scheduler.ReadSensorScheduler.create_modbus_reader">
+<tt class="descname">create_modbus_reader</tt><big>(</big><em>serial_port</em><big>)</big><a class="reference internal" href="../_modules/read_sensor_scheduler.html#ReadSensorScheduler.create_modbus_reader"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../code/read_sensor_scheduler.html#create-modbus-reader"><span class="viewcode-link">[doc]</span></a><a class="headerlink" href="#read_sensor_scheduler.ReadSensorScheduler.create_modbus_reader" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="read_sensor_scheduler.ReadSensorScheduler.add_timer">
+<tt class="descname">add_timer</tt><big>(</big><em>timer</em><big>)</big><a class="reference internal" href="../_modules/read_sensor_scheduler.html#ReadSensorScheduler.add_timer"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../code/read_sensor_scheduler.html#add-timer"><span class="viewcode-link">[doc]</span></a><a class="headerlink" href="#read_sensor_scheduler.ReadSensorScheduler.add_timer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="read_sensor_scheduler.ReadSensorScheduler.create_timers">
+<tt class="descname">create_timers</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/read_sensor_scheduler.html#ReadSensorScheduler.create_timers"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../code/read_sensor_scheduler.html#create-timers"><span class="viewcode-link">[doc]</span></a><a class="headerlink" href="#read_sensor_scheduler.ReadSensorScheduler.create_timers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="read_sensor_scheduler.ReadSensorScheduler.check_modbus_connection">
+<tt class="descname">check_modbus_connection</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/read_sensor_scheduler.html#ReadSensorScheduler.check_modbus_connection"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../code/read_sensor_scheduler.html#check-modbus-connection"><span class="viewcode-link">[doc]</span></a><a class="headerlink" href="#read_sensor_scheduler.ReadSensorScheduler.check_modbus_connection" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="read_sensor_scheduler.ReadSensorScheduler.read_sensor">
+<tt class="descname">read_sensor</tt><big>(</big><em>timer</em><big>)</big><a class="reference internal" href="../_modules/read_sensor_scheduler.html#ReadSensorScheduler.read_sensor"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../code/read_sensor_scheduler.html#read-sensor"><span class="viewcode-link">[doc]</span></a><a class="headerlink" href="#read_sensor_scheduler.ReadSensorScheduler.read_sensor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="read_sensor_scheduler.ReadSensorScheduler.set_led_call">
+<tt class="descname">set_led_call</tt><big>(</big><em>led_call</em><big>)</big><a class="reference internal" href="../_modules/read_sensor_scheduler.html#ReadSensorScheduler.set_led_call"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../code/read_sensor_scheduler.html#set-led-call"><span class="viewcode-link">[doc]</span></a><a class="headerlink" href="#read_sensor_scheduler.ReadSensorScheduler.set_led_call" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="read_random_scheduler.html" class="btn btn-neutral" title="read_random_scheduler module"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Jonathan De Beir.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

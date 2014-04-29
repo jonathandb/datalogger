@@ -1,0 +1,320 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>led_manager module &mdash; Datalogger 1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Datalogger 1 documentation" href="../index.html"/>
+        <link rel="up" title="API" href="modules.html"/>
+        <link rel="next" title="mcu_modbus_slave_reader module" href="mcu_modbus_slave_reader.html"/>
+        <link rel="prev" title="configuration module" href="configuration.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="fa fa-home"> Datalogger</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../requirements.html">Minimum requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installationguide.html">Installation guide</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../code.html">Code explained</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../code/datalogger.html">Class DataLogger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/led_manager.html">Class LedManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/packet_manager.html">Class PacketManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/connection_manager.html">Class ConnectionManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/read_sensor_scheduler.html">Class ReadSensorScheduler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/configuration_manager.html">Class ConfigurationManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/log_handlers_and_filters.html">Class LogSendStoreHandler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/modbus_slave_reader.html">Class ModbusSlaveReader</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="datalogger.html">datalogger module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="connection_manager.html">connection_manager module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="packet_manager.html">packet_manager module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="log_handlers_and_filters.html">log_handlers_and_filters module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_manager.html">configuration_manager module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html">configuration module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">led_manager module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mcu_modbus_slave_reader.html">mcu_modbus_slave_reader module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mcu_read_sensor_scheduler.html">mcu_read_sensor_scheduler module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modbus_slave_reader.html">modbus_slave_reader module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="read_random_scheduler.html">read_random_scheduler module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="read_sensor_scheduler.html">read_sensor_scheduler module</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Datalogger</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="modules.html">API</a> &raquo;</li>
+      
+    <li>led_manager module</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../_sources/modules/led_manager.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="module-led_manager">
+<span id="led-manager-module"></span><h1>led_manager module<a class="headerlink" href="#module-led_manager" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="led_manager.PinName">
+<em class="property">class </em><tt class="descclassname">led_manager.</tt><tt class="descname">PinName</tt><a class="reference internal" href="../_modules/led_manager.html#PinName"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../code/led_manager.html#PinName"><span class="viewcode-link">[doc]</span></a><a class="headerlink" href="#led_manager.PinName" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">enum.IntEnum</span></tt></p>
+<p>Contains all the led pins with their function</p>
+<p>Add other led pins here</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="led_manager.LedState">
+<em class="property">class </em><tt class="descclassname">led_manager.</tt><tt class="descname">LedState</tt><a class="reference internal" href="../_modules/led_manager.html#LedState"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../code/led_manager.html#LedState"><span class="viewcode-link">[doc]</span></a><a class="headerlink" href="#led_manager.LedState" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">enum.Enum</span></tt></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="led_manager.Led">
+<em class="property">class </em><tt class="descclassname">led_manager.</tt><tt class="descname">Led</tt><big>(</big><em>pin_name</em>, <em>ledstate</em><big>)</big><a class="reference internal" href="../_modules/led_manager.html#Led"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../code/led_manager.html#Led"><span class="viewcode-link">[doc]</span></a><a class="headerlink" href="#led_manager.Led" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
+<dl class="method">
+<dt id="led_manager.Led.set_state">
+<tt class="descname">set_state</tt><big>(</big><em>ledstate</em><big>)</big><a class="reference internal" href="../_modules/led_manager.html#Led.set_state"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../code/led_manager.html#set-state"><span class="viewcode-link">[doc]</span></a><a class="headerlink" href="#led_manager.Led.set_state" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="led_manager.Led.get_pin">
+<tt class="descname">get_pin</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/led_manager.html#Led.get_pin"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../code/led_manager.html#get-pin"><span class="viewcode-link">[doc]</span></a><a class="headerlink" href="#led_manager.Led.get_pin" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="led_manager.Led.set_pindir">
+<tt class="descname">set_pindir</tt><big>(</big><em>pindir</em><big>)</big><a class="reference internal" href="../_modules/led_manager.html#Led.set_pindir"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../code/led_manager.html#set-pindir"><span class="viewcode-link">[doc]</span></a><a class="headerlink" href="#led_manager.Led.set_pindir" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="led_manager.Led.get_pindir">
+<tt class="descname">get_pindir</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/led_manager.html#Led.get_pindir"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../code/led_manager.html#get-pindir"><span class="viewcode-link">[doc]</span></a><a class="headerlink" href="#led_manager.Led.get_pindir" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="led_manager.LedManager">
+<em class="property">class </em><tt class="descclassname">led_manager.</tt><tt class="descname">LedManager</tt><big>(</big><em>scheduler</em><big>)</big><a class="reference internal" href="../_modules/led_manager.html#LedManager"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../code/led_manager.html#LedManager"><span class="viewcode-link">[doc]</span></a><a class="headerlink" href="#led_manager.LedManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
+<p>Manages the gpio pins.</p>
+<dl class="method">
+<dt id="led_manager.LedManager.update_led">
+<tt class="descname">update_led</tt><big>(</big><em>pin_name</em>, <em>ledstate</em><big>)</big><a class="reference internal" href="../_modules/led_manager.html#LedManager.update_led"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../code/led_manager.html#update-led"><span class="viewcode-link">[doc]</span></a><a class="headerlink" href="#led_manager.LedManager.update_led" title="Permalink to this definition">¶</a></dt>
+<dd><p>If the pin has an other state, it will be updated.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="led_manager.LedManager.enable_output">
+<tt class="descname">enable_output</tt><big>(</big><em>pin_nr</em><big>)</big><a class="reference internal" href="../_modules/led_manager.html#LedManager.enable_output"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../code/led_manager.html#enable-output"><span class="viewcode-link">[doc]</span></a><a class="headerlink" href="#led_manager.LedManager.enable_output" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tries to activate the gpio pin.
+If the activation is successfull, the pin is set as output.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="led_manager.LedManager.activate">
+<tt class="descname">activate</tt><big>(</big><em>pin_nr</em><big>)</big><a class="reference internal" href="../_modules/led_manager.html#LedManager.activate"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../code/led_manager.html#activate"><span class="viewcode-link">[doc]</span></a><a class="headerlink" href="#led_manager.LedManager.activate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="led_manager.LedManager.set_as_output">
+<tt class="descname">set_as_output</tt><big>(</big><em>pin_nr</em><big>)</big><a class="reference internal" href="../_modules/led_manager.html#LedManager.set_as_output"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../code/led_manager.html#set-as-output"><span class="viewcode-link">[doc]</span></a><a class="headerlink" href="#led_manager.LedManager.set_as_output" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="led_manager.LedManager.turn_on">
+<tt class="descname">turn_on</tt><big>(</big><em>pin_nr</em><big>)</big><a class="reference internal" href="../_modules/led_manager.html#LedManager.turn_on"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../code/led_manager.html#turn-on"><span class="viewcode-link">[doc]</span></a><a class="headerlink" href="#led_manager.LedManager.turn_on" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets gpio pin on</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="led_manager.LedManager.turn_off">
+<tt class="descname">turn_off</tt><big>(</big><em>pin_nr</em><big>)</big><a class="reference internal" href="../_modules/led_manager.html#LedManager.turn_off"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../code/led_manager.html#turn-off"><span class="viewcode-link">[doc]</span></a><a class="headerlink" href="#led_manager.LedManager.turn_off" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets gpio pin off</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="led_manager.LedManager.flash">
+<tt class="descname">flash</tt><big>(</big><em>pin_nr</em>, <em>msecs</em><big>)</big><a class="reference internal" href="../_modules/led_manager.html#LedManager.flash"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../code/led_manager.html#flash"><span class="viewcode-link">[doc]</span></a><a class="headerlink" href="#led_manager.LedManager.flash" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets gpio pin on for certain msecs.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>pin_nr</strong> &#8211; gpio pin</li>
+<li><strong>msecs</strong> &#8211; time in milliseconds the pin will be on</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="led_manager.LedCall">
+<em class="property">class </em><tt class="descclassname">led_manager.</tt><tt class="descname">LedCall</tt><big>(</big><em>led_manager</em>, <em>led_pin</em><big>)</big><a class="reference internal" href="../_modules/led_manager.html#LedCall"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../code/led_manager.html#LedCall"><span class="viewcode-link">[doc]</span></a><a class="headerlink" href="#led_manager.LedCall" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
+<p>Instances of this class are given to classes which have events that controls
+the leds.</p>
+<dl class="method">
+<dt id="led_manager.LedCall.on">
+<tt class="descname">on</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/led_manager.html#LedCall.on"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../code/led_manager.html#on"><span class="viewcode-link">[doc]</span></a><a class="headerlink" href="#led_manager.LedCall.on" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="led_manager.LedCall.off">
+<tt class="descname">off</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/led_manager.html#LedCall.off"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../code/led_manager.html#off"><span class="viewcode-link">[doc]</span></a><a class="headerlink" href="#led_manager.LedCall.off" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="led_manager.LedCall.flash">
+<tt class="descname">flash</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/led_manager.html#LedCall.flash"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../code/led_manager.html#flash"><span class="viewcode-link">[doc]</span></a><a class="headerlink" href="#led_manager.LedCall.flash" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="mcu_modbus_slave_reader.html" class="btn btn-neutral float-right" title="mcu_modbus_slave_reader module">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="configuration.html" class="btn btn-neutral" title="configuration module"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Jonathan De Beir.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
