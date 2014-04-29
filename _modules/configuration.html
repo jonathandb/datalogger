@@ -1,0 +1,260 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>configuration &mdash; Datalogger 1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Datalogger 1 documentation" href="../index.html"/>
+        <link rel="up" title="Module code" href="index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="fa fa-home"> Datalogger</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../requirements.html">Minimum requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installationguide.html">Installation guide</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../code.html">Code explained</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../code/datalogger.html">Class DataLogger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/led_manager.html">Class LedManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/packet_manager.html">Class PacketManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/connection_manager.html">Class ConnectionManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/read_sensor_scheduler.html">Class ReadSensorScheduler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/configuration_manager.html">Class ConfigurationManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/log_handlers_and_filters.html">Class LogSendStoreHandler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/modbus_slave_reader.html">Class ModbusSlaveReader</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/modules.html">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../modules/datalogger.html">datalogger module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/connection_manager.html">connection_manager module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/packet_manager.html">packet_manager module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/log_handlers_and_filters.html">log_handlers_and_filters module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/configuration_manager.html">configuration_manager module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/configuration.html">configuration module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/led_manager.html">led_manager module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/mcu_modbus_slave_reader.html">mcu_modbus_slave_reader module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/mcu_read_sensor_scheduler.html">mcu_read_sensor_scheduler module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/modbus_slave_reader.html">modbus_slave_reader module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/read_random_scheduler.html">read_random_scheduler module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/read_sensor_scheduler.html">read_sensor_scheduler module</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Datalogger</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">Module code</a> &raquo;</li>
+      
+    <li>configuration</li>
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <h1>Source code for configuration</h1><div class="highlight"><pre>
+<span class="n">local</span> <span class="o">=</span> <span class="bp">None</span>
+<span class="n">timers</span> <span class="o">=</span> <span class="bp">None</span>
+<span class="n">modbusSlaves</span> <span class="o">=</span> <span class="bp">None</span>
+
+<span class="k">def</span> <span class="nf">get_server_path</span><span class="p">():</span>
+<div class="viewcode-block" id="get_server_path"p><a class="viewcode-back" href="../modules/configuration.html#configuration.get_server_path">[api]</a><a class="viewcode-back" href="../code/configuration.html#get-server-path">[docs]</a>    <span class="k">return</span> <span class="n">get_configuration_parameter</span><span class="p">(</span><span class="s">&#39;server&#39;</span><span class="p">,</span><span class="s">&#39;url&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">get_web_connection_timeout</span><span class="p">():</span></div>
+<div class="viewcode-block" id="get_web_connection_timeout"p><a class="viewcode-back" href="../modules/configuration.html#configuration.get_web_connection_timeout">[api]</a><a class="viewcode-back" href="../code/configuration.html#get-web-connection-timeout">[docs]</a>    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">get_configuration_parameter</span><span class="p">(</span><span class="s">&#39;server&#39;</span><span class="p">,</span><span class="s">&#39;timeout&#39;</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">get_time_interval_to_send_packets</span><span class="p">():</span></div>
+<div class="viewcode-block" id="get_time_interval_to_send_packets"p><a class="viewcode-back" href="../modules/configuration.html#configuration.get_time_interval_to_send_packets">[api]</a><a class="viewcode-back" href="../code/configuration.html#get-time-interval-to-send-packets">[docs]</a>    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">get_configuration_parameter</span><span class="p">(</span><span class="s">&#39;server&#39;</span><span class="p">,</span><span class="s">&#39;timeIntervalToSendPackets&#39;</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">get_minimum_packets_to_send</span><span class="p">():</span></div>
+<div class="viewcode-block" id="get_minimum_packets_to_send"p><a class="viewcode-back" href="../modules/configuration.html#configuration.get_minimum_packets_to_send">[api]</a><a class="viewcode-back" href="../code/configuration.html#get-minimum-packets-to-send">[docs]</a>    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">get_configuration_parameter</span><span class="p">(</span><span class="s">&#39;server&#39;</span><span class="p">,</span><span class="s">&#39;minimumPacketsToSend&#39;</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">get_mcu_i2c_slave_address</span><span class="p">():</span></div>
+<div class="viewcode-block" id="get_mcu_i2c_slave_address"p><a class="viewcode-back" href="../modules/configuration.html#configuration.get_mcu_i2c_slave_address">[api]</a><a class="viewcode-back" href="../code/configuration.html#get-mcu-i2c-slave-address">[docs]</a>    <span class="k">return</span> <span class="n">get_configuration_parameter</span><span class="p">(</span><span class="s">&#39;i2c&#39;</span><span class="p">,</span><span class="s">&#39;slaveAddress&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">get_i2c_bus_address</span><span class="p">():</span></div>
+<div class="viewcode-block" id="get_i2c_bus_address"p><a class="viewcode-back" href="../modules/configuration.html#configuration.get_i2c_bus_address">[api]</a><a class="viewcode-back" href="../code/configuration.html#get-i2c-bus-address">[docs]</a>    <span class="k">return</span> <span class="n">get_configuration_parameter</span><span class="p">(</span><span class="s">&#39;i2c&#39;</span><span class="p">,</span><span class="s">&#39;busAddress&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">get_checksum</span><span class="p">():</span></div>
+<div class="viewcode-block" id="get_checksum"p><a class="viewcode-back" href="../modules/configuration.html#configuration.get_checksum">[api]</a><a class="viewcode-back" href="../code/configuration.html#get-checksum">[docs]</a>    <span class="k">return</span> <span class="n">get_configuration_parameter</span><span class="p">(</span><span class="s">&#39;sensorConfiguration&#39;</span><span class="p">,</span><span class="s">&#39;checksum&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">get_time_interval_to_store_local</span><span class="p">():</span></div>
+<div class="viewcode-block" id="get_time_interval_to_store_local"p><a class="viewcode-back" href="../modules/configuration.html#configuration.get_time_interval_to_store_local">[api]</a><a class="viewcode-back" href="../code/configuration.html#get-time-interval-to-store-local">[docs]</a>    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">get_configuration_parameter</span><span class="p">(</span><span class="s">&#39;logging&#39;</span><span class="p">,</span><span class="s">&#39;timeIntervalToStoreLocal&#39;</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">get_time_interval_to_send_log</span><span class="p">():</span></div>
+<div class="viewcode-block" id="get_time_interval_to_send_log"p><a class="viewcode-back" href="../modules/configuration.html#configuration.get_time_interval_to_send_log">[api]</a><a class="viewcode-back" href="../code/configuration.html#get-time-interval-to-send-log">[docs]</a>    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">get_configuration_parameter</span><span class="p">(</span><span class="s">&#39;logging&#39;</span><span class="p">,</span><span class="s">&#39;timeIntervalToSendLog&#39;</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">is_send_logs_to_server</span><span class="p">():</span></div>
+<div class="viewcode-block" id="is_send_logs_to_server"p><a class="viewcode-back" href="../modules/configuration.html#configuration.is_send_logs_to_server">[api]</a><a class="viewcode-back" href="../code/configuration.html#is-send-logs-to-server">[docs]</a>    <span class="k">return</span> <span class="n">get_configuration_parameter</span><span class="p">(</span><span class="s">&#39;logging&#39;</span><span class="p">,</span><span class="s">&#39;sendLogsToServer&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">is_store_logs_local</span><span class="p">():</span></div>
+<div class="viewcode-block" id="is_store_logs_local"p><a class="viewcode-back" href="../modules/configuration.html#configuration.is_store_logs_local">[api]</a><a class="viewcode-back" href="../code/configuration.html#is-store-logs-local">[docs]</a>    <span class="k">return</span> <span class="n">get_configuration_parameter</span><span class="p">(</span><span class="s">&#39;logging&#39;</span><span class="p">,</span><span class="s">&#39;storeLogsLocal&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">get_max_local_log_size</span><span class="p">():</span></div>
+<div class="viewcode-block" id="get_max_local_log_size"p><a class="viewcode-back" href="../modules/configuration.html#configuration.get_max_local_log_size">[api]</a><a class="viewcode-back" href="../code/configuration.html#get-max-local-log-size">[docs]</a>    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">get_configuration_parameter</span><span class="p">(</span><span class="s">&#39;logging&#39;</span><span class="p">,</span><span class="s">&#39;maxLocalLogSize&#39;</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">get_time_interval_to_check_online_config</span><span class="p">():</span></div>
+<div class="viewcode-block" id="get_time_interval_to_check_online_config"p><a class="viewcode-back" href="../modules/configuration.html#configuration.get_time_interval_to_check_online_config">[api]</a><a class="viewcode-back" href="../code/configuration.html#get-time-interval-to-check-online-config">[docs]</a>    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">get_configuration_parameter</span><span class="p">(</span><span class="s">&#39;logging&#39;</span><span class="p">,</span><span class="s">&#39;timeIntervalToCheckOnlineConfig&#39;</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">get_log_level_to_send_to_server</span><span class="p">():</span></div>
+<div class="viewcode-block" id="get_log_level_to_send_to_server"p><a class="viewcode-back" href="../modules/configuration.html#configuration.get_log_level_to_send_to_server">[api]</a><a class="viewcode-back" href="../code/configuration.html#get-log-level-to-send-to-server">[docs]</a>    <span class="k">return</span> <span class="n">get_configuration_parameter</span><span class="p">(</span><span class="s">&#39;logging&#39;</span><span class="p">,</span><span class="s">&#39;logLevelToSendToServer&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">get_log_level_to_store_local</span><span class="p">():</span></div>
+<div class="viewcode-block" id="get_log_level_to_store_local"p><a class="viewcode-back" href="../modules/configuration.html#configuration.get_log_level_to_store_local">[api]</a><a class="viewcode-back" href="../code/configuration.html#get-log-level-to-store-local">[docs]</a>    <span class="k">return</span> <span class="n">get_configuration_parameter</span><span class="p">(</span><span class="s">&#39;logging&#39;</span><span class="p">,</span><span class="s">&#39;timeIntervalToStoreLocal&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">get_configuration_parameter</span><span class="p">(</span><span class="n">section</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span></div>
+<div class="viewcode-block" id="get_configuration_parameter"p><a class="viewcode-back" href="../modules/configuration.html#configuration.get_configuration_parameter">[api]</a><a class="viewcode-back" href="../code/configuration.html#get-configuration-parameter">[docs]</a>    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">local</span><span class="p">[</span><span class="n">section</span><span class="p">][</span><span class="n">key</span><span class="p">]</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="kn">import</span> <span class="nn">logging</span>
+        <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&#39;Parameter {0} does not exist in configuration&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">section</span> <span class="o">==</span> <span class="s">&#39;server&#39;</span> <span class="ow">and</span> <span class="n">key</span> <span class="o">==</span> <span class="s">&#39;url&#39;</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s">&#39;using default url http://200.2.191.227:5000&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="s">&#39;http://10.37.7.241:5000/&#39;</span>
+        <span class="k">if</span> <span class="n">section</span> <span class="o">==</span> <span class="s">&#39;server&#39;</span> <span class="ow">and</span> <span class="n">key</span> <span class="o">==</span> <span class="s">&#39;timeIntervalToCheckOnlineConfig&#39;</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s">&#39;using default timeIntervalToCheckOnlineConfig 100 &#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="s">&#39;100&#39;</span>
+        <span class="k">if</span> <span class="n">section</span> <span class="o">==</span> <span class="s">&#39;server&#39;</span> <span class="ow">and</span> <span class="n">key</span> <span class="o">==</span> <span class="s">&#39;timeIntervalToSendPackets&#39;</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s">&#39;using default timeIntervalToSendPackets 10 &#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="s">&#39;10&#39;</span>
+        <span class="k">if</span> <span class="n">section</span> <span class="o">==</span> <span class="s">&#39;server&#39;</span> <span class="ow">and</span> <span class="n">key</span> <span class="o">==</span> <span class="s">&#39;minimumPacketsToSend&#39;</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s">&#39;using default minimumPacketsToSend 10 &#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="s">&#39;10&#39;</span>
+        <span class="k">if</span> <span class="n">section</span> <span class="o">==</span><span class="s">&#39;logging&#39;</span> <span class="ow">and</span> <span class="n">key</span> <span class="o">==</span> <span class="s">&#39;timeIntervalToStoreLocal&#39;</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s">&#39;using default timeIntervalToStoreLocal 300&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="s">&#39;300&#39;</span>
+        <span class="k">if</span> <span class="n">section</span> <span class="o">==</span><span class="s">&#39;logging&#39;</span> <span class="ow">and</span> <span class="n">key</span> <span class="o">==</span> <span class="s">&#39;timeIntervalToSendLog&#39;</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s">&#39;using default timeIntervalToSendLog 3600&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="s">&#39;3600&#39;</span>
+        <span class="k">if</span> <span class="n">section</span> <span class="o">==</span><span class="s">&#39;logging&#39;</span> <span class="ow">and</span> <span class="n">key</span> <span class="o">==</span> <span class="s">&#39;maxLocalLogSize&#39;</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s">&#39;using default maxLocalLogSize 1000000&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="s">&#39;1000000&#39;</span>
+</pre></div></div>
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Jonathan De Beir.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,279 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>configuration_manager module &mdash; Datalogger 1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Datalogger 1 documentation" href="../index.html"/>
+        <link rel="up" title="API" href="modules.html"/>
+        <link rel="next" title="configuration module" href="configuration.html"/>
+        <link rel="prev" title="log_handlers_and_filters module" href="log_handlers_and_filters.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="fa fa-home"> Datalogger</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../requirements.html">Minimum requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installationguide.html">Installation guide</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../code.html">Code explained</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../code/datalogger.html">Class DataLogger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/led_manager.html">Class LedManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/packet_manager.html">Class PacketManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/connection_manager.html">Class ConnectionManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/read_sensor_scheduler.html">Class ReadSensorScheduler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/configuration_manager.html">Class ConfigurationManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/log_handlers_and_filters.html">Class LogSendStoreHandler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/modbus_slave_reader.html">Class ModbusSlaveReader</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="datalogger.html">datalogger module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="connection_manager.html">connection_manager module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="packet_manager.html">packet_manager module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="log_handlers_and_filters.html">log_handlers_and_filters module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">configuration_manager module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html">configuration module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="led_manager.html">led_manager module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mcu_modbus_slave_reader.html">mcu_modbus_slave_reader module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mcu_read_sensor_scheduler.html">mcu_read_sensor_scheduler module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modbus_slave_reader.html">modbus_slave_reader module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="read_random_scheduler.html">read_random_scheduler module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="read_sensor_scheduler.html">read_sensor_scheduler module</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Datalogger</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="modules.html">API</a> &raquo;</li>
+      
+    <li>configuration_manager module</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../_sources/modules/configuration_manager.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="module-configuration_manager">
+<span id="configuration-manager-module"></span><h1>configuration_manager module<a class="headerlink" href="#module-configuration_manager" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="configuration_manager.ModbusSlave">
+<em class="property">class </em><tt class="descclassname">configuration_manager.</tt><tt class="descname">ModbusSlave</tt><a class="reference internal" href="../_modules/configuration_manager.html#ModbusSlave"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../code/configuration_manager.html#ModbusSlave"><span class="viewcode-link">[doc]</span></a><a class="headerlink" href="#configuration_manager.ModbusSlave" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
+<dl class="attribute">
+<dt id="configuration_manager.ModbusSlave.address">
+<tt class="descname">address</tt><a class="headerlink" href="#configuration_manager.ModbusSlave.address" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="configuration_manager.ModbusSlave.register">
+<tt class="descname">register</tt><a class="headerlink" href="#configuration_manager.ModbusSlave.register" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="configuration_manager.ModbusSlave.type">
+<tt class="descname">type</tt><a class="headerlink" href="#configuration_manager.ModbusSlave.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="configuration_manager.Timer">
+<em class="property">class </em><tt class="descclassname">configuration_manager.</tt><tt class="descname">Timer</tt><a class="reference internal" href="../_modules/configuration_manager.html#Timer"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../code/configuration_manager.html#Timer"><span class="viewcode-link">[doc]</span></a><a class="headerlink" href="#configuration_manager.Timer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
+<dl class="attribute">
+<dt id="configuration_manager.Timer.slaves">
+<tt class="descname">slaves</tt><a class="headerlink" href="#configuration_manager.Timer.slaves" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="configuration_manager.Timer.start_time">
+<tt class="descname">start_time</tt><a class="headerlink" href="#configuration_manager.Timer.start_time" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="configuration_manager.Timer.time_interval">
+<tt class="descname">time_interval</tt><a class="headerlink" href="#configuration_manager.Timer.time_interval" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="configuration_manager.Timer.type">
+<tt class="descname">type</tt><a class="headerlink" href="#configuration_manager.Timer.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="configuration_manager.ConfigurationManager">
+<em class="property">class </em><tt class="descclassname">configuration_manager.</tt><tt class="descname">ConfigurationManager</tt><big>(</big><em>config_location</em><big>)</big><a class="reference internal" href="../_modules/configuration_manager.html#ConfigurationManager"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../code/configuration_manager.html#ConfigurationManager"><span class="viewcode-link">[doc]</span></a><a class="headerlink" href="#configuration_manager.ConfigurationManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
+<dl class="method">
+<dt id="configuration_manager.ConfigurationManager.load_local_configuration">
+<tt class="descname">load_local_configuration</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/configuration_manager.html#ConfigurationManager.load_local_configuration"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../code/configuration_manager.html#load-local-configuration"><span class="viewcode-link">[doc]</span></a><a class="headerlink" href="#configuration_manager.ConfigurationManager.load_local_configuration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads the locally stored configuration
+Loads the json and put its parameters, modbus slaves
+and timers in the configuration module</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="configuration_manager.ConfigurationManager.is_online_configuration_different">
+<tt class="descname">is_online_configuration_different</tt><big>(</big><em>online_checksum</em><big>)</big><a class="reference internal" href="../_modules/configuration_manager.html#ConfigurationManager.is_online_configuration_different"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../code/configuration_manager.html#is-online-configuration-different"><span class="viewcode-link">[doc]</span></a><a class="headerlink" href="#configuration_manager.ConfigurationManager.is_online_configuration_different" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="configuration_manager.ConfigurationManager.validate_json_configuration">
+<tt class="descname">validate_json_configuration</tt><big>(</big><em>json_configuration</em><big>)</big><a class="reference internal" href="../_modules/configuration_manager.html#ConfigurationManager.validate_json_configuration"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../code/configuration_manager.html#validate-json-configuration"><span class="viewcode-link">[doc]</span></a><a class="headerlink" href="#configuration_manager.ConfigurationManager.validate_json_configuration" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="configuration_manager.ConfigurationManager.save_configuration_local">
+<tt class="descname">save_configuration_local</tt><big>(</big><em>checksum</em>, <em>new_configuration</em><big>)</big><a class="reference internal" href="../_modules/configuration_manager.html#ConfigurationManager.save_configuration_local"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../code/configuration_manager.html#save-configuration-local"><span class="viewcode-link">[doc]</span></a><a class="headerlink" href="#configuration_manager.ConfigurationManager.save_configuration_local" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saves the new configuration locally.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="configuration_manager.ConfigurationManager.try_save_configuration_parameter">
+<tt class="descname">try_save_configuration_parameter</tt><big>(</big><em>online_configuration</em>, <em>section</em>, <em>key</em><big>)</big><a class="reference internal" href="../_modules/configuration_manager.html#ConfigurationManager.try_save_configuration_parameter"><span class="viewcode-link">[source]</span></a><a class="reference internal" href="../code/configuration_manager.html#try-save-configuration-parameter"><span class="viewcode-link">[doc]</span></a><a class="headerlink" href="#configuration_manager.ConfigurationManager.try_save_configuration_parameter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="configuration.html" class="btn btn-neutral float-right" title="configuration module">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="log_handlers_and_filters.html" class="btn btn-neutral" title="log_handlers_and_filters module"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Jonathan De Beir.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

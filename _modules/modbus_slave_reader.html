@@ -1,0 +1,231 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>modbus_slave_reader &mdash; Datalogger 1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Datalogger 1 documentation" href="../index.html"/>
+        <link rel="up" title="Module code" href="index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="fa fa-home"> Datalogger</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../requirements.html">Minimum requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installationguide.html">Installation guide</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../code.html">Code explained</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../code/datalogger.html">Class DataLogger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/led_manager.html">Class LedManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/packet_manager.html">Class PacketManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/connection_manager.html">Class ConnectionManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/read_sensor_scheduler.html">Class ReadSensorScheduler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/configuration_manager.html">Class ConfigurationManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/log_handlers_and_filters.html">Class LogSendStoreHandler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/modbus_slave_reader.html">Class ModbusSlaveReader</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/modules.html">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../modules/datalogger.html">datalogger module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/connection_manager.html">connection_manager module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/packet_manager.html">packet_manager module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/log_handlers_and_filters.html">log_handlers_and_filters module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/configuration_manager.html">configuration_manager module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/configuration.html">configuration module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/led_manager.html">led_manager module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/mcu_modbus_slave_reader.html">mcu_modbus_slave_reader module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/mcu_read_sensor_scheduler.html">mcu_read_sensor_scheduler module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/modbus_slave_reader.html">modbus_slave_reader module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/read_random_scheduler.html">read_random_scheduler module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/read_sensor_scheduler.html">read_sensor_scheduler module</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Datalogger</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">Module code</a> &raquo;</li>
+      
+    <li>modbus_slave_reader</li>
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <h1>Source code for modbus_slave_reader</h1><div class="highlight"><pre>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">pymodbus.client.sync</span> <span class="kn">import</span> <span class="n">ModbusSerialClient</span> <span class="k">as</span> <span class="n">ModbusClient</span>
+<span class="kn">from</span> <span class="nn">log_handlers_and_filters</span> <span class="kn">import</span> <span class="n">ModbusClientFilter</span>
+<span class="kn">from</span> <span class="nn">pymodbus.other_message</span> <span class="kn">import</span> <span class="n">ReportSlaveIdRequest</span>
+
+
+<div class="viewcode-block" id="ModbusSlaveReader"p><a class="viewcode-back" href="../modules/modbus_slave_reader.html#modbus_slave_reader.ModbusSlaveReader">[api]</a><a class="viewcode-back" href="../code/modbus_slave_reader.html#ModbusSlaveReader">[docs]</a><span class="k">class</span> <span class="nc">ModbusSlaveReader</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class uses the pymodbus library to communicate with modbus slaves</span>
+<span class="sd">    via serial connection.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">serial_socket</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">ModbusClient</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s">&#39;rtu&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">serial_socket</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">modbus_client_filter</span> <span class="o">=</span> <span class="n">ModbusClientFilter</span><span class="p">()</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s">&quot;pymodbus.client.sync&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">addFilter</span><span class="p">(</span>
+            <span class="n">modbus_client_filter</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ModbusSlaveReader.read_register_value"p><a class="viewcode-back" href="../modules/modbus_slave_reader.html#modbus_slave_reader.ModbusSlaveReader.read_register_value">[api]</a><a class="viewcode-back" href="../code/modbus_slave_reader.html#read-register-value">[docs]</a>    <span class="k">def</span> <span class="nf">read_register_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">slave</span><span class="p">,</span> <span class="n">register</span><span class="p">):</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">read_holding_registers</span><span class="p">(</span><span class="n">register</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="n">slave</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;value read from modbus slave: &#39;</span> <span class="o">+</span> <span class="n">value</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">value</span>
+</div>
+<div class="viewcode-block" id="ModbusSlaveReader.check_connection"p><a class="viewcode-back" href="../modules/modbus_slave_reader.html#modbus_slave_reader.ModbusSlaveReader.check_connection">[api]</a><a class="viewcode-back" href="../code/modbus_slave_reader.html#check-connection">[docs]</a>    <span class="k">def</span> <span class="nf">check_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Before a timer is made in the ReadSensorScheduler to read the data</span>
+<span class="sd">        from the modbus slaves, the connection with the modbus client is</span>
+<span class="sd">        checked.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="s">&#39;Unable to connect to modbus network, check serial port&#39;</span><span class="p">)</span>
+            <span class="k">raise</span>
+            <span class="k">return</span> <span class="bp">False</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">rq</span> <span class="o">=</span> <span class="n">ReportSlaveIdRequest</span><span class="p">()</span>
+            <span class="n">rr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">rq</span><span class="p">)</span>
+            <span class="k">assert</span><span class="p">(</span><span class="n">rr</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s">&#39;Able to see modbus master on network&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s">&#39;Unable to see modbus master on network&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">False</span></div></div>
+</pre></div>
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Jonathan De Beir.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

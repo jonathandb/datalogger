@@ -1,0 +1,397 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>datalogger &mdash; Datalogger 1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Datalogger 1 documentation" href="../index.html"/>
+        <link rel="up" title="Module code" href="index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="fa fa-home"> Datalogger</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../requirements.html">Minimum requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installationguide.html">Installation guide</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../code.html">Code explained</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../code/datalogger.html">Class DataLogger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/led_manager.html">Class LedManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/packet_manager.html">Class PacketManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/connection_manager.html">Class ConnectionManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/read_sensor_scheduler.html">Class ReadSensorScheduler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/configuration_manager.html">Class ConfigurationManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/log_handlers_and_filters.html">Class LogSendStoreHandler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/modbus_slave_reader.html">Class ModbusSlaveReader</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/modules.html">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../modules/datalogger.html">datalogger module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/connection_manager.html">connection_manager module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/packet_manager.html">packet_manager module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/log_handlers_and_filters.html">log_handlers_and_filters module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/configuration_manager.html">configuration_manager module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/configuration.html">configuration module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/led_manager.html">led_manager module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/mcu_modbus_slave_reader.html">mcu_modbus_slave_reader module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/mcu_read_sensor_scheduler.html">mcu_read_sensor_scheduler module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/modbus_slave_reader.html">modbus_slave_reader module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/read_random_scheduler.html">read_random_scheduler module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/read_sensor_scheduler.html">read_sensor_scheduler module</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Datalogger</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">Module code</a> &raquo;</li>
+      
+    <li>datalogger</li>
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <h1>Source code for datalogger</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">configuration_manager</span> <span class="kn">import</span> <span class="n">ConfigurationManager</span>
+<span class="c"># from read_sensor_scheduler import ReadSensorScheduler</span>
+<span class="kn">from</span> <span class="nn">read_random_scheduler</span> <span class="kn">import</span> <span class="n">ReadSensorScheduler</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
+<span class="kn">import</span> <span class="nn">configuration</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">logging.handlers</span>
+<span class="kn">from</span> <span class="nn">log_handlers_and_filters</span> <span class="kn">import</span> <span class="n">LogSendStoreHandler</span><span class="p">,</span> <span class="n">JobInfoFilter</span>
+<span class="kn">from</span> <span class="nn">apscheduler.scheduler</span> <span class="kn">import</span> <span class="n">Scheduler</span>
+<span class="kn">from</span> <span class="nn">connection_manager</span> <span class="kn">import</span> <span class="n">ConnectionManager</span>
+<span class="kn">from</span> <span class="nn">packet_manager</span> <span class="kn">import</span> <span class="n">PacketManager</span>
+<span class="kn">from</span> <span class="nn">led_manager</span> <span class="kn">import</span> <span class="n">LedManager</span><span class="p">,</span> <span class="n">LedState</span><span class="p">,</span> <span class="n">PinName</span><span class="p">,</span> <span class="n">LedCall</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="n">LOG_LOCATION</span> <span class="o">=</span> <span class="s">&#39;/var/log/datalogger/&#39;</span>
+<span class="n">CONFIG_LOCATION</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s">&#39;~&#39;</span><span class="p">),</span>
+    <span class="s">&#39;.config/datalogger.ini&#39;</span><span class="p">)</span>
+<span class="n">CHECK_CONNECTION_INTERVAL</span> <span class="o">=</span> <span class="mi">60</span>
+
+
+<div class="viewcode-block" id="DataLogger"p><a class="viewcode-back" href="../modules/datalogger.html#datalogger.DataLogger">[api]</a><a class="viewcode-back" href="../code/datalogger.html#DataLogger">[docs]</a><span class="k">class</span> <span class="nc">DataLogger</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    In this class the different systems are initialiased:</span>
+<span class="sd">        - logger and its handlers</span>
+<span class="sd">        - local configuration</span>
+<span class="sd">        - connection with internet</span>
+
+<span class="sd">    If there is no connection with the internet:</span>
+<span class="sd">        - A timed job is created that controls internet connection.</span>
+<span class="sd">        - Logging of data is started with local configuration.</span>
+<span class="sd">        - If the internet connection is started, and the online\</span>
+<span class="sd">        configuration differs, the old wrongly logged data will be removed.</span>
+
+<span class="sd">    If there is connection with the internet and the server is working:</span>
+<span class="sd">        - Check if the online configuration differs from the local one. If so,\</span>
+<span class="sd">        the configuration will be updated.</span>
+<span class="sd">        - Logging of data is started.</span>
+<span class="sd">        - Sending of data is started.</span>
+<span class="sd">        - A timed job is created that checks if the online configuration is\</span>
+<span class="sd">        updated</span>
+<span class="sd">        - The management of leds is started.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c"># initiate logger</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log_send_store_handler</span> <span class="o">=</span> <span class="n">LogSendStoreHandler</span><span class="p">(</span><span class="n">LOG_LOCATION</span><span class="p">)</span>
+            <span class="n">formatter</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span>
+                <span class="s">&#39;</span><span class="si">%(asctime)s</span><span class="s"> - </span><span class="si">%(levelname)s</span><span class="s"> - </span><span class="si">%(name)s</span><span class="s"> - </span><span class="si">%(message)s</span><span class="s">&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log_send_store_handler</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">formatter</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log_send_store_handler</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&#39;Initialising system...&#39;</span><span class="p">)</span>
+            <span class="n">job_info_filter</span> <span class="o">=</span> <span class="n">JobInfoFilter</span><span class="p">()</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s">&#39;apscheduler.scheduler&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">addFilter</span><span class="p">(</span>
+                <span class="n">job_info_filter</span><span class="p">)</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s">&#39;apscheduler.threadpool&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">addFilter</span><span class="p">(</span>
+                <span class="n">job_info_filter</span><span class="p">)</span>
+
+            <span class="c"># load local configuration</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">conf_man</span> <span class="o">=</span> <span class="n">ConfigurationManager</span><span class="p">(</span><span class="n">CONFIG_LOCATION</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log_send_store_handler</span><span class="o">.</span><span class="n">update_configuration</span><span class="p">()</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">scheduler</span> <span class="o">=</span> <span class="n">Scheduler</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">scheduler</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">packet_manager</span> <span class="o">=</span> <span class="n">PacketManager</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scheduler</span><span class="p">)</span>
+
+            <span class="c"># initiate network connection</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">connection</span> <span class="o">=</span> <span class="n">ConnectionManager</span><span class="p">()</span>
+
+            <span class="c"># add scheduler and connection to log handler</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log_send_store_handler</span><span class="o">.</span><span class="n">update_configuration</span><span class="p">(</span>
+                <span class="n">scheduler</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">scheduler</span><span class="p">,</span>
+                <span class="n">connection</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="p">)</span>
+
+            <span class="c"># try to connect</span>
+            <span class="n">connected_to_internet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">check_internet_connection</span><span class="p">()</span>
+            <span class="n">connected_to_server</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">check_server_connection</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">connected_to_internet</span> <span class="ow">and</span> <span class="n">connected_to_server</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">load_online_configuration_and_initiate_sending_data</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">packet_manager</span><span class="o">.</span><span class="n">update_time</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">packet_manager</span><span class="o">.</span><span class="n">initiate_send_packets</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">                if there is no connection:</span>
+<span class="sd">                    keep checking for a connection</span>
+<span class="sd">                    temporarily use offline timer and modbus slave</span>
+<span class="sd">                    configuration</span>
+<span class="sd">                &#39;&#39;&#39;</span>
+
+                <span class="k">if</span> <span class="n">connected_to_internet</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">packet_manager</span><span class="o">.</span><span class="n">update_time</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">wait_for_connection_to_load_configuration</span><span class="p">()</span>
+
+            <span class="c"># initiate sensor timers</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">read_sensor_scheduler</span> <span class="o">=</span> <span class="n">ReadSensorScheduler</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">scheduler</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">packet_manager</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">led_manager</span> <span class="o">=</span> <span class="n">LedManager</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scheduler</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">led_manager</span><span class="o">.</span><span class="n">update_led</span><span class="p">(</span><span class="n">PinName</span><span class="o">.</span><span class="n">powered</span><span class="p">,</span> <span class="n">LedState</span><span class="o">.</span><span class="n">on</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_up_led_manager_calls</span><span class="p">()</span>
+
+            <span class="c"># sleep 2 seconds to intialise led of log handler</span>
+            <span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&#39;Initialisation complete&#39;</span><span class="p">)</span>
+
+            <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+                <span class="n">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;Alive and kicking&#39;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">level</span> <span class="ow">is</span> <span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">:</span>
+                    <span class="n">scheduler_jobs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scheduler</span><span class="o">.</span><span class="n">get_jobs</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">scheduler_jobs</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;Current scheduler jobs:&#39;</span><span class="p">)</span>
+                        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">job</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">scheduler_jobs</span><span class="p">):</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39; Job {0}: {1} {2}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                                <span class="n">index</span><span class="p">,</span>
+                                <span class="n">job</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                                <span class="n">job</span><span class="o">.</span><span class="n">next_run_time</span><span class="p">))</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;No running scheduler jobs&#39;</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+            <span class="k">raise</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log_send_store_handler</span><span class="o">.</span><span class="n">send_logs_job</span><span class="p">()</span>
+
+<div class="viewcode-block" id="DataLogger.load_online_configuration_and_initiate_sending_data"p><a class="viewcode-back" href="../modules/datalogger.html#datalogger.DataLogger.load_online_configuration_and_initiate_sending_data">[api]</a><a class="viewcode-back" href="../code/datalogger.html#load-online-configuration-and-initiate-sending-data">[docs]</a>    <span class="k">def</span> <span class="nf">load_online_configuration_and_initiate_sending_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c"># check online configuration</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">online_checksum</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">get_configuration_checksum</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Checking online configuration..&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">conf_man</span><span class="o">.</span><span class="n">is_online_configuration_different</span><span class="p">(</span><span class="n">online_checksum</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                    <span class="s">&#39;Online configuration is new, updating configuration..&#39;</span><span class="p">)</span>
+                <span class="n">online_configuration</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">get_configuration</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">conf_man</span><span class="o">.</span><span class="n">validate_json_configuration</span><span class="p">(</span><span class="n">online_configuration</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">conf_man</span><span class="o">.</span><span class="n">save_configuration_local</span><span class="p">(</span>
+                    <span class="n">online_checksum</span><span class="p">,</span>
+                    <span class="n">online_configuration</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">packet_manager</span><span class="o">.</span><span class="n">remove_all_packets_from_memory</span><span class="p">()</span>
+
+                <span class="c"># update systems that make use of the configuration</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">log_send_store_handler</span><span class="o">.</span><span class="n">update_configuration</span><span class="p">(</span>
+                    <span class="n">scheduler</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">scheduler</span><span class="p">,</span>
+                    <span class="n">connection</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">update_configuration</span><span class="p">()</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">read_sensor_scheduler</span><span class="o">.</span><span class="n">update_configuration</span><span class="p">()</span>
+                <span class="k">except</span><span class="p">:</span>
+                    <span class="k">pass</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">packet_manager</span><span class="o">.</span><span class="n">update_configuration</span><span class="p">()</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s">&#39;Problem updating configuration&#39;</span><span class="p">)</span>
+            <span class="k">raise</span>
+        <span class="k">try</span><span class="p">:</span>  <span class="c"># try to remove job</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">scheduler</span><span class="o">.</span><span class="n">unschedule_func</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">load_online_configuration_and_initiate_sending_data</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+        <span class="c"># periodically check changes in configuration</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scheduler</span><span class="o">.</span><span class="n">add_interval_job</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">load_online_configuration_and_initiate_sending_data</span><span class="p">,</span>
+            <span class="n">seconds</span><span class="o">=</span><span class="n">configuration</span><span class="o">.</span><span class="n">get_time_interval_to_check_online_config</span><span class="p">())</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">packet_manager</span><span class="o">.</span><span class="n">initiate_send_packets</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="DataLogger.wait_for_connection_to_load_configuration"p><a class="viewcode-back" href="../modules/datalogger.html#datalogger.DataLogger.wait_for_connection_to_load_configuration">[api]</a><a class="viewcode-back" href="../code/datalogger.html#wait-for-connection-to-load-configuration">[docs]</a>    <span class="k">def</span> <span class="nf">wait_for_connection_to_load_configuration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">is_connected</span><span class="p">():</span>
+            <span class="c"># no internet connection, start job to check connection</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">scheduler</span><span class="o">.</span><span class="n">add_interval_job</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">try_to_connect_to_internet</span><span class="p">,</span>
+                                            <span class="n">seconds</span><span class="o">=</span><span class="n">CHECK_CONNECTION_INTERVAL</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">packet_manager</span><span class="o">.</span><span class="n">update_time</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">check_server_connection</span><span class="p">():</span>
+                <span class="c"># no connection with server, start job to check connection</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">scheduler</span><span class="o">.</span><span class="n">add_interval_job</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">try_to_load_online_configuration</span><span class="p">,</span>
+                    <span class="n">seconds</span><span class="o">=</span><span class="n">CHECK_CONNECTION_INTERVAL</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="DataLogger.try_to_connect_to_internet"p><a class="viewcode-back" href="../modules/datalogger.html#datalogger.DataLogger.try_to_connect_to_internet">[api]</a><a class="viewcode-back" href="../code/datalogger.html#try-to-connect-to-internet">[docs]</a>    <span class="k">def</span> <span class="nf">try_to_connect_to_internet</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">check_internet_connection</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">scheduler</span><span class="o">.</span><span class="n">unschedule_func</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">try_to_connect_to_internet</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">packet_manager</span><span class="o">.</span><span class="n">update_time</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">check_server_connection</span><span class="p">():</span>
+                    <span class="c"># no connection with server, start job to check connection</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">scheduler</span><span class="o">.</span><span class="n">add_interval_job</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">try_to_load_online_configuration</span><span class="p">,</span>
+                    <span class="n">seconds</span><span class="o">=</span><span class="n">CHECK_CONNECTION_INTERVAL</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">load_online_configuration_and_initiate_sending_data</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="DataLogger.try_to_load_online_configuration"p><a class="viewcode-back" href="../modules/datalogger.html#datalogger.DataLogger.try_to_load_online_configuration">[api]</a><a class="viewcode-back" href="../code/datalogger.html#try-to-load-online-configuration">[docs]</a>    <span class="k">def</span> <span class="nf">try_to_load_online_configuration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">check_server_connection</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">load_online_configuration_and_initiate_sending_data</span><span class="p">()</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">scheduler</span><span class="o">.</span><span class="n">unschedule_func</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">try_to_load_online_configuration</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="DataLogger.set_up_led_manager_calls"p><a class="viewcode-back" href="../modules/datalogger.html#datalogger.DataLogger.set_up_led_manager_calls">[api]</a><a class="viewcode-back" href="../code/datalogger.html#set-up-led-manager-calls">[docs]</a>    <span class="k">def</span> <span class="nf">set_up_led_manager_calls</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">sensor_led_call</span> <span class="o">=</span> <span class="n">LedCall</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">led_manager</span><span class="p">,</span> <span class="n">PinName</span><span class="o">.</span><span class="n">readingsensor</span><span class="p">)</span>
+        <span class="n">connected_led_call</span> <span class="o">=</span> <span class="n">LedCall</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">led_manager</span><span class="p">,</span> <span class="n">PinName</span><span class="o">.</span><span class="n">connected</span><span class="p">)</span>
+        <span class="n">logging_led_call</span> <span class="o">=</span> <span class="n">LedCall</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">led_manager</span><span class="p">,</span> <span class="n">PinName</span><span class="o">.</span><span class="n">logging</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">read_sensor_scheduler</span><span class="o">.</span><span class="n">set_led_call</span><span class="p">(</span><span class="n">sensor_led_call</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">set_led_call</span><span class="p">(</span><span class="n">connected_led_call</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log_send_store_handler</span><span class="o">.</span><span class="n">set_led_call</span><span class="p">(</span><span class="n">logging_led_call</span><span class="p">)</span>
+</div></div>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">dl</span> <span class="o">=</span> <span class="n">DataLogger</span><span class="p">()</span>
+</pre></div>
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Jonathan De Beir.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
