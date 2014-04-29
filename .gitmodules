@@ -1,3 +1,7 @@
 [submodule "docs/source/_themes/sphinx_rtd_theme"]
 	path = docs/source/_themes/sphinx_rtd_theme
 	url = https://github.com/snide/sphinx_rtd_theme.git
+[submodule "docs/source/html"]
+	path = docs/source/html
+	url = https://github.com/jonathandb/datalogger.git
+	branch = gh-pages
