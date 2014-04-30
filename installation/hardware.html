@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Overview: module code &mdash; Datalogger 1 documentation</title>
+  <title>Setting up hardware &mdash; Datalogger 1 documentation</title>
   
 
   
@@ -28,7 +28,10 @@
   
 
   
-    <link rel="top" title="Datalogger 1 documentation" href="../index.html"/> 
+    <link rel="top" title="Datalogger 1 documentation" href="../index.html"/>
+        <link rel="up" title="Installation guide" href="../installationguide.html"/>
+        <link rel="next" title="Setting up linux" href="linux.html"/>
+        <link rel="prev" title="Installation guide" href="../installationguide.html"/> 
 
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
@@ -55,13 +58,13 @@
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
         
         
-            <ul>
+            <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../requirements.html">Minimum requirements</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../installationguide.html">Installation guide</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../installation/hardware.html">Setting up hardware</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation/linux.html">Setting up linux</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation/software.html">Installing software</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation/configure.html">Configure datalogger</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../installationguide.html">Installation guide</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="">Setting up hardware</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linux.html">Setting up linux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="software.html">Installing software</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configure.html">Configure datalogger</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../code.html">Code explained</a><ul>
@@ -113,8 +116,12 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
       
-    <li>Overview: module code</li>
+          <li><a href="../installationguide.html">Installation guide</a> &raquo;</li>
+      
+    <li>Setting up hardware</li>
       <li class="wy-breadcrumbs-aside">
+        
+          <a href="../_sources/installation/hardware.txt" rel="nofollow"> View page source</a>
         
       </li>
   </ul>
@@ -122,23 +129,41 @@
 </div>
           <div role="main">
             
-  <h1>All modules for which code is available</h1>
-<ul><li><a href="configuration.html">configuration</a></li>
-<li><a href="configuration_manager.html">configuration_manager</a></li>
-<li><a href="connection_manager.html">connection_manager</a></li>
-<li><a href="datalogger.html">datalogger</a></li>
-<li><a href="led_manager.html">led_manager</a></li>
-<li><a href="log_handlers_and_filters.html">log_handlers_and_filters</a></li>
-<li><a href="mcu_modbus_slave_reader.html">mcu_modbus_slave_reader</a></li>
-<li><a href="mcu_read_sensor_scheduler.html">mcu_read_sensor_scheduler</a></li>
-<li><a href="modbus_slave_reader.html">modbus_slave_reader</a></li>
-<li><a href="packet_manager.html">packet_manager</a></li>
-<li><a href="read_random_scheduler.html">read_random_scheduler</a></li>
-<li><a href="read_sensor_scheduler.html">read_sensor_scheduler</a></li>
-</ul>
+  <div class="section" id="setting-up-hardware">
+<h1>Setting up hardware<a class="headerlink" href="#setting-up-hardware" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="connecting-to-modbus-rtu-slaves">
+<h2>Connecting to modbus rtu slaves<a class="headerlink" href="#connecting-to-modbus-rtu-slaves" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="with-a-rs232-to-rs485-converter">
+<h3>with a RS232 to RS485 converter<a class="headerlink" href="#with-a-rs232-to-rs485-converter" title="Permalink to this headline">¶</a></h3>
+<p>This way you can connect the modbus slave with the ARM board directly to its RS232 port or together with a USB to RS232 adapter with USB.</p>
+<div class="align-center figure">
+<img alt="installation/../../_static/RS232-RS485.jpg" src="installation/../../_static/RS232-RS485.jpg" />
+</div>
+</div>
+<div class="section" id="with-a-usb-to-rs485-converter">
+<h3>with a USB to RS485 converter<a class="headerlink" href="#with-a-usb-to-rs485-converter" title="Permalink to this headline">¶</a></h3>
+<p>To provide a USB to RS485 converter in one module you can use a ready to use board like this one: <a class="reference external" href="https://www.sparkfun.com/products/9822">https://www.sparkfun.com/products/9822</a></p>
+<p>Or you can use a USB to serial chip and a RS485 tranceiver chip.</p>
+<p>For example with a FT232RL IC and an SP485 IC as seen in the FT232RL datasheet:</p>
+<div class="align-center figure">
+<img alt="installation/../../_static/FT232R.png" src="installation/../../_static/FT232R.png" />
+</div>
+</div>
+</div>
+</div>
+
 
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="linux.html" class="btn btn-neutral float-right" title="Setting up linux">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../installationguide.html" class="btn btn-neutral" title="Installation guide"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

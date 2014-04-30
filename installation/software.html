@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Overview: module code &mdash; Datalogger 1 documentation</title>
+  <title>Installing software &mdash; Datalogger 1 documentation</title>
   
 
   
@@ -28,7 +28,10 @@
   
 
   
-    <link rel="top" title="Datalogger 1 documentation" href="../index.html"/> 
+    <link rel="top" title="Datalogger 1 documentation" href="../index.html"/>
+        <link rel="up" title="Installation guide" href="../installationguide.html"/>
+        <link rel="next" title="&lt;no title&gt;" href="configure.html"/>
+        <link rel="prev" title="Setting up linux" href="linux.html"/> 
 
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
@@ -55,13 +58,12 @@
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
         
         
-            <ul>
+            <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../requirements.html">Minimum requirements</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../installationguide.html">Installation guide</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../installation/hardware.html">Setting up hardware</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation/linux.html">Setting up linux</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation/software.html">Installing software</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation/configure.html">Configure datalogger</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../installationguide.html">Installation guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="hardware.html">Setting up hardware</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linux.html">Setting up linux</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Installing software</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../code.html">Code explained</a><ul>
@@ -113,8 +115,12 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
       
-    <li>Overview: module code</li>
+          <li><a href="../installationguide.html">Installation guide</a> &raquo;</li>
+      
+    <li>Installing software</li>
       <li class="wy-breadcrumbs-aside">
+        
+          <a href="../_sources/installation/software.txt" rel="nofollow"> View page source</a>
         
       </li>
   </ul>
@@ -122,23 +128,54 @@
 </div>
           <div role="main">
             
-  <h1>All modules for which code is available</h1>
-<ul><li><a href="configuration.html">configuration</a></li>
-<li><a href="configuration_manager.html">configuration_manager</a></li>
-<li><a href="connection_manager.html">connection_manager</a></li>
-<li><a href="datalogger.html">datalogger</a></li>
-<li><a href="led_manager.html">led_manager</a></li>
-<li><a href="log_handlers_and_filters.html">log_handlers_and_filters</a></li>
-<li><a href="mcu_modbus_slave_reader.html">mcu_modbus_slave_reader</a></li>
-<li><a href="mcu_read_sensor_scheduler.html">mcu_read_sensor_scheduler</a></li>
-<li><a href="modbus_slave_reader.html">modbus_slave_reader</a></li>
-<li><a href="packet_manager.html">packet_manager</a></li>
-<li><a href="read_random_scheduler.html">read_random_scheduler</a></li>
-<li><a href="read_sensor_scheduler.html">read_sensor_scheduler</a></li>
-</ul>
+  <div class="section" id="installing-software">
+<h1>Installing software<a class="headerlink" href="#installing-software" title="Permalink to this headline">¶</a></h1>
+<p>Install python2, pip, and following pip packages: ...</p>
+<p>Install the following debian packages:</p>
+<div class="highlight-bash"><div class="highlight"><pre>rsync
+python
+python-pip
+python-smbus
+git
+pip
+</pre></div>
+</div>
+<p>with command:</p>
+<div class="highlight-bash"><div class="highlight"><pre>apt-get install rsync python python-pip python-smbus git
+</pre></div>
+</div>
+<p>And following pip packages:</p>
+<div class="highlight-bash"><div class="highlight"><pre>requests
+jsonschema
+configparser
+</pre></div>
+</div>
+<p>with command:</p>
+<div class="highlight-bash"><div class="highlight"><pre>pip install requests jsonschema configparser
+</pre></div>
+</div>
+<p>Go to a folder in your home folder where you want to install the datalogger software:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nb">cd</span> ~
+</pre></div>
+</div>
+<p>Download the datalogger:</p>
+<div class="highlight-bash"><div class="highlight"><pre>git clone https://github.com/jonathandb/datalogger.git
+</pre></div>
+</div>
+</div>
+
 
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="configure.html" class="btn btn-neutral float-right" title="&lt;no title&gt;">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="linux.html" class="btn btn-neutral" title="Setting up linux"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
