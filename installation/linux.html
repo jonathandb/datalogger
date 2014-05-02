@@ -64,6 +64,7 @@
 <li class="toctree-l2"><a class="reference internal" href="hardware.html">Setting up hardware</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="">Setting up linux</a></li>
 <li class="toctree-l2"><a class="reference internal" href="software.html">Installing software</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configure.html">Configure datalogger</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../code.html">Code explained</a><ul>
@@ -131,36 +132,51 @@
   <div class="section" id="setting-up-linux">
 <h1>Setting up linux<a class="headerlink" href="#setting-up-linux" title="Permalink to this headline">¶</a></h1>
 <p>Install a stable linux distribution. The following explained steps are meant to use for debian, but will normally work on the most other distributions. The following commands will set up the linux distribution to make it ready for using the datalogger.</p>
-<p>Use a kernel with following kernel parameters. Setting kernel parameters is only needed if you use the microcontroller as a proxy between the ARM board and the modbus slave.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last">In case you are using the cubieboard you can find read to use linux images on <a class="reference external" href="http://linux-sunxi.org/Bootable_OS_images">http://linux-sunxi.org/Bootable_OS_images</a></p>
+</div>
+<div class="section" id="setting-kernel-parameters">
+<h2>Setting kernel parameters<a class="headerlink" href="#setting-kernel-parameters" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div>Setting kernel parameters is only needed if you use the microcontroller as a proxy between the ARM board and the modbus slave. If this is the case, use a kernel with following kernel parameters.</div></blockquote>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">CONFIG_I2C</span><span class="o">=</span>Y
 <span class="nv">CONFIG_I2C_CHARDEV</span><span class="o">=</span>Y
 </pre></div>
 </div>
+</div>
+<div class="section" id="setting-up-the-linux-environment">
+<h2>Setting up the linux environment<a class="headerlink" href="#setting-up-the-linux-environment" title="Permalink to this headline">¶</a></h2>
 <p>Create a user and set up a password.</p>
 <div class="highlight-bash"><div class="highlight"><pre>useradd <span class="o">{</span>user-name<span class="o">}</span>
 passwd <span class="o">{</span>user-name<span class="o">}</span>
 </pre></div>
 </div>
 <p>Create a group called iouser.</p>
-<div class="highlight-bash"><div class="highlight"><pre>groupadd iouser
+<div class="highlight-bash"><div class="highlight"><pre>groupadd iousers
 </pre></div>
 </div>
 <p>Add the user to the iouser group.</p>
-<div class="highlight-bash"><div class="highlight"><pre>useradd -G iouser <span class="o">{</span>user-name<span class="o">}</span>
+<div class="highlight-bash"><div class="highlight"><pre>useradd -G iousers <span class="o">{</span>user-name<span class="o">}</span>
 </pre></div>
 </div>
 <p>Add the following udev rules to give the iouser group access to the i2c and gpio pins:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="c"># /etc/udev/rules.d/10-i2c.rules</span>
-<span class="nv">KERNEL</span><span class="o">=</span><span class="s2">&quot;i2c-[0-9]*&quot;</span>, <span class="nv">GROUP</span><span class="o">=</span><span class="s2">&quot;i2c&quot;</span>
+<span class="nv">KERNEL</span><span class="o">=</span><span class="s2">&quot;i2c-[0-9]*&quot;</span>, <span class="nv">GROUP</span><span class="o">=</span><span class="s2">&quot;iousers&quot;</span>
 </pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The i2c rule is only needed when using the microcontroller as a proxy between the ARM board and the modbus slave.</p>
 </div>
 <p>Create a log directory and give change the rights and the owner to our user. It’s possible to choose another directory to store log files in the local configuration.</p>
 <div class="highlight-bash"><div class="highlight"><pre>mkdir /var/log/datalogger
 chmod u+w /var/log/datalogger
-chown adekus
+chown <span class="o">{</span>user-name<span class="o">}</span>
 </pre></div>
 </div>
-<p>Optional: Set up gpio ports to have led functionality.</p>
+<p>Optional: Set up gpio ports to enable led functionality.</p>
+</div>
 </div>
 
 
